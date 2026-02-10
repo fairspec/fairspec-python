@@ -1,0 +1,58 @@
+from __future__ import annotations
+
+import zipfile
+from typing import TYPE_CHECKING
+
+from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
+from fairspec_metadata.actions.descriptor.stringify import stringify_descriptor
+
+from .....actions.dataset.basepath import get_dataset_basepath
+from .....actions.file.path import assert_local_path_vacant
+from .....actions.resource.save import SaveFileProps, save_resource_files
+from .....actions.stream.load import load_file_stream
+
+if TYPE_CHECKING:
+    from fairspec_metadata.models.descriptor import Descriptor
+
+
+def save_dataset_to_zip(
+    dataset: Descriptor,
+    *,
+    archive_path: str,
+    with_remote: bool = False,
+) -> None:
+    basepath = get_dataset_basepath(dataset)
+
+    assert_local_path_vacant(archive_path)
+    files: dict[str, bytes] = {}
+
+    resource_descriptors: list[Descriptor] = []
+    for resource in dataset.get("resources", []):
+        resource_descriptors.append(
+            save_resource_files(
+                resource,
+                basepath=basepath,
+                with_remote=with_remote,
+                save_file=_make_save_file(files),
+            )
+        )
+
+    descriptor: Descriptor = {
+        **denormalize_dataset(dataset, basepath=basepath),
+        "resources": resource_descriptors,
+    }
+
+    files["dataset.json"] = stringify_descriptor(descriptor).encode("utf-8")
+
+    with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as zf:
+        for name, data in files.items():
+            zf.writestr(name, data)
+
+
+def _make_save_file(files: dict[str, bytes]):
+    def save_file(props: SaveFileProps) -> str:
+        stream = load_file_stream(props.normalized_path)
+        files[props.denormalized_path] = stream.read()
+        return props.denormalized_path
+
+    return save_file

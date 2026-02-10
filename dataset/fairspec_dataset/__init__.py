@@ -21,12 +21,15 @@ from .models.file_dialect import InferFileDialectOptions
 from .models.dataset import SaveDatasetResult
 from .plugin import DatasetPlugin
 from .plugins.descriptor import DescriptorPlugin
+from .plugins.folder import FolderPlugin, load_dataset_from_folder, save_dataset_to_folder
+from .plugins.zip import ZipPlugin, load_dataset_from_zip, save_dataset_to_zip
 from fairspec_metadata.plugin import MetadataPlugin
 
 __all__ = [
     "DatasetPlugin",
     "DescriptorPlugin",
     "FileDescription",
+    "FolderPlugin",
     "InferFileDialectOptions",
     "SaveDatasetOptions",
     "SaveDatasetResult",
@@ -47,11 +50,16 @@ __all__ = [
     "infer_integrity",
     "infer_textual",
     "MetadataPlugin",
+    "ZipPlugin",
+    "load_dataset_from_folder",
+    "load_dataset_from_zip",
     "load_file",
     "load_file_stream",
     "merge_datasets",
     "prefetch_file",
     "prefetch_files",
+    "save_dataset_to_folder",
+    "save_dataset_to_zip",
     "save_file",
     "save_file_stream",
     "save_resource_files",
