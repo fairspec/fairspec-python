@@ -1,22 +1,18 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
+
+from fairspec_metadata.plugin import MetadataPlugin
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
     from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
 
-    from .models.dataset import SaveDatasetOptions
+    from .models.dataset import SaveDatasetOptions, SaveDatasetResult
     from .models.file_dialect import InferFileDialectOptions
 
 
-@dataclass
-class SaveDatasetResult:
-    path: str | None = field(default=None)
-
-
-class DatasetPlugin:
+class DatasetPlugin(MetadataPlugin):
     def load_dataset(self, source: str) -> Descriptor | None:
         return None
 

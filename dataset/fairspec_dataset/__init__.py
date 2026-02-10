@@ -1,7 +1,8 @@
 from .actions.dataset.basepath import get_common_local_basepath, get_dataset_basepath
 from .actions.dataset.merge import merge_datasets
 from .actions.file.copy import copy_file
-from .actions.file.describe import FileDescription, describe_file
+from .actions.file.describe import describe_file
+from .models.file import FileDescription
 from .actions.file.infer import infer_bytes, infer_hash, infer_integrity, infer_textual
 from .actions.file.load import load_file
 from .actions.file.path import assert_local_path_vacant, get_is_local_path_exist
@@ -17,7 +18,9 @@ from .actions.stream.load import load_file_stream
 from .actions.stream.save import save_file_stream
 from .models.dataset import SaveDatasetOptions
 from .models.file_dialect import InferFileDialectOptions
-from .plugin import DatasetPlugin, SaveDatasetResult
+from .models.dataset import SaveDatasetResult
+from .plugin import DatasetPlugin
+from fairspec_metadata.plugin import MetadataPlugin
 
 __all__ = [
     "DatasetPlugin",
@@ -41,6 +44,7 @@ __all__ = [
     "infer_hash",
     "infer_integrity",
     "infer_textual",
+    "MetadataPlugin",
     "load_file",
     "load_file_stream",
     "merge_datasets",

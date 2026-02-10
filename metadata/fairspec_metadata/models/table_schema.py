@@ -63,3 +63,15 @@ class TableSchema(BaseModel):
         min_length=1,
         description="An optional array of foreign key constraints",
     )
+
+
+class RenderTableSchemaOptions(BaseModel):
+    format: str
+
+
+class ConvertTableSchemaToOptions(BaseModel):
+    format: str
+
+
+class ConvertTableSchemaFromOptions(BaseModel):
+    format: str

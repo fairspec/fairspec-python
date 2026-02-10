@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .datacite.datacite import Datacite
 from .resource import Resource
@@ -18,3 +18,15 @@ class Dataset(Datacite):
         default=None,
         description="A list of resources. Each item must be a Resource object describing data files or inline data.",
     )
+
+
+class RenderDatasetOptions(BaseModel):
+    format: str
+
+
+class ConvertDatasetToOptions(BaseModel):
+    format: str
+
+
+class ConvertDatasetFromOptions(BaseModel):
+    format: str

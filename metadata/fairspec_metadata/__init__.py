@@ -97,9 +97,14 @@ from .models.column.url import UrlColumn, UrlColumnProperty
 from .models.column.wkb import WkbColumn, WkbColumnProperty
 from .models.column.wkt import WktColumn, WktColumnProperty
 from .models.data import Data, ResourceData, ResourceDataPath, ResourceDataValue
-from .models.data_schema import DataSchema
+from .models.data_schema import DataSchema, RenderDataSchemaOptions
 from .models.datacite.datacite import Datacite
-from .models.dataset import Dataset
+from .models.dataset import (
+    ConvertDatasetFromOptions,
+    ConvertDatasetToOptions,
+    Dataset,
+    RenderDatasetOptions,
+)
 from .models.descriptor import Descriptor
 from .models.error.base import BaseError
 from .models.error.cell import (
@@ -152,7 +157,13 @@ from .models.path import ExternalPath, InternalPath, Path
 from .models.profile import Profile, ProfileRegistry, ProfileType
 from .models.report import Report
 from .models.resource import Resource
-from .models.table_schema import TableSchema
+from .models.table_schema import (
+    ConvertTableSchemaFromOptions,
+    ConvertTableSchemaToOptions,
+    RenderTableSchemaOptions,
+    TableSchema,
+)
+from .plugin import MetadataPlugin
 from .settings import FAIRSPEC_VERSION
 
 __all__ = [
@@ -257,6 +268,10 @@ __all__ = [
     "CellUniqueError",
     "Column",
     "ColumnError",
+    "ConvertDatasetFromOptions",
+    "ConvertDatasetToOptions",
+    "ConvertTableSchemaFromOptions",
+    "ConvertTableSchemaToOptions",
     "ColumnMissingError",
     "ColumnProperty",
     "ColumnType",
@@ -301,6 +316,7 @@ __all__ = [
     "ListColumn",
     "ListColumnProperty",
     "MetadataError",
+    "MetadataPlugin",
     "NumberColumn",
     "NumberColumnProperty",
     "ObjectColumn",
@@ -311,6 +327,9 @@ __all__ = [
     "Profile",
     "ProfileRegistry",
     "ProfileType",
+    "RenderDataSchemaOptions",
+    "RenderDatasetOptions",
+    "RenderTableSchemaOptions",
     "Report",
     "Resource",
     "ResourceData",

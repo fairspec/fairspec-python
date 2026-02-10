@@ -1,18 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-
-from fairspec_metadata import Integrity
-
+from ...models.file import FileDescription
 from .infer import infer_bytes, infer_integrity, infer_textual
 from .prefetch import prefetch_file
-
-
-@dataclass
-class FileDescription:
-    bytes: int
-    textual: bool
-    integrity: Integrity | None
 
 
 def describe_file(
