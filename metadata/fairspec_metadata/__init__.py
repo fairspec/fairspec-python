@@ -1,3 +1,14 @@
+from .actions.path.basepath import get_basepath, resolve_basepath
+from .actions.path.denormalize import denormalize_path
+from .actions.path.general import (
+    get_file_basename,
+    get_file_extension,
+    get_file_name,
+    get_file_name_slug,
+    get_file_protocol,
+    get_is_remote_path,
+)
+from .actions.path.normalize import normalize_path
 from .models.catalog import Catalog, CatalogDataset
 from .models.column.array import ArrayColumn, ArrayColumnProperty
 from .models.column.base import BaseColumn, BaseColumnProperty, BasePropertyType
@@ -88,6 +99,16 @@ from .settings import FAIRSPEC_VERSION
 
 __all__ = [
     "ArrowFileDialect",
+    "denormalize_path",
+    "get_basepath",
+    "get_file_basename",
+    "get_file_extension",
+    "get_file_name",
+    "get_file_name_slug",
+    "get_file_protocol",
+    "get_is_remote_path",
+    "normalize_path",
+    "resolve_basepath",
     "ArrayColumn",
     "ArrayColumnProperty",
     "Base64Column",

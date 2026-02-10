@@ -30,6 +30,9 @@ spec = "pytest"
 test = "task lint && task type && task spec"
 type = "ty check"
 
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+
 [tool.ty.rules]
 index-out-of-bounds = "ignore"
 
