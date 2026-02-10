@@ -21,20 +21,28 @@ from .models.file_dialect import InferFileDialectOptions
 from .models.dataset import SaveDatasetResult
 from .plugin import DatasetPlugin
 from .plugins.descriptor import DescriptorPlugin
+from .plugins.ckan import CkanPlugin, load_dataset_from_ckan, save_dataset_to_ckan
 from .plugins.folder import FolderPlugin, load_dataset_from_folder, save_dataset_to_folder
+from .plugins.github import GithubPlugin, load_dataset_from_github, save_dataset_to_github
+from .plugins.zenodo import ZenodoPlugin, load_dataset_from_zenodo, save_dataset_to_zenodo
 from .plugins.zip import ZipPlugin, load_dataset_from_zip, save_dataset_to_zip
 from fairspec_metadata.plugin import MetadataPlugin
 
 __all__ = [
+    "CkanPlugin",
     "DatasetPlugin",
     "DescriptorPlugin",
     "FileDescription",
     "FolderPlugin",
+    "GithubPlugin",
     "InferFileDialectOptions",
+    "MetadataPlugin",
     "SaveDatasetOptions",
     "SaveDatasetResult",
     "SaveFileCallback",
     "SaveFileProps",
+    "ZenodoPlugin",
+    "ZipPlugin",
     "assert_local_path_vacant",
     "concat_file_streams",
     "copy_file",
@@ -49,16 +57,20 @@ __all__ = [
     "infer_hash",
     "infer_integrity",
     "infer_textual",
-    "MetadataPlugin",
-    "ZipPlugin",
+    "load_dataset_from_ckan",
     "load_dataset_from_folder",
+    "load_dataset_from_github",
+    "load_dataset_from_zenodo",
     "load_dataset_from_zip",
     "load_file",
     "load_file_stream",
     "merge_datasets",
     "prefetch_file",
     "prefetch_files",
+    "save_dataset_to_ckan",
     "save_dataset_to_folder",
+    "save_dataset_to_github",
+    "save_dataset_to_zenodo",
     "save_dataset_to_zip",
     "save_file",
     "save_file_stream",
