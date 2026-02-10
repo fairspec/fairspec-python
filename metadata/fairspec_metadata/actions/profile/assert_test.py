@@ -2,7 +2,7 @@ import pytest
 
 from fairspec_metadata.models.profile import ProfileType
 
-from .check import Error, assert_profile
+from .assert_ import Error, assert_profile
 
 
 class TestAssertProfileValid:

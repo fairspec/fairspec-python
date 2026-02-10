@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fairspec_metadata.actions.json_schema.load import load_json_schema
-from .check import assert_profile
+from .assert_ import assert_profile
 from .registry import profile_registry
 from fairspec_metadata.models.profile import Profile, ProfileType
 

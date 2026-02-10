@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 
-from .check import assert_file_dialect
+from .assert_ import assert_file_dialect
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.file_dialect.file_dialect import FileDialect

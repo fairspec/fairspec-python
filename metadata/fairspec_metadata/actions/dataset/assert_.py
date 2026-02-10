@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from fairspec_metadata.actions.report.create import create_report
 from fairspec_metadata.models.dataset import Dataset
 from fairspec_metadata.models.descriptor import Descriptor
 from fairspec_metadata.models.exception import FairspecException
@@ -14,7 +13,6 @@ def assert_dataset(
     result = validate_dataset_descriptor(source, basepath=basepath)
 
     if not result.dataset:
-        report = create_report(result.errors)
-        raise FairspecException("Invalid Dataset", report=report)
+        raise FairspecException("Invalid Dataset", report=result)
 
     return result.dataset

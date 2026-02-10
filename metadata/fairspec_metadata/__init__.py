@@ -4,12 +4,12 @@ from .actions.column.property import (
     get_column_properties,
     get_is_nullable_property_type,
 )
-from .actions.data_schema.check import assert_data_schema
+from .actions.data_schema.assert_ import assert_data_schema
 from .actions.data_schema.load import load_data_schema
 from .actions.data_schema.resolve import resolve_data_schema
 from .actions.data_schema.save import save_data_schema
 from .actions.data_schema.validate import DataSchemaValidationResult, validate_data_schema
-from .actions.dataset.check import assert_dataset
+from .actions.dataset.assert_ import assert_dataset
 from .actions.dataset.denormalize import denormalize_dataset
 from .actions.dataset.load import load_dataset_descriptor
 from .actions.dataset.normalize import normalize_dataset
@@ -22,7 +22,7 @@ from .actions.descriptor.parse import parse_descriptor
 from .actions.descriptor.save import save_descriptor
 from .actions.descriptor.stringify import stringify_descriptor
 from .actions.descriptor.validate import validate_descriptor
-from .actions.file_dialect.check import assert_file_dialect
+from .actions.file_dialect.assert_ import assert_file_dialect
 from .actions.file_dialect.infer import infer_file_dialect_format
 from .actions.file_dialect.load import load_file_dialect
 from .actions.file_dialect.resolve import resolve_file_dialect
@@ -30,7 +30,7 @@ from .actions.file_dialect.save import save_file_dialect
 from .actions.file_dialect.support import get_supported_file_dialect
 from .actions.file_dialect.validate import FileDialectValidationResult, validate_file_dialect
 from .actions.json.inspect import inspect_json
-from .actions.json_schema.check import assert_json_schema
+from .actions.json_schema.assert_ import assert_json_schema
 from .actions.json_schema.inspect import inspect_json_schema
 from .actions.json_schema.load import load_json_schema
 from .actions.json_schema.resolve import resolve_json_schema
@@ -46,7 +46,7 @@ from .actions.path.general import (
     get_is_remote_path,
 )
 from .actions.path.normalize import normalize_path
-from .actions.profile.check import assert_profile
+from .actions.profile.assert_ import assert_profile
 from .actions.profile.load import load_profile
 from .actions.profile.registry import profile_registry
 from .actions.report.create import create_report
@@ -61,7 +61,7 @@ from .actions.resource.denormalize import denormalize_resource
 from .actions.resource.general import get_is_remote_resource
 from .actions.resource.infer import infer_resource_name
 from .actions.resource.normalize import normalize_resource
-from .actions.table_schema.check import assert_table_schema
+from .actions.table_schema.assert_ import assert_table_schema
 from .actions.table_schema.column import get_columns
 from .actions.table_schema.load import load_table_schema
 from .actions.table_schema.resolve import resolve_table_schema
