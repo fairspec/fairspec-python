@@ -1,0 +1,50 @@
+[project]
+name = "fairspec-python"
+version = "0.0.0-dev"
+requires-python = ">=3.12"
+
+[tool.ruff]
+lint.ignore = ["E501"]
+line-length = 90
+extend-exclude = [
+  "__pycache__",
+  ".eggs",
+  ".git",
+  ".venv",
+  "build",
+  "dist",
+  ".cache",
+]
+
+[tool.semantic_release]
+commit_parser = "conventional"
+version_toml = [
+  "pyproject.toml:project.version",
+  "metadata/pyproject.toml:project.version",
+]
+
+[tool.taskipy.tasks]
+format = "ruff format"
+lint = "ruff check"
+spec = "pytest"
+test = "task lint && task type && task spec"
+type = "ty check"
+
+[tool.ty.rules]
+index-out-of-bounds = "ignore"
+
+[tool.uv]
+package = false
+dev-dependencies = [
+  "python-semantic-release",
+  "pytest",
+  "ruff",
+  "taskipy",
+  "ty",
+]
+
+[tool.uv.workspace]
+members = ["metadata"]
+
+[tool.uv.sources]
+fairspec-metadata = { workspace = true }
