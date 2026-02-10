@@ -1,21 +1,17 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 from typing import cast
 
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 from fairspec_metadata.actions.descriptor.validate import validate_descriptor
 from fairspec_metadata.actions.profile.load import load_profile
 from fairspec_metadata.models.descriptor import Descriptor
-from fairspec_metadata.models.error.error import FairspecError
 from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
 from fairspec_metadata.models.profile import ProfileType
+from fairspec_metadata.models.report import Report
 
-@dataclass
-class FileDialectValidationResult:
-    valid: bool
-    errors: list[FairspecError]
+
+class FileDialectValidationResult(Report):
     file_dialect: FileDialect | None
 
 

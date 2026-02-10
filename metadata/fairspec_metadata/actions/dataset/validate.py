@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import cast
 
 from fairspec_metadata.actions.data_schema.validate import validate_data_schema
@@ -11,16 +10,13 @@ from fairspec_metadata.actions.profile.load import load_profile
 from fairspec_metadata.actions.table_schema.validate import validate_table_schema
 from fairspec_metadata.models.dataset import Dataset
 from fairspec_metadata.models.descriptor import Descriptor
-from fairspec_metadata.models.error.error import FairspecError
 from fairspec_metadata.models.profile import ProfileType
+from fairspec_metadata.models.report import Report
 
 from .normalize import normalize_dataset
 
 
-@dataclass
-class DatasetValidationResult:
-    valid: bool
-    errors: list[FairspecError]
+class DatasetValidationResult(Report):
     dataset: Dataset | None
 
 

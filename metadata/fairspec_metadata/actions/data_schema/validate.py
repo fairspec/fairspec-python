@@ -1,20 +1,15 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 from fairspec_metadata.actions.descriptor.validate import validate_descriptor
 from fairspec_metadata.actions.profile.load import load_profile
 from fairspec_metadata.models.data_schema import DataSchema
 from fairspec_metadata.models.descriptor import Descriptor
-from fairspec_metadata.models.error.error import FairspecError
 from fairspec_metadata.models.profile import ProfileType
+from fairspec_metadata.models.report import Report
 
 
-@dataclass
-class DataSchemaValidationResult:
-    valid: bool
-    errors: list[FairspecError]
+class DataSchemaValidationResult(Report):
     data_schema: DataSchema | None
 
 
