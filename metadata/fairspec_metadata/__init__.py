@@ -1,3 +1,20 @@
+from .actions.column.create import create_column_from_property
+from .actions.column.property import (
+    get_base_property_type,
+    get_column_properties,
+    get_is_nullable_property_type,
+)
+from .actions.data_schema.check import assert_data_schema
+from .actions.data_schema.load import load_data_schema
+from .actions.data_schema.resolve import resolve_data_schema
+from .actions.data_schema.save import save_data_schema
+from .actions.data_schema.validate import DataSchemaValidationResult, validate_data_schema
+from .actions.dataset.check import assert_dataset
+from .actions.dataset.denormalize import denormalize_dataset
+from .actions.dataset.load import load_dataset_descriptor
+from .actions.dataset.normalize import normalize_dataset
+from .actions.dataset.save import save_dataset_descriptor
+from .actions.dataset.validate import DatasetValidationResult, validate_dataset_descriptor
 from .actions.descriptor.copy import copy_descriptor
 from .actions.descriptor.general import get_is_descriptor
 from .actions.descriptor.load import load_descriptor
@@ -5,6 +22,13 @@ from .actions.descriptor.parse import parse_descriptor
 from .actions.descriptor.save import save_descriptor
 from .actions.descriptor.stringify import stringify_descriptor
 from .actions.descriptor.validate import validate_descriptor
+from .actions.file_dialect.check import assert_file_dialect
+from .actions.file_dialect.infer import infer_file_dialect_format
+from .actions.file_dialect.load import load_file_dialect
+from .actions.file_dialect.resolve import resolve_file_dialect
+from .actions.file_dialect.save import save_file_dialect
+from .actions.file_dialect.support import get_supported_file_dialect
+from .actions.file_dialect.validate import FileDialectValidationResult, validate_file_dialect
 from .actions.json.inspect import inspect_json
 from .actions.json_schema.check import assert_json_schema
 from .actions.json_schema.inspect import inspect_json_schema
@@ -26,6 +50,23 @@ from .actions.profile.check import assert_profile
 from .actions.profile.load import load_profile
 from .actions.profile.registry import profile_registry
 from .actions.report.create import create_report
+from .actions.resource.data import (
+    get_data_first_path,
+    get_data_path,
+    get_data_paths,
+    get_data_records,
+    get_data_value,
+)
+from .actions.resource.denormalize import denormalize_resource
+from .actions.resource.general import get_is_remote_resource
+from .actions.resource.infer import infer_resource_name
+from .actions.resource.normalize import normalize_resource
+from .actions.table_schema.check import assert_table_schema
+from .actions.table_schema.column import get_columns
+from .actions.table_schema.load import load_table_schema
+from .actions.table_schema.resolve import resolve_table_schema
+from .actions.table_schema.save import save_table_schema
+from .actions.table_schema.validate import TableSchemaValidationResult, validate_table_schema
 from .models.catalog import Catalog, CatalogDataset
 from .models.column.array import ArrayColumn, ArrayColumnProperty
 from .models.column.base import BaseColumn, BaseColumnProperty, BasePropertyType
@@ -116,33 +157,74 @@ from .settings import FAIRSPEC_VERSION
 
 __all__ = [
     "ArrowFileDialect",
+    "assert_data_schema",
+    "assert_dataset",
+    "assert_file_dialect",
     "assert_json_schema",
     "assert_profile",
+    "assert_table_schema",
     "copy_descriptor",
+    "create_column_from_property",
     "create_report",
+    "DataSchemaValidationResult",
+    "DatasetValidationResult",
+    "denormalize_dataset",
     "denormalize_path",
+    "denormalize_resource",
+    "FileDialectValidationResult",
+    "get_base_property_type",
     "get_basepath",
+    "get_column_properties",
+    "get_columns",
+    "get_data_first_path",
+    "get_data_path",
+    "get_data_paths",
+    "get_data_records",
+    "get_data_value",
     "get_file_basename",
     "get_file_extension",
     "get_file_name",
     "get_file_name_slug",
     "get_file_protocol",
     "get_is_descriptor",
+    "get_is_nullable_property_type",
     "get_is_remote_path",
+    "get_is_remote_resource",
+    "get_supported_file_dialect",
+    "infer_file_dialect_format",
+    "infer_resource_name",
     "inspect_json",
     "inspect_json_schema",
+    "load_data_schema",
+    "load_dataset_descriptor",
     "load_descriptor",
+    "load_file_dialect",
     "load_json_schema",
     "load_profile",
+    "load_table_schema",
+    "normalize_dataset",
     "normalize_path",
+    "normalize_resource",
     "parse_descriptor",
     "profile_registry",
     "resolve_basepath",
+    "resolve_data_schema",
+    "resolve_file_dialect",
     "resolve_json_schema",
+    "resolve_table_schema",
+    "save_data_schema",
+    "save_dataset_descriptor",
     "save_descriptor",
+    "save_file_dialect",
     "save_json_schema",
+    "save_table_schema",
     "stringify_descriptor",
+    "TableSchemaValidationResult",
+    "validate_data_schema",
+    "validate_dataset_descriptor",
     "validate_descriptor",
+    "validate_file_dialect",
+    "validate_table_schema",
     "ArrayColumn",
     "ArrayColumnProperty",
     "Base64Column",
