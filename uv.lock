@@ -7,6 +7,7 @@ members = [
     "fairspec-dataset",
     "fairspec-metadata",
     "fairspec-python",
+    "fairspec-table",
 ]
 
 [[package]]
@@ -204,6 +205,21 @@ dev = [
     { name = "ruff" },
     { name = "taskipy" },
     { name = "ty" },
+]
+
+[[package]]
+name = "fairspec-table"
+version = "0.0.0.dev0"
+source = { editable = "table" }
+dependencies = [
+    { name = "fairspec-dataset" },
+    { name = "fairspec-metadata" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fairspec-dataset", editable = "dataset" },
+    { name = "fairspec-metadata", editable = "metadata" },
 ]
 
 [[package]]
