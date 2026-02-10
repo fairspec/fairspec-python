@@ -20,10 +20,12 @@ from .models.dataset import SaveDatasetOptions
 from .models.file_dialect import InferFileDialectOptions
 from .models.dataset import SaveDatasetResult
 from .plugin import DatasetPlugin
+from .plugins.descriptor import DescriptorPlugin
 from fairspec_metadata.plugin import MetadataPlugin
 
 __all__ = [
     "DatasetPlugin",
+    "DescriptorPlugin",
     "FileDescription",
     "InferFileDialectOptions",
     "SaveDatasetOptions",
