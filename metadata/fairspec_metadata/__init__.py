@@ -1,3 +1,16 @@
+from .actions.descriptor.copy import copy_descriptor
+from .actions.descriptor.general import get_is_descriptor
+from .actions.descriptor.load import load_descriptor
+from .actions.descriptor.parse import parse_descriptor
+from .actions.descriptor.save import save_descriptor
+from .actions.descriptor.stringify import stringify_descriptor
+from .actions.descriptor.validate import validate_descriptor
+from .actions.json.inspect import inspect_json
+from .actions.json_schema.check import assert_json_schema
+from .actions.json_schema.inspect import inspect_json_schema
+from .actions.json_schema.load import load_json_schema
+from .actions.json_schema.resolve import resolve_json_schema
+from .actions.json_schema.save import save_json_schema
 from .actions.path.basepath import get_basepath, resolve_basepath
 from .actions.path.denormalize import denormalize_path
 from .actions.path.general import (
@@ -9,6 +22,10 @@ from .actions.path.general import (
     get_is_remote_path,
 )
 from .actions.path.normalize import normalize_path
+from .actions.profile.check import assert_profile
+from .actions.profile.load import load_profile
+from .actions.profile.registry import profile_registry
+from .actions.report.create import create_report
 from .models.catalog import Catalog, CatalogDataset
 from .models.column.array import ArrayColumn, ArrayColumnProperty
 from .models.column.base import BaseColumn, BaseColumnProperty, BasePropertyType
@@ -99,6 +116,10 @@ from .settings import FAIRSPEC_VERSION
 
 __all__ = [
     "ArrowFileDialect",
+    "assert_json_schema",
+    "assert_profile",
+    "copy_descriptor",
+    "create_report",
     "denormalize_path",
     "get_basepath",
     "get_file_basename",
@@ -106,9 +127,22 @@ __all__ = [
     "get_file_name",
     "get_file_name_slug",
     "get_file_protocol",
+    "get_is_descriptor",
     "get_is_remote_path",
+    "inspect_json",
+    "inspect_json_schema",
+    "load_descriptor",
+    "load_json_schema",
+    "load_profile",
     "normalize_path",
+    "parse_descriptor",
+    "profile_registry",
     "resolve_basepath",
+    "resolve_json_schema",
+    "save_descriptor",
+    "save_json_schema",
+    "stringify_descriptor",
+    "validate_descriptor",
     "ArrayColumn",
     "ArrayColumnProperty",
     "Base64Column",

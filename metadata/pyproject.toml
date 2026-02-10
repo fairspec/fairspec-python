@@ -24,6 +24,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+  "jsonschema>=4.23",
   "pydantic>=2.12",
   "typing-extensions>=4.15",
 ]
