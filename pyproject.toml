@@ -48,7 +48,8 @@ dev-dependencies = [
 ]
 
 [tool.uv.workspace]
-members = ["metadata", "dataset"]
+members = ["metadata", "dataset", "table"]
 
 [tool.uv.sources]
 fairspec-metadata = { workspace = true }
+fairspec-dataset = { workspace = true }
