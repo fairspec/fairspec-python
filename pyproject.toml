@@ -32,6 +32,7 @@ type = "ty check"
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
+python_files = "*_spec.py"
 
 [tool.ty.rules]
 index-out-of-bounds = "ignore"
