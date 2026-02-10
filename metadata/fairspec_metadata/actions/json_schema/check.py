@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from fairspec_metadata.actions.json_schema.inspect import inspect_json_schema
+from .inspect import inspect_json_schema
 from fairspec_metadata.models.descriptor import Descriptor
 from fairspec_metadata.models.json_schema import JsonSchema
 

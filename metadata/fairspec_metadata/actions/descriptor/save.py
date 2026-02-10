@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 
-from fairspec_metadata.actions.descriptor.stringify import stringify_descriptor
+from .stringify import stringify_descriptor
 from fairspec_metadata.models.descriptor import Descriptor
 
 

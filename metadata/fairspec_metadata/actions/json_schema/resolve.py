@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fairspec_metadata.actions.json_schema.load import load_json_schema
+from .load import load_json_schema
 from fairspec_metadata.models.json_schema import JsonSchema
 
 

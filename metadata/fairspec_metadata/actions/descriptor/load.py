@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import urllib.request
 
-from fairspec_metadata.actions.descriptor.parse import parse_descriptor
+from .parse import parse_descriptor
 from fairspec_metadata.actions.path.general import (
     get_file_protocol,
     get_is_remote_path,

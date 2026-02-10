@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 from fairspec_metadata.actions.descriptor.load import load_descriptor
-from fairspec_metadata.actions.json_schema.check import assert_json_schema
+from .check import assert_json_schema
 from fairspec_metadata.models.json_schema import JsonSchema
 
 
