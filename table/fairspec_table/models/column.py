@@ -10,7 +10,7 @@ from pydantic import BaseModel
 @dataclass
 class PolarsColumn:
     name: str
-    type: pl.DataType
+    type: type[pl.DataType]
 
 
 @dataclass
