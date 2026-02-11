@@ -14,7 +14,7 @@ from .common import (
 
 
 class JsonlFileDialect(BaseFileDialect):
-    format: Literal["jsonl"]
+    format: Literal["jsonl"] = "jsonl"
     rowType: RowType | None = None
     headerRows: HeaderRows | None = None
     headerJoin: HeaderJoin | None = None

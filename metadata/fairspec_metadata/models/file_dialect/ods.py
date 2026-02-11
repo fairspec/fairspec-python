@@ -15,7 +15,7 @@ from .common import (
 
 
 class OdsFileDialect(BaseFileDialect):
-    format: Literal["ods"]
+    format: Literal["ods"] = "ods"
     sheetName: SheetName | None = None
     sheetNumber: SheetNumber | None = None
     headerRows: HeaderRows | None = None

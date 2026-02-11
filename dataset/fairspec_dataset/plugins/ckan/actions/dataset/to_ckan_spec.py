@@ -66,7 +66,7 @@ class TestConvertDatasetToCkan:
                 Resource(
                     name="test_resource",
                     data="https://example.com/data.csv",
-                    fileDialect=CsvFileDialect(format="csv"),
+                    fileDialect=CsvFileDialect(),
                     descriptions=[
                         DataciteDescription(
                             description="Test resource",

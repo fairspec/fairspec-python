@@ -17,7 +17,7 @@ from .common import (
 
 
 class CsvFileDialect(BaseFileDialect):
-    format: Literal["csv"]
+    format: Literal["csv"] = "csv"
     delimiter: Delimiter | None = None
     lineTerminator: LineTerminator | None = None
     quoteChar: QuoteChar | None = None

@@ -22,7 +22,7 @@ class TestJoinHeaderRows:
             }
         ).lazy()
 
-        result = join_header_rows(table, CsvFileDialect(format="csv", headerRows=[2, 3]))
+        result = join_header_rows(table, CsvFileDialect(headerRows=[2, 3]))
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.columns == ["col1 first", "col2 last", "col3 contact"]
@@ -42,7 +42,7 @@ class TestJoinHeaderRows:
         ).lazy()
 
         result = join_header_rows(
-            table, CsvFileDialect(format="csv", headerRows=[2, 3], headerJoin="_")
+            table, CsvFileDialect(headerRows=[2, 3], headerJoin="_")
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -62,7 +62,7 @@ class TestJoinHeaderRows:
             }
         ).lazy()
 
-        result = join_header_rows(table, CsvFileDialect(format="csv", headerRows=[1]))
+        result = join_header_rows(table, CsvFileDialect(headerRows=[1]))
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.columns == ["name", "age", "city"]
@@ -77,7 +77,7 @@ class TestJoinHeaderRows:
             }
         ).lazy()
 
-        result = join_header_rows(table, CsvFileDialect(format="csv"))
+        result = join_header_rows(table, CsvFileDialect())
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.columns == ["field1", "field2", "field3"]
@@ -93,7 +93,7 @@ class TestJoinHeaderRows:
         ).lazy()
 
         result = join_header_rows(
-            table, CsvFileDialect(format="csv", headerRows=[2, 3, 4])
+            table, CsvFileDialect(headerRows=[2, 3, 4])
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -117,7 +117,7 @@ class TestJoinHeaderRows:
             }
         ).lazy()
 
-        result = join_header_rows(table, CsvFileDialect(format="csv", headerRows=[2, 3]))
+        result = join_header_rows(table, CsvFileDialect(headerRows=[2, 3]))
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.columns == ["col1 person", "col2 ", "col3 location"]
@@ -139,7 +139,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", commentRows=[2], headerRows=False)
+            table, CsvFileDialect(commentRows=[2], headerRows=False)
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -158,7 +158,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", commentRows=[2, 4], headerRows=False)
+            table, CsvFileDialect(commentRows=[2, 4], headerRows=False)
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -176,7 +176,7 @@ class TestSkipCommentRows:
             }
         ).lazy()
 
-        result = skip_comment_rows(table, CsvFileDialect(format="csv"))
+        result = skip_comment_rows(table, CsvFileDialect())
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.height == 3
@@ -192,7 +192,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", headerRows=[2], commentRows=[5])
+            table, CsvFileDialect(headerRows=[2], commentRows=[5])
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -211,7 +211,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", commentRows=[1], headerRows=False)
+            table, CsvFileDialect(commentRows=[1], headerRows=False)
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -229,7 +229,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", commentRows=[3], headerRows=False)
+            table, CsvFileDialect(commentRows=[3], headerRows=False)
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -247,7 +247,7 @@ class TestSkipCommentRows:
         ).lazy()
 
         result = skip_comment_rows(
-            table, CsvFileDialect(format="csv", headerRows=[2, 3], commentRows=[7])
+            table, CsvFileDialect(headerRows=[2, 3], commentRows=[7])
         )
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278

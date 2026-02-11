@@ -7,5 +7,5 @@ from .common import TableName
 
 
 class SqliteFileDialect(BaseFileDialect):
-    format: Literal["sqlite"]
+    format: Literal["sqlite"] = "sqlite"
     tableName: TableName | None = None

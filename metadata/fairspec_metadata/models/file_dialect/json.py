@@ -15,7 +15,7 @@ from .common import (
 
 
 class JsonFileDialect(BaseFileDialect):
-    format: Literal["json"]
+    format: Literal["json"] = "json"
     jsonPointer: JsonPointer | None = None
     rowType: RowType | None = None
     headerRows: HeaderRows | None = None

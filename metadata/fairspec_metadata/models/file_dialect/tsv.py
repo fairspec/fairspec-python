@@ -15,7 +15,7 @@ from .common import (
 
 
 class TsvFileDialect(BaseFileDialect):
-    format: Literal["tsv"]
+    format: Literal["tsv"] = "tsv"
     lineTerminator: LineTerminator | None = None
     nullSequence: NullSequence | None = None
     headerRows: HeaderRows | None = None

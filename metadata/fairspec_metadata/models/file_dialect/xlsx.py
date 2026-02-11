@@ -15,7 +15,7 @@ from .common import (
 
 
 class XlsxFileDialect(BaseFileDialect):
-    format: Literal["xlsx"]
+    format: Literal["xlsx"] = "xlsx"
     sheetName: SheetName | None = None
     sheetNumber: SheetNumber | None = None
     headerRows: HeaderRows | None = None

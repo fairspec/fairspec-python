@@ -42,7 +42,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=False),
+            CsvFileDialect(headerRows=False),
         )
 
         assert result == [
@@ -60,7 +60,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=[2]),
+            CsvFileDialect(headerRows=[2]),
         )
 
         assert result == [
@@ -78,7 +78,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=[1, 2]),
+            CsvFileDialect(headerRows=[1, 2]),
         )
 
         assert result == [
@@ -104,7 +104,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=[1, 2], headerJoin="_"),
+            CsvFileDialect(headerRows=[1, 2], headerJoin="_"),
         )
 
         assert result == [
@@ -122,7 +122,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", commentRows=[3]),
+            CsvFileDialect(commentRows=[3]),
         )
 
         assert result == [
@@ -141,7 +141,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", commentPrefix="#"),
+            CsvFileDialect(commentPrefix="#"),
         )
 
         assert result == [
@@ -161,7 +161,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", commentPrefix="#"),
+            CsvFileDialect(commentPrefix="#"),
         )
 
         assert result == [
@@ -179,7 +179,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", commentPrefix="#"),
+            CsvFileDialect(commentPrefix="#"),
         )
 
         assert result == [
@@ -269,7 +269,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=[1, 2]),
+            CsvFileDialect(headerRows=[1, 2]),
         )
 
         assert result == [
@@ -287,7 +287,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=[2], commentRows=[3]),
+            CsvFileDialect(headerRows=[2], commentRows=[3]),
         )
 
         assert result == [
@@ -306,7 +306,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", commentRows=[4], commentPrefix="#"),
+            CsvFileDialect(commentRows=[4], commentPrefix="#"),
         )
 
         assert result == [
@@ -323,7 +323,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", headerRows=False),
+            CsvFileDialect(headerRows=False),
         )
 
         assert result == [
@@ -361,7 +361,7 @@ class TestGetRecordsFromRows:
 
         result = get_records_from_rows(
             rows,
-            CsvFileDialect(format="csv", columnNames=["name", "age", "city"]),
+            CsvFileDialect(columnNames=["name", "age", "city"]),
         )
 
         assert result == [

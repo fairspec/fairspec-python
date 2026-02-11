@@ -6,4 +6,4 @@ from .base import BaseFileDialect
 
 
 class ArrowFileDialect(BaseFileDialect):
-    format: Literal["arrow"]
+    format: Literal["arrow"] = "arrow"

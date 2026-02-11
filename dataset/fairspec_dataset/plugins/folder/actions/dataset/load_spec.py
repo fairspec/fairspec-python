@@ -69,7 +69,7 @@ class TestLoadDatasetFromFolder:
                 Resource(
                     name="test_res",
                     data=csv_path,
-                    fileDialect=CsvFileDialect(format="csv"),
+                    fileDialect=CsvFileDialect(),
                 )
             ]
         )
@@ -131,7 +131,7 @@ class TestLoadDatasetFromFolder:
                 Resource(
                     name="test_res",
                     data=csv_path,
-                    fileDialect=CsvFileDialect(format="csv", delimiter=";"),
+                    fileDialect=CsvFileDialect(delimiter=";"),
                 )
             ]
         )

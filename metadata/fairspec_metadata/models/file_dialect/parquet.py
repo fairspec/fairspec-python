@@ -6,4 +6,4 @@ from .base import BaseFileDialect
 
 
 class ParquetFileDialect(BaseFileDialect):
-    format: Literal["parquet"]
+    format: Literal["parquet"] = "parquet"
