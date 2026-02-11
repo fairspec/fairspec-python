@@ -2,6 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from fairspec_metadata.models.datacite.common import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata.models.datacite.contributor import Contributor
+from fairspec_metadata.models.datacite.creator import Creator
+from fairspec_metadata.models.datacite.date import DataciteDate
+from fairspec_metadata.models.datacite.description import DataciteDescription
+from fairspec_metadata.models.datacite.rights import Rights
+from fairspec_metadata.models.datacite.subject import Subject
+from fairspec_metadata.models.datacite.title import Title
 from fairspec_metadata.models.dataset import Dataset
 
 from fairspec_dataset.plugins.github.actions.resource.from_github import convert_resource_from_github
@@ -11,58 +19,72 @@ if TYPE_CHECKING:
 
 
 def convert_dataset_from_github(repository: Descriptor) -> Dataset:
-    dataset: Descriptor = {"resources": []}
+    titles = [Title(title=repository["full_name"])] if repository.get("full_name") else None
 
-    if repository.get("full_name"):
-        dataset["titles"] = [{"title": repository["full_name"]}]
+    descriptions = (
+        [DataciteDescription(description=repository["description"], descriptionType=DescriptionType.Abstract)]
+        if repository.get("description")
+        else None
+    )
 
-    if repository.get("description"):
-        dataset["descriptions"] = [
-            {
-                "description": repository["description"],
-                "descriptionType": "Abstract",
-            }
-        ]
-
+    rights_list = None
     license_info = repository.get("license")
     if license_info:
-        rights: Descriptor = {
-            "rights": license_info["name"],
-            "rightsUri": license_info.get("url"),
-            "rightsIdentifier": license_info.get("spdx_id") or license_info.get("key"),
-            "rightsIdentifierScheme": "SPDX",
-        }
-        dataset["rightsList"] = [rights]
+        rights_list = [
+            Rights(
+                rights=license_info["name"],
+                rightsUri=license_info.get("url"),
+                rightsIdentifier=license_info.get("spdx_id") or license_info.get("key"),
+                rightsIdentifierScheme="SPDX",
+            )
+        ]
 
+    creators = None
+    contributors = None
     owner = repository.get("owner")
     if owner:
-        contributor = {
-            "name": owner["login"],
-            "nameType": "Organizational"
-            if owner.get("type") == "Organization"
-            else "Personal",
-        }
         if owner.get("type") == "Organization":
-            dataset["contributors"] = [
-                {**contributor, "contributorType": "HostingInstitution"}
+            contributors = [
+                Contributor(
+                    name=owner["login"],
+                    nameType=CreatorNameType.Organizational,
+                    contributorType=ContributorType.HostingInstitution,
+                )
             ]
         else:
-            dataset["creators"] = [contributor]
+            creators = [
+                Creator(
+                    name=owner["login"],
+                    nameType=CreatorNameType.Personal,
+                )
+            ]
 
     files = repository.get("files", [])
+    resource_list = []
     if files:
         default_branch = repository.get("default_branch", "main")
-        dataset["resources"] = [
+        resource_list = [
             convert_resource_from_github(f, default_branch=default_branch)
             for f in files
             if not f.get("path", "").startswith(".") and f.get("type") == "blob"
         ]
 
     topics = repository.get("topics", [])
-    if topics:
-        dataset["subjects"] = [{"subject": topic} for topic in topics]
+    subjects = [Subject(subject=topic) for topic in topics] if topics else None
 
-    if repository.get("created_at"):
-        dataset["dates"] = [{"date": repository["created_at"], "dateType": "Created"}]
+    dates = (
+        [DataciteDate(date=repository["created_at"], dateType=DateType.Created)]
+        if repository.get("created_at")
+        else None
+    )
 
-    return Dataset(**dataset)
+    return Dataset(
+        titles=titles,
+        descriptions=descriptions,
+        rightsList=rights_list,
+        creators=creators,
+        contributors=contributors,
+        resources=resource_list,
+        subjects=subjects,
+        dates=dates,
+    )

@@ -2,6 +2,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from fairspec_metadata.models.datacite.common import CreatorNameType, DateType, DescriptionType
+from fairspec_metadata.models.datacite.creator import Creator, CreatorAffiliation
+from fairspec_metadata.models.datacite.date import DataciteDate
+from fairspec_metadata.models.datacite.description import DataciteDescription
+from fairspec_metadata.models.datacite.rights import Rights
+from fairspec_metadata.models.datacite.subject import Subject
+from fairspec_metadata.models.datacite.title import Title
 from fairspec_metadata.models.dataset import Dataset
 
 from fairspec_dataset.plugins.zenodo.actions.resource.from_zenodo import convert_resource_from_zenodo
@@ -11,48 +18,59 @@ if TYPE_CHECKING:
 
 
 def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Dataset:
-    dataset: Descriptor = {"resources": []}
-
     metadata = zenodo_record.get("metadata", {})
 
-    if metadata.get("title"):
-        dataset["titles"] = [{"title": metadata["title"]}]
+    titles = [Title(title=metadata["title"])] if metadata.get("title") else None
 
-    if metadata.get("description"):
-        dataset["descriptions"] = [
-            {"description": metadata["description"], "descriptionType": "Abstract"}
-        ]
+    descriptions = (
+        [DataciteDescription(description=metadata["description"], descriptionType=DescriptionType.Abstract)]
+        if metadata.get("description")
+        else None
+    )
 
-    creators = metadata.get("creators", [])
-    if creators:
-        dataset["creators"] = []
-        for creator in creators:
-            c: Descriptor = {
-                "name": creator["name"],
-                "nameType": "Personal",
-            }
-            if creator.get("affiliation"):
-                c["affiliation"] = [{"name": creator["affiliation"]}]
-            dataset["creators"].append(c)
+    creators_raw = metadata.get("creators", [])
+    creators = None
+    if creators_raw:
+        creators = []
+        for creator_data in creators_raw:
+            affiliation = (
+                [CreatorAffiliation(name=creator_data["affiliation"])]
+                if creator_data.get("affiliation")
+                else None
+            )
+            creators.append(
+                Creator(
+                    name=creator_data["name"],
+                    nameType=CreatorNameType.Personal,
+                    affiliation=affiliation,
+                )
+            )
 
     keywords = metadata.get("keywords", [])
-    if keywords:
-        dataset["subjects"] = [{"subject": kw} for kw in keywords]
+    subjects = [Subject(subject=kw) for kw in keywords] if keywords else None
 
-    if metadata.get("publication_date"):
-        dataset["dates"] = [{"date": metadata["publication_date"], "dateType": "Issued"}]
+    dates = (
+        [DataciteDate(date=metadata["publication_date"], dateType=DateType.Issued)]
+        if metadata.get("publication_date")
+        else None
+    )
 
-    if metadata.get("license"):
-        dataset["rightsList"] = [{"rights": metadata["license"]}]
+    rights_list = [Rights(rights=metadata["license"])] if metadata.get("license") else None
 
-    if metadata.get("doi"):
-        dataset["doi"] = metadata["doi"]
-
-    if metadata.get("version"):
-        dataset["version"] = metadata["version"]
+    doi = metadata.get("doi")
+    version = metadata.get("version")
 
     files = zenodo_record.get("files", [])
-    if files:
-        dataset["resources"] = [convert_resource_from_zenodo(f) for f in files]
+    resource_list = [convert_resource_from_zenodo(f) for f in files] if files else []
 
-    return Dataset(**dataset)
+    return Dataset(
+        titles=titles,
+        descriptions=descriptions,
+        creators=creators,
+        subjects=subjects,
+        dates=dates,
+        rightsList=rights_list,
+        doi=doi,
+        version=version,
+        resources=resource_list,
+    )

@@ -4,7 +4,18 @@ import json
 import os
 from typing import cast
 
+from fairspec_metadata.models.datacite.common import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata.models.datacite.contributor import Contributor
+from fairspec_metadata.models.datacite.creator import Creator
+from fairspec_metadata.models.datacite.date import DataciteDate
+from fairspec_metadata.models.datacite.description import DataciteDescription
+from fairspec_metadata.models.datacite.rights import Rights
+from fairspec_metadata.models.datacite.subject import Subject
+from fairspec_metadata.models.datacite.title import Title
 from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata.models.integrity import Integrity, IntegrityType
+from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
+from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 from .from_ckan import convert_dataset_from_ckan
@@ -20,51 +31,51 @@ def _load_fixture() -> CkanDataset:
 class TestConvertDatasetToCkan:
     def test_converts_fairspec_dataset_to_ckan_dataset(self):
         dataset = Dataset(
-            titles=[{"title": "Test Package"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-            descriptions=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {
-                    "description": "This is a test package",
-                    "descriptionType": "Abstract",
-                }
+            titles=[Title(title="Test Package")],
+            descriptions=[
+                DataciteDescription(
+                    description="This is a test package",
+                    descriptionType=DescriptionType.Abstract,
+                )
             ],
             version="1.0.0",
-            rightsList=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {
-                    "rights": "Creative Commons Attribution",
-                    "rightsUri": "http://www.opendefinition.org/licenses/cc-by",
-                    "rightsIdentifier": "cc-by",
-                }
+            rightsList=[
+                Rights(
+                    rights="Creative Commons Attribution",
+                    rightsUri="http://www.opendefinition.org/licenses/cc-by",
+                    rightsIdentifier="cc-by",
+                )
             ],
-            creators=[{"name": "Test Author", "nameType": "Personal"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-            contributors=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {
-                    "name": "Test Maintainer",
-                    "nameType": "Personal",
-                    "contributorType": "ContactPerson",
-                }
+            creators=[Creator(name="Test Author", nameType=CreatorNameType.Personal)],
+            contributors=[
+                Contributor(
+                    name="Test Maintainer",
+                    nameType=CreatorNameType.Personal,
+                    contributorType=ContributorType.ContactPerson,
+                )
             ],
-            subjects=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {"subject": "test"},
-                {"subject": "sample"},
-                {"subject": "data"},
+            subjects=[
+                Subject(subject="test"),
+                Subject(subject="sample"),
+                Subject(subject="data"),
             ],
-            dates=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {"date": "2023-01-01T00:00:00Z", "dateType": "Created"},
-                {"date": "2023-01-02T00:00:00Z", "dateType": "Updated"},
+            dates=[
+                DataciteDate(date="2023-01-01T00:00:00Z", dateType=DateType.Created),
+                DataciteDate(date="2023-01-02T00:00:00Z", dateType=DateType.Updated),
             ],
-            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                {
-                    "name": "test_resource",
-                    "data": "https://example.com/data.csv",
-                    "fileDialect": {"format": "csv"},
-                    "descriptions": [
-                        {
-                            "description": "Test resource",
-                            "descriptionType": "Abstract",
-                        }
+            resources=[
+                Resource(
+                    name="test_resource",
+                    data="https://example.com/data.csv",
+                    fileDialect=CsvFileDialect(format="csv"),
+                    descriptions=[
+                        DataciteDescription(
+                            description="Test resource",
+                            descriptionType=DescriptionType.Abstract,
+                        )
                     ],
-                    "integrity": {"type": "md5", "hash": "1234567890abcdef"},
-                }
+                    integrity=Integrity(type=IntegrityType.md5, hash="1234567890abcdef"),
+                )
             ],
         )
 

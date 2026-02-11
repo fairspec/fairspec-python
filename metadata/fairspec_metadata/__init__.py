@@ -74,6 +74,46 @@ from .actions.table_schema.validate import (
     validate_table_schema,
 )
 from .models.catalog import Catalog, CatalogDataset
+from .models.datacite.alternate_identifier import AlternateIdentifier, AlternateIdentifiers
+from .models.datacite.common import (
+    ContributorType,
+    ContentTypeGeneral,
+    CreatorNameType,
+    DateType,
+    DescriptionType,
+    FunderIdentifierType,
+    Latitude,
+    Longitude,
+    NumberType,
+    RelatedIdentifierType,
+    RelationType,
+    TitleType,
+)
+from .models.datacite.content_type import ContentTypes
+from .models.datacite.contributor import Contributor, Contributors
+from .models.datacite.creator import Creator, CreatorAffiliation, CreatorNameIdentifier, Creators
+from .models.datacite.date import DataciteDate, DateValue, Dates
+from .models.datacite.description import DataciteDescription, Descriptions
+from .models.datacite.formats import Formats
+from .models.datacite.funding_reference import FundingReference, FundingReferences
+from .models.datacite.geo_location import (
+    GeoLocation,
+    GeoLocationBox,
+    GeoLocationPoint,
+    GeoLocationPolygonItem,
+    GeoLocations,
+)
+from .models.datacite.identifier import Doi, DoiPrefix, DoiSuffix
+from .models.datacite.language import Language
+from .models.datacite.publication_year import PublicationYear
+from .models.datacite.publisher import Publisher
+from .models.datacite.related_identifier import RelatedIdentifier, RelatedIdentifiers, RelatedObject
+from .models.datacite.related_item import RelatedItem, RelatedItemIdentifier, RelatedItems
+from .models.datacite.rights import Rights, RightsList
+from .models.datacite.size import Sizes
+from .models.datacite.subject import Subject, Subjects
+from .models.datacite.title import Title, Titles
+from .models.datacite.version import Version
 from .models.column.array import ArrayColumn, ArrayColumnProperty
 from .models.column.base import BaseColumn, BaseColumnProperty, BasePropertyType
 from .models.column.base64 import Base64Column, Base64ColumnProperty
@@ -146,6 +186,7 @@ from .models.error.resource import (
 from .models.error.row import RowError, RowPrimaryKeyError, RowUniqueKeyError
 from .models.error.table import TableError
 from .models.exception import FairspecException
+from .models.file_dialect.common import RowType
 from .models.file_dialect.arrow import ArrowFileDialect
 from .models.file_dialect.csv import CsvFileDialect
 from .models.file_dialect.file_dialect import FileDialect
@@ -157,7 +198,8 @@ from .models.file_dialect.sqlite import SqliteFileDialect
 from .models.file_dialect.tsv import TsvFileDialect
 from .models.file_dialect.unknown import UnknownFileDialect
 from .models.file_dialect.xlsx import XlsxFileDialect
-from .models.integrity import Integrity
+from .models.foreign_key import ForeignKey, ForeignKeyReference
+from .models.integrity import Integrity, IntegrityType
 from .models.json_schema import JsonSchema
 from .models.path import ExternalPath, InternalPath, Path
 from .models.profile import Profile, ProfileRegistry, ProfileType
@@ -168,7 +210,9 @@ from .models.table_schema import (
     ConvertTableSchemaToOptions,
     RenderTableSchemaOptions,
     TableSchema,
+    TableSchemaMissingValueItem,
 )
+from .models.unique_key import UniqueKey
 from .plugin import MetadataPlugin
 from .settings import FAIRSPEC_VERSION
 
@@ -242,6 +286,8 @@ __all__ = [
     "validate_descriptor",
     "validate_file_dialect",
     "validate_table_schema",
+    "AlternateIdentifier",
+    "AlternateIdentifiers",
     "ArrayColumn",
     "ArrayColumnProperty",
     "Base64Column",
@@ -274,6 +320,11 @@ __all__ = [
     "CellUniqueError",
     "Column",
     "ColumnError",
+    "ContentTypeGeneral",
+    "ContentTypes",
+    "Contributor",
+    "Contributors",
+    "ContributorType",
     "ConvertDatasetFromOptions",
     "ConvertDatasetToOptions",
     "ConvertTableSchemaFromOptions",
@@ -282,19 +333,34 @@ __all__ = [
     "ColumnProperty",
     "ColumnType",
     "ColumnTypeError",
+    "Creator",
+    "CreatorAffiliation",
+    "CreatorNameIdentifier",
+    "CreatorNameType",
+    "Creators",
     "CsvFileDialect",
     "Data",
     "DataError",
     "DataSchema",
     "Datacite",
+    "DataciteDate",
+    "DataciteDescription",
     "Dataset",
     "DateColumn",
     "DateColumnProperty",
     "DateTimeColumn",
     "DateTimeColumnProperty",
+    "Dates",
+    "DateType",
+    "DateValue",
     "DecimalColumn",
     "DecimalColumnProperty",
+    "Descriptions",
+    "DescriptionType",
     "Descriptor",
+    "Doi",
+    "DoiPrefix",
+    "DoiSuffix",
     "DurationColumn",
     "DurationColumnProperty",
     "EmailColumn",
@@ -305,7 +371,18 @@ __all__ = [
     "FairspecException",
     "FileDialect",
     "FileError",
+    "ForeignKey",
     "ForeignKeyError",
+    "ForeignKeyReference",
+    "Formats",
+    "FunderIdentifierType",
+    "FundingReference",
+    "FundingReferences",
+    "GeoLocation",
+    "GeoLocationBox",
+    "GeoLocationPoint",
+    "GeoLocationPolygonItem",
+    "GeoLocations",
     "GeojsonColumn",
     "GeojsonColumnProperty",
     "HexColumn",
@@ -315,16 +392,21 @@ __all__ = [
     "IntegerColumn",
     "IntegerColumnProperty",
     "IntegrityError",
+    "IntegrityType",
     "InternalPath",
     "JsonFileDialect",
     "JsonSchema",
     "JsonlFileDialect",
+    "Language",
+    "Latitude",
     "ListColumn",
     "ListColumnProperty",
+    "Longitude",
     "MetadataError",
     "MetadataPlugin",
     "NumberColumn",
     "NumberColumnProperty",
+    "NumberType",
     "ObjectColumn",
     "ObjectColumnProperty",
     "OdsFileDialect",
@@ -333,6 +415,16 @@ __all__ = [
     "Profile",
     "ProfileRegistry",
     "ProfileType",
+    "PublicationYear",
+    "Publisher",
+    "RelatedIdentifier",
+    "RelatedIdentifierType",
+    "RelatedIdentifiers",
+    "RelatedItem",
+    "RelatedItemIdentifier",
+    "RelatedItems",
+    "RelatedObject",
+    "RelationType",
     "RenderDataSchemaOptions",
     "RenderDatasetOptions",
     "RenderTableSchemaOptions",
@@ -344,26 +436,38 @@ __all__ = [
     "ResourceError",
     "ResourceMissingError",
     "ResourceTypeError",
+    "Rights",
+    "RightsList",
     "RowError",
     "RowPrimaryKeyError",
+    "RowType",
     "RowUniqueKeyError",
+    "Sizes",
     "SqliteFileDialect",
     "StringCategoricalColumnProperty",
     "StringColumn",
     "StringColumnProperty",
+    "Subject",
+    "Subjects",
     "TableError",
     "TableSchema",
+    "TableSchemaMissingValueItem",
     "TextualError",
     "TimeColumn",
     "TimeColumnProperty",
+    "Title",
+    "Titles",
+    "TitleType",
     "TopojsonColumn",
     "TopojsonColumnProperty",
     "TsvFileDialect",
+    "UniqueKey",
     "UnknownColumn",
     "UnknownColumnProperty",
     "UnknownFileDialect",
     "UrlColumn",
     "UrlColumnProperty",
+    "Version",
     "WkbColumn",
     "WkbColumnProperty",
     "WktColumn",

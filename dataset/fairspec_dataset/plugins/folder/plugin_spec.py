@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.models.dataset import SaveDatasetOptions
 
@@ -66,7 +67,7 @@ class TestLoadDataset:
 class TestSaveDataset:
     def setup_method(self):
         self.plugin = FolderPlugin()
-        self.dataset = Dataset(resources=[{"name": "test", "data": []}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+        self.dataset = Dataset(resources=[Resource(name="test", data=[])])
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")

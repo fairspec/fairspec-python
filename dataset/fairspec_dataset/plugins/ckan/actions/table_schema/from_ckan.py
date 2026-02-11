@@ -15,22 +15,22 @@ from fairspec_metadata.models.column.number import NumberColumn, NumberColumnPro
 from fairspec_metadata.models.column.object import ObjectColumn, ObjectColumnProperty
 from fairspec_metadata.models.column.string import StringColumn, StringColumnProperty
 from fairspec_metadata.models.column.time import TimeColumn, TimeColumnProperty
+from fairspec_metadata.models.table_schema import TableSchema
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
-    from fairspec_metadata.models.descriptor import Descriptor
 
     from fairspec_dataset.plugins.ckan.models.field import CkanField
     from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 
 
-def convert_table_schema_from_ckan(ckan_schema: CkanSchema) -> Descriptor:
+def convert_table_schema_from_ckan(ckan_schema: CkanSchema) -> TableSchema:
     columns: list[Column] = []
 
     for ckan_field in ckan_schema.get("fields", []):
         columns.append(_convert_column(ckan_field))
 
-    return {"properties": get_column_properties(columns)}
+    return TableSchema(properties=get_column_properties(columns))
 
 
 def _convert_column(ckan_field: CkanField) -> Column:

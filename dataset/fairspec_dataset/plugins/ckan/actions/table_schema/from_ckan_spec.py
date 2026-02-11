@@ -20,7 +20,8 @@ class TestConvertTableSchemaFromCkan:
 
         result = convert_table_schema_from_ckan(ckan_schema)
 
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
         assert len(properties) == len(ckan_schema["fields"])
 
         id_col = properties["id"]
@@ -74,7 +75,8 @@ class TestConvertTableSchemaFromCkan:
         ckan_schema = _load_fixture()
 
         result = convert_table_schema_from_ckan(ckan_schema)
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
 
         assert properties["string_field"].type == "string"
         assert properties["integer_field"].type == "integer"
@@ -89,7 +91,8 @@ class TestConvertTableSchemaFromCkan:
         ckan_schema = _load_fixture()
 
         result = convert_table_schema_from_ckan(ckan_schema)
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
 
         assert properties["unknown_field"].type == "string"
 
@@ -97,7 +100,8 @@ class TestConvertTableSchemaFromCkan:
         ckan_schema = _load_fixture()
 
         result = convert_table_schema_from_ckan(ckan_schema)
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
 
         override_col = properties["override_field"]
         assert override_col.type == "integer"
@@ -109,7 +113,7 @@ class TestConvertTableSchemaFromCkan:
 
         result = convert_table_schema_from_ckan(ckan_schema)
 
-        assert len(result.get("properties", {})) == 0
+        assert result.properties is None or len(result.properties) == 0
 
     def test_handles_fields_without_info_object(self):
         ckan_schema = cast(
@@ -117,7 +121,8 @@ class TestConvertTableSchemaFromCkan:
         )
 
         result = convert_table_schema_from_ckan(ckan_schema)
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
 
         assert len(properties) == 1
         col = properties["simple_field"]
@@ -139,7 +144,8 @@ class TestConvertTableSchemaFromCkan:
         )
 
         result = convert_table_schema_from_ckan(ckan_schema)
-        properties = result.get("properties", {})
+        assert result.properties is not None
+        properties = result.properties
 
         assert properties["field1"].type == "string"
         assert properties["field2"].type == "integer"

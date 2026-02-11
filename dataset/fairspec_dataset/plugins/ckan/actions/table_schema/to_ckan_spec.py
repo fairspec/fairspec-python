@@ -174,11 +174,12 @@ class TestConvertTableSchemaToCkan:
         original = _load_fixture()
 
         fairspec_schema = convert_table_schema_from_ckan(original)
+        assert fairspec_schema.properties is not None
 
         fairspec_schema_dicts = {
             "properties": {
                 name: prop.model_dump(exclude_none=True)
-                for name, prop in fairspec_schema["properties"].items()
+                for name, prop in fairspec_schema.properties.items()
             }
         }
         result = convert_table_schema_to_ckan(fairspec_schema_dicts)
