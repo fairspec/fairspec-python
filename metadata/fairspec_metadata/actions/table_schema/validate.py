@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import cast
-
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 from fairspec_metadata.actions.descriptor.validate import validate_descriptor
 from fairspec_metadata.actions.profile.load import load_profile
@@ -39,8 +37,8 @@ def validate_table_schema(
 
     table_schema: TableSchema | None = None
     if report.valid:
-        # Valid -> we can cast it
-        table_schema = cast(TableSchema, descriptor)
+        # Valid -> we can cast
+        table_schema = TableSchema(**descriptor)
 
     return TableSchemaValidationResult.model_construct(
         valid=report.valid,

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import cast
+from pydantic import TypeAdapter
 
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 from fairspec_metadata.actions.descriptor.validate import validate_descriptor
@@ -39,8 +39,8 @@ def validate_file_dialect(
 
     file_dialect: FileDialect | None = None
     if report.valid:
-        # Valid -> we can cast it
-        file_dialect = cast(FileDialect, descriptor)
+        # Valid -> we can cast
+        file_dialect = TypeAdapter(FileDialect).validate_python(descriptor)
 
     return FileDialectValidationResult.model_construct(
         valid=report.valid,

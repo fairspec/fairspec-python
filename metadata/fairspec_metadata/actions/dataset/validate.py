@@ -38,6 +38,7 @@ def validate_dataset_descriptor(
 
     normalized: Dataset | None = None
     if report.valid:
+        # Valid -> we can cast
         normalized = normalize_dataset(
             Dataset(**descriptor), basepath=basepath
         )
