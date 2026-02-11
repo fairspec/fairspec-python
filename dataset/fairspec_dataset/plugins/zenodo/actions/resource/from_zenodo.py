@@ -8,10 +8,10 @@ from fairspec_metadata.models.integrity import Integrity, IntegrityType
 from fairspec_metadata.models.resource import Resource
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_dataset.plugins.zenodo.models.file import ZenodoFile
 
 
-def convert_resource_from_zenodo(zenodo_file: Descriptor) -> Resource:
+def convert_resource_from_zenodo(zenodo_file: ZenodoFile) -> Resource:
     links = zenodo_file.get("links", {})
     path = _convert_path(links.get("self", ""))
 

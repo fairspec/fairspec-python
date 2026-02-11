@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import urllib.parse
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from fairspec_dataset.actions.dataset.merge import merge_datasets
 
@@ -10,6 +10,8 @@ from .from_zenodo import convert_dataset_from_zenodo
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
+
+    from fairspec_dataset.plugins.zenodo.models.record import ZenodoRecord
 
 
 def load_dataset_from_zenodo(
@@ -30,7 +32,7 @@ def load_dataset_from_zenodo(
         sandbox=sandbox,
     )
 
-    system_dataset = convert_dataset_from_zenodo(zenodo_record)
+    system_dataset = convert_dataset_from_zenodo(cast("ZenodoRecord", zenodo_record))
     user_dataset_path: str | None = None
     for resource in system_dataset.resources or []:
         custom = resource.unstable_customMetadata or {}

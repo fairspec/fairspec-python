@@ -14,10 +14,10 @@ from fairspec_metadata.models.dataset import Dataset
 from fairspec_dataset.plugins.zenodo.actions.resource.from_zenodo import convert_resource_from_zenodo
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_dataset.plugins.zenodo.models.record import ZenodoRecord
 
 
-def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Dataset:
+def convert_dataset_from_zenodo(zenodo_record: ZenodoRecord) -> Dataset:
     metadata = zenodo_record.get("metadata", {})
 
     titles = [Title(title=metadata["title"])] if metadata.get("title") else None
