@@ -40,12 +40,12 @@ index-out-of-bounds = "ignore"
 [tool.uv]
 package = false
 dev-dependencies = [
-  "python-semantic-release",
-  "pytest",
-  "ruff",
-  "taskipy",
-  "ty",
-  "pytest-recording>=0.13.4",
+  "python-semantic-release==10.5.3",
+  "pytest==9.0.2",
+  "ruff==0.15.0",
+  "taskipy==1.14.1",
+  "ty==0.0.15",
+  "pytest-recording==0.13.4",
 ]
 
 [tool.uv.workspace]
