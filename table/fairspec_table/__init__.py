@@ -16,6 +16,7 @@ from .models.schema import (
     TableSchemaOptions,
 )
 from .models.table import Table
+from .plugin import TablePlugin
 
 __all__ = [
     "ColumnMapping",
@@ -28,6 +29,7 @@ __all__ = [
     "PolarsSchema",
     "SchemaMapping",
     "Table",
+    "TablePlugin",
     "TableSchemaOptions",
     "denormalize_table",
     "infer_table_schema_from_sample",
