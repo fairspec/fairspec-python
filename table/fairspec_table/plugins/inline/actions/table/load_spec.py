@@ -4,31 +4,33 @@ from datetime import datetime
 
 import polars as pl
 import pytest
+from fairspec_metadata.models.resource import Resource
+from fairspec_metadata.models.table_schema import TableSchema
 
 from .load import load_inline_table
 
 
 class TestLoadInlineTable:
     def test_should_raise_on_no_data(self):
-        resource = {"name": "test"}
+        resource = Resource(name="test")
 
         with pytest.raises(Exception, match="Resource data is not defined or tabular"):
             load_inline_table(resource)
 
     def test_should_raise_on_bad_data(self):
-        resource = {"name": "test", "data": "bad"}
+        resource = Resource(name="test", data="bad")
 
         with pytest.raises(Exception, match="Resource data is not defined or tabular"):
             load_inline_table(resource)
 
     def test_should_read_table_data(self):
-        resource = {
-            "name": "test",
-            "data": [
+        resource = Resource(
+            name="test",
+            data=[
                 {"id": 1, "name": "english"},
                 {"id": 2, "name": "中文"},
             ],
-        }
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -39,18 +41,18 @@ class TestLoadInlineTable:
         ]
 
     def test_should_handle_longer_rows(self):
-        resource = {
-            "data": [
+        resource = Resource(
+            data=[
                 {"id": 1, "name": "english"},
                 {"id": 2, "name": "中文", "extra": "bad"},
             ],
-            "tableSchema": {
-                "properties": {
+            tableSchema=TableSchema(
+                properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                     "id": {"type": "integer"},
                     "name": {"type": "string"},
                 },
-            },
-        }
+            ),
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -61,16 +63,16 @@ class TestLoadInlineTable:
         ]
 
     def test_should_handle_shorter_rows(self):
-        resource = {
-            "name": "test",
-            "data": [{"id": 1, "name": "english"}, {"id": 2}],
-            "tableSchema": {
-                "properties": {
+        resource = Resource(
+            name="test",
+            data=[{"id": 1, "name": "english"}, {"id": 2}],
+            tableSchema=TableSchema(
+                properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                     "id": {"type": "integer"},
                     "name": {"type": "string"},
                 },
-            },
-        }
+            ),
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -81,8 +83,8 @@ class TestLoadInlineTable:
         ]
 
     def test_should_handle_various_data_types(self):
-        resource = {
-            "data": [
+        resource = Resource(
+            data=[
                 {
                     "string": "string",
                     "number": 1,
@@ -92,7 +94,7 @@ class TestLoadInlineTable:
                     "datetime": datetime(2025, 1, 1),
                 },
             ],
-        }
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -109,13 +111,13 @@ class TestLoadInlineTable:
         ]
 
     def test_should_handle_objects_with_shorter_rows(self):
-        resource = {
-            "data": [
+        resource = Resource(
+            data=[
                 {"id": 1, "name": "english"},
                 {"id": 2, "name": "中文"},
                 {"id": 3},
             ],
-        }
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
@@ -127,13 +129,13 @@ class TestLoadInlineTable:
         ]
 
     def test_should_handle_objects_with_longer_rows(self):
-        resource = {
-            "data": [
+        resource = Resource(
+            data=[
                 {"id": 1, "name": "english"},
                 {"id": 2, "name": "中文"},
                 {"id": 3, "name": "german", "extra": "extra"},
             ],
-        }
+        )
 
         table = load_inline_table(resource)
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278

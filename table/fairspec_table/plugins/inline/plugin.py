@@ -9,7 +9,7 @@ from fairspec_table.plugin import TablePlugin
 from .actions.table.load import load_inline_table
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
     from fairspec_table.models.table import LoadTableOptions, Table
 
@@ -17,10 +17,11 @@ if TYPE_CHECKING:
 class InlinePlugin(TablePlugin):
     def load_table(
         self,
-        resource: Descriptor,
+        resource: Resource,
         options: LoadTableOptions | None = None,
     ) -> Table | None:
-        records = get_data_records(resource)
+        descriptor = resource.model_dump(by_alias=True, exclude_none=True)
+        records = get_data_records(descriptor)
         if not records:
             return None
         return load_inline_table(resource, options)

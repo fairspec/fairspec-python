@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from fairspec_dataset.plugin import DatasetPlugin
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
     from fairspec_metadata.models.table_schema import TableSchema
 
     from .models import InferTableSchemaOptions, LoadTableOptions, SaveTableOptions, Table
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class TablePlugin(DatasetPlugin):
     def load_table(
         self,
-        resource: Descriptor,
+        resource: Resource,
         options: LoadTableOptions | None = None,
     ) -> Table | None:
         return None
@@ -26,7 +26,7 @@ class TablePlugin(DatasetPlugin):
 
     def infer_table_schema(
         self,
-        resource: Descriptor,
+        resource: Resource,
         options: InferTableSchemaOptions | None = None,
     ) -> TableSchema | None:
         return None
