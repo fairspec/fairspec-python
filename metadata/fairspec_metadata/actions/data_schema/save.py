@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from fairspec_metadata.actions.descriptor.copy import copy_descriptor
 from fairspec_metadata.actions.descriptor.save import save_descriptor
-from fairspec_metadata.models.descriptor import Descriptor
+from fairspec_metadata.models.data_schema import DataSchema
 from fairspec_metadata.settings import FAIRSPEC_VERSION
 
 
 def save_data_schema(
-    data_schema: Descriptor,
+    data_schema: DataSchema,
     *,
     path: str,
     overwrite: bool = False,
