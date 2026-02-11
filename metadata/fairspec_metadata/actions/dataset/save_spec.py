@@ -14,7 +14,7 @@ class TestSaveDatasetDescriptor:
             "creators": [{"name": "Test Creator"}],
             "titles": [{"title": "Test Dataset"}],
             "resources": [
-                {"name": "test-resource", "data": str(tmp_path / "data.csv")},
+                {"name": "test_resource", "data": str(tmp_path / "data.csv")},
             ],
         }
         save_dataset_descriptor(dataset, path=path)
@@ -22,7 +22,7 @@ class TestSaveDatasetDescriptor:
             content = json.load(f)
         assert content["$schema"].endswith("dataset.json")
         assert content["creators"][0]["name"] == "Test Creator"
-        assert content["resources"][0]["name"] == "test-resource"
+        assert content["resources"][0]["name"] == "test_resource"
 
     def test_sets_default_schema(self, tmp_path):
         path = str(tmp_path / "dataset.json")

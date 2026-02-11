@@ -1,4 +1,5 @@
 import pytest
+from fairspec_metadata import Resource
 
 from .save import SaveFileProps, save_resource_files
 
@@ -127,7 +128,7 @@ class TestSaveResourceFiles:
         without_folders,
     ):
         result = save_resource_files(
-            resource,
+            Resource(**resource),
             basepath=basepath,
             with_remote=with_remote,
             without_folders=without_folders,

@@ -9,6 +9,7 @@ from fairspec_metadata import (
     get_file_extension,
     stringify_descriptor,
 )
+from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
@@ -51,7 +52,7 @@ def save_dataset_to_ckan(
     dataset_url = f"{parsed.scheme}://{parsed.netloc}/dataset/{result['name']}"
 
     resource_descriptors: list[Descriptor] = []
-    for resource in dataset.get("resources", []):
+    for item in dataset.get("resources", []):
 
         def _make_save_file(res: Descriptor) -> Callable[[SaveFileProps], str]:
             def _save_file(props: SaveFileProps) -> str:
@@ -83,11 +84,11 @@ def save_dataset_to_ckan(
 
         resource_descriptors.append(
             save_resource_files(
-                resource,
+                Resource(**item),
                 basepath=basepath,
                 with_remote=True,
                 without_folders=True,
-                save_file=_make_save_file(resource),
+                save_file=_make_save_file(item),
             )
         )
 

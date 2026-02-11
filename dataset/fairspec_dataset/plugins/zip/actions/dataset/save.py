@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
 from fairspec_metadata.actions.descriptor.stringify import stringify_descriptor
+from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.file.path import assert_local_path_vacant
@@ -27,10 +28,10 @@ def save_dataset_to_zip(
     files: dict[str, bytes] = {}
 
     resource_descriptors: list[Descriptor] = []
-    for resource in dataset.get("resources", []):
+    for item in dataset.get("resources", []):
         resource_descriptors.append(
             save_resource_files(
-                resource,
+                Resource(**item),
                 basepath=basepath,
                 with_remote=with_remote,
                 save_file=_make_save_file(files),

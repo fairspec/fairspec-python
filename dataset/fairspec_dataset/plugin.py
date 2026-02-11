@@ -7,6 +7,7 @@ from fairspec_metadata.plugin import MetadataPlugin
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
     from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
+    from fairspec_metadata.models.resource import Resource
 
     from .models.dataset import SaveDatasetOptions, SaveDatasetResult
     from .models.file_dialect import InferFileDialectOptions
@@ -23,7 +24,7 @@ class DatasetPlugin(MetadataPlugin):
 
     def infer_file_dialect(
         self,
-        resource: Descriptor,
+        resource: Resource,
         options: InferFileDialectOptions | None = None,
     ) -> FileDialect | None:
         return None

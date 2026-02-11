@@ -4,7 +4,6 @@ import re
 from typing import TYPE_CHECKING, Callable
 
 from fairspec_metadata import (
-    copy_descriptor,
     denormalize_path,
     get_file_name,
     get_is_remote_path,
@@ -12,6 +11,7 @@ from fairspec_metadata import (
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 class SaveFileProps:
@@ -33,14 +33,14 @@ SaveFileCallback = Callable[[SaveFileProps], str]
 
 
 def save_resource_files(
-    resource: Descriptor,
+    resource: Resource,
     *,
     save_file: SaveFileCallback,
     basepath: str | None = None,
     with_remote: bool = False,
     without_folders: bool = False,
 ) -> Descriptor:
-    descriptor = copy_descriptor(resource)
+    resource = resource.model_copy(deep=True)
     dedup_indexes: dict[str, int] = {}
 
     def _save_file(path: str, name: str, index: int) -> str:
@@ -78,18 +78,17 @@ def save_resource_files(
             )
         )
 
-    if isinstance(descriptor.get("data"), str):
-        descriptor["data"] = _save_file(descriptor["data"], "data", 0)
+    if isinstance(resource.data, str):
+        resource.data = _save_file(resource.data, "data", 0)
 
-    data = descriptor.get("data")
-    if isinstance(data, list):
-        for i, item in enumerate(data):
+    if isinstance(resource.data, list):
+        for i, item in enumerate(resource.data):
             if isinstance(item, str):
-                data[i] = _save_file(item, "data", i)
+                resource.data[i] = _save_file(item, "data", i)
 
     for name in ("dataSchema", "tableSchema"):
-        prop = resource.get(name)
+        prop = getattr(resource, name, None)
         if isinstance(prop, str):
-            descriptor[name] = _save_file(prop, name, 0)
+            setattr(resource, name, _save_file(prop, name, 0))
 
-    return descriptor
+    return resource.model_dump(by_alias=True, exclude_none=True)

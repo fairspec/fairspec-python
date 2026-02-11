@@ -4,6 +4,7 @@ import urllib.parse
 from typing import TYPE_CHECKING
 
 from fairspec_metadata import denormalize_dataset, stringify_descriptor
+from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import (
@@ -40,7 +41,7 @@ def save_dataset_to_zenodo(
     record_id = zenodo_record["id"]
 
     resource_descriptors: list[Descriptor] = []
-    for resource in dataset.get("resources", []):
+    for item in dataset.get("resources", []):
 
         def _make_save_file(res: Descriptor) -> SaveFileCallback:
             def _save_file(props: SaveFileProps) -> str:
@@ -61,11 +62,11 @@ def save_dataset_to_zenodo(
 
         resource_descriptors.append(
             save_resource_files(
-                resource,
+                Resource(**item),
                 basepath=basepath,
                 with_remote=False,
                 without_folders=True,
-                save_file=_make_save_file(resource),
+                save_file=_make_save_file(item),
             )
         )
 
