@@ -4,7 +4,7 @@ import polars as pl
 
 from fairspec_metadata import Base64Column
 
-from fairspec_table.constants import BASE64_REGEX
+from fairspec_table.settings import BASE64_REGEX
 
 
 def parse_base64_column(column: Base64Column, column_expr: pl.Expr) -> pl.Expr:

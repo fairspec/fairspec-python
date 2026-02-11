@@ -4,7 +4,7 @@ import polars as pl
 
 from fairspec_metadata import HexColumn
 
-from fairspec_table.constants import HEX_REGEX
+from fairspec_table.settings import HEX_REGEX
 
 
 def parse_hex_column(column: HexColumn, column_expr: pl.Expr) -> pl.Expr:
