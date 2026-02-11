@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 import polars as pl
-from fairspec_metadata.models.column.integer import (
+from fairspec_metadata import (
     IntegerColumn,
     IntegerColumnProperty,
 )
-from fairspec_metadata.models.column.number import (
+from fairspec_metadata import (
     NumberColumn,
     NumberColumnProperty,
 )
-from fairspec_metadata.models.column.string import (
+from fairspec_metadata import (
     StringColumn,
     StringColumnProperty,
 )

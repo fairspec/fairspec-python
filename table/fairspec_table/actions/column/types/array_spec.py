@@ -3,7 +3,7 @@ from __future__ import annotations
 import polars as pl
 
 from fairspec_metadata import ArrayColumn, ArrayColumnProperty
-from fairspec_metadata.models.error.cell import CellJsonError, CellTypeError
+from fairspec_metadata import CellJsonError, CellTypeError
 
 from .array import inspect_array_column
 

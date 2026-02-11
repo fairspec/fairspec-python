@@ -6,7 +6,7 @@ import urllib.request
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 def make_ckan_api_request(

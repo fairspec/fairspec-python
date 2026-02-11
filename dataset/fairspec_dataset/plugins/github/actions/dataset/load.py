@@ -10,7 +10,7 @@ from fairspec_dataset.plugins.github.services.github import make_github_api_requ
 from .from_github import convert_dataset_from_github
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 def load_dataset_from_github(

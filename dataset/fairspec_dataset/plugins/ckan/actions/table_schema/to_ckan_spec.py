@@ -3,17 +3,17 @@ from __future__ import annotations
 import json
 import os
 
-from fairspec_metadata.models.column.array import ArrayColumnProperty
-from fairspec_metadata.models.column.boolean import BooleanColumnProperty
-from fairspec_metadata.models.column.date import DateColumnProperty
-from fairspec_metadata.models.column.date_time import DateTimeColumnProperty
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.number import NumberColumnProperty
-from fairspec_metadata.models.column.object import ObjectColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
-from fairspec_metadata.models.column.time import TimeColumnProperty
-from fairspec_metadata.models.column.unknown import UnknownColumnProperty
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import ArrayColumnProperty
+from fairspec_metadata import BooleanColumnProperty
+from fairspec_metadata import DateColumnProperty
+from fairspec_metadata import DateTimeColumnProperty
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import NumberColumnProperty
+from fairspec_metadata import ObjectColumnProperty
+from fairspec_metadata import StringColumnProperty
+from fairspec_metadata import TimeColumnProperty
+from fairspec_metadata import UnknownColumnProperty
+from fairspec_metadata import TableSchema
 
 from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 from .from_ckan import convert_table_schema_from_ckan
@@ -224,10 +224,6 @@ class TestConvertTableSchemaToCkan:
             if original_field.info:
                 assert result_field.info is not None
                 if original_field.info.label:
-                    assert (
-                        result_field.info.label == original_field.info.label
-                    )
+                    assert result_field.info.label == original_field.info.label
                 if original_field.info.notes:
-                    assert (
-                        result_field.info.notes == original_field.info.notes
-                    )
+                    assert result_field.info.notes == original_field.info.notes

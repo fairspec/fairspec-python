@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import convert_resource_to_ckan
+from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import (
+    convert_resource_to_ckan,
+)
 from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 from fairspec_dataset.plugins.ckan.models.tag import CkanTag
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
+    from fairspec_metadata import Dataset
 
 
 def convert_dataset_to_ckan(dataset: Dataset) -> CkanDataset:

@@ -5,9 +5,9 @@ import math
 
 import polars as pl
 from fairspec_metadata import TableError, get_columns
-from fairspec_metadata.models.error.column import ColumnMissingError
-from fairspec_metadata.models.error.row import RowError
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import ColumnMissingError
+from fairspec_metadata import RowError
+from fairspec_metadata import TableSchema
 from pydantic import TypeAdapter
 
 from fairspec_table.actions.column.inspect import inspect_column

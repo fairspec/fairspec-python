@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import polars as pl
-from fairspec_metadata.models.column.number import (
+from fairspec_metadata import (
     NumberColumn,
     NumberColumnProperty,
 )

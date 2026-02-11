@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from fairspec_metadata import get_basepath, get_data_paths, get_is_remote_path
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
+    from fairspec_metadata import Dataset
 
 
 def get_dataset_basepath(dataset: Dataset) -> str | None:

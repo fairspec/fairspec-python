@@ -4,12 +4,12 @@ import polars as pl
 import pytest
 
 from fairspec_metadata import CategoricalColumn, IntegerColumn
-from fairspec_metadata.models.column.categorical import (
+from fairspec_metadata import (
     IntegerCategoricalColumnProperty,
     IntegerCategoryItem,
     StringCategoricalColumnProperty,
 )
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
+from fairspec_metadata import IntegerColumnProperty
 
 from fairspec_table.models import ColumnMapping, PolarsColumn
 

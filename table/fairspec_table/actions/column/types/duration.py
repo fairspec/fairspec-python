@@ -4,7 +4,7 @@ import isodate
 import polars as pl
 
 from fairspec_metadata import CellTypeError, ColumnType, DurationColumn
-from fairspec_metadata.models.error.cell import CellError
+from fairspec_metadata import CellError
 
 from fairspec_table.models.table import Table
 from fairspec_table.settings import NUMBER_COLUMN_NAME

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from charset_normalizer import from_bytes
 
 from fairspec_metadata import Integrity, get_data_first_path
-from fairspec_metadata.models.integrity import IntegrityType
+from fairspec_metadata import IntegrityType
 
 from fairspec_dataset.actions.file.load import load_file
 from fairspec_dataset.actions.file.prefetch import prefetch_files
@@ -15,7 +15,7 @@ from fairspec_dataset.actions.stream.concat import concat_file_streams
 from fairspec_dataset.actions.stream.load import load_file_stream
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Resource
 
 
 def infer_textual(

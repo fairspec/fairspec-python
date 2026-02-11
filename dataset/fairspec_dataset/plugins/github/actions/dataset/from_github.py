@@ -2,17 +2,19 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.models.datacite.common import ContributorType, CreatorNameType, DateType, DescriptionType
-from fairspec_metadata.models.datacite.contributor import Contributor
-from fairspec_metadata.models.datacite.creator import Creator
-from fairspec_metadata.models.datacite.date import DataciteDate
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.datacite.rights import Rights
-from fairspec_metadata.models.datacite.subject import Subject
-from fairspec_metadata.models.datacite.title import Title
-from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata import Contributor
+from fairspec_metadata import Creator
+from fairspec_metadata import DataciteDate
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Rights
+from fairspec_metadata import Subject
+from fairspec_metadata import Title
+from fairspec_metadata import Dataset
 
-from fairspec_dataset.plugins.github.actions.resource.from_github import convert_resource_from_github
+from fairspec_dataset.plugins.github.actions.resource.from_github import (
+    convert_resource_from_github,
+)
 
 if TYPE_CHECKING:
     from fairspec_dataset.plugins.github.models.repository import GithubRepository
@@ -22,7 +24,12 @@ def convert_dataset_from_github(repository: GithubRepository) -> Dataset:
     titles = [Title(title=repository.full_name)] if repository.full_name else None
 
     descriptions = (
-        [DataciteDescription(description=repository.description, descriptionType=DescriptionType.Abstract)]
+        [
+            DataciteDescription(
+                description=repository.description,
+                descriptionType=DescriptionType.Abstract,
+            )
+        ]
         if repository.description
         else None
     )

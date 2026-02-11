@@ -2,17 +2,19 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.models.datacite.common import ContributorType, CreatorNameType, DateType, DescriptionType
-from fairspec_metadata.models.datacite.contributor import Contributor
-from fairspec_metadata.models.datacite.creator import Creator
-from fairspec_metadata.models.datacite.date import DataciteDate
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.datacite.rights import Rights
-from fairspec_metadata.models.datacite.subject import Subject
-from fairspec_metadata.models.datacite.title import Title
-from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata import Contributor
+from fairspec_metadata import Creator
+from fairspec_metadata import DataciteDate
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Rights
+from fairspec_metadata import Subject
+from fairspec_metadata import Title
+from fairspec_metadata import Dataset
 
-from fairspec_dataset.plugins.ckan.actions.resource.from_ckan import convert_resource_from_ckan
+from fairspec_dataset.plugins.ckan.actions.resource.from_ckan import (
+    convert_resource_from_ckan,
+)
 
 if TYPE_CHECKING:
     from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
@@ -22,7 +24,11 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Dataset:
     titles = [Title(title=ckan_dataset.title)] if ckan_dataset.title else None
 
     descriptions = (
-        [DataciteDescription(description=ckan_dataset.notes, descriptionType=DescriptionType.Abstract)]
+        [
+            DataciteDescription(
+                description=ckan_dataset.notes, descriptionType=DescriptionType.Abstract
+            )
+        ]
         if ckan_dataset.notes
         else None
     )
@@ -30,7 +36,9 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Dataset:
     version = ckan_dataset.version
 
     resources = ckan_dataset.resources or []
-    resource_list = [convert_resource_from_ckan(r) for r in resources] if resources else []
+    resource_list = (
+        [convert_resource_from_ckan(r) for r in resources] if resources else []
+    )
 
     rights_list = None
     if ckan_dataset.license_id or ckan_dataset.license_title:
@@ -63,9 +71,13 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Dataset:
 
     dates: list[DataciteDate] = []
     if ckan_dataset.metadata_created:
-        dates.append(DataciteDate(date=ckan_dataset.metadata_created, dateType=DateType.Created))
+        dates.append(
+            DataciteDate(date=ckan_dataset.metadata_created, dateType=DateType.Created)
+        )
     if ckan_dataset.metadata_modified:
-        dates.append(DataciteDate(date=ckan_dataset.metadata_modified, dateType=DateType.Updated))
+        dates.append(
+            DataciteDate(date=ckan_dataset.metadata_modified, dateType=DateType.Updated)
+        )
 
     return Dataset(
         titles=titles,

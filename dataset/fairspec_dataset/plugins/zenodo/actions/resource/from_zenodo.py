@@ -3,9 +3,9 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.path.general import get_file_name_slug
-from fairspec_metadata.models.integrity import Integrity, IntegrityType
-from fairspec_metadata.models.resource import Resource
+from fairspec_metadata import get_file_name_slug
+from fairspec_metadata import Integrity, IntegrityType
+from fairspec_metadata import Resource
 
 if TYPE_CHECKING:
     from fairspec_dataset.plugins.zenodo.models.file import ZenodoFile

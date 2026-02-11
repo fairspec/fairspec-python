@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fairspec_metadata.models.column.categorical import (
+from fairspec_metadata import (
     CategoricalColumn,
     IntegerCategoryItem,
     StringCategoryItem,

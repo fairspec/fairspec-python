@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import os
 
-from fairspec_metadata.actions.dataset.load import load_dataset_descriptor
-from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata import load_dataset_descriptor
+from fairspec_metadata import Dataset
 
 
 def load_dataset_from_folder(folder_path: str) -> Dataset:

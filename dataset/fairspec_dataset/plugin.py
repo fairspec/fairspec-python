@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 from fairspec_metadata.plugin import MetadataPlugin
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
-    from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
+    from fairspec_metadata import FileDialect
+    from fairspec_metadata import Resource
 
     from .models.dataset import SaveDatasetOptions, SaveDatasetResult
     from .models.file_dialect import InferFileDialectOptions

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fairspec_metadata import StringColumn, StringColumnProperty
-from fairspec_metadata.models.table_schema import TableSchema, TableSchemaMissingValueItem
+from fairspec_metadata import TableSchema, TableSchemaMissingValueItem
 
 from .helpers import merge_missing_values
 

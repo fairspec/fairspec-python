@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
-from fairspec_metadata.actions.descriptor.save import save_descriptor
+from fairspec_metadata import denormalize_dataset
+from fairspec_metadata import save_descriptor
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.file.copy import copy_file
@@ -13,8 +13,8 @@ from fairspec_dataset.actions.folder.create import create_folder
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
 
 
 def save_dataset_to_folder(

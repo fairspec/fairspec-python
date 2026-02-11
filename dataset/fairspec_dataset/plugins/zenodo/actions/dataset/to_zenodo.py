@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
+    from fairspec_metadata import Dataset
 
 
 def convert_dataset_to_zenodo(dataset: Dataset) -> dict:

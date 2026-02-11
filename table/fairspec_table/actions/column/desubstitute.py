@@ -3,7 +3,7 @@ from __future__ import annotations
 import polars as pl
 
 from fairspec_metadata import get_base_property_type
-from fairspec_metadata.models.column.column import Column
+from fairspec_metadata import Column
 
 from fairspec_table.models import ColumnMapping, DenormalizeColumnOptions
 

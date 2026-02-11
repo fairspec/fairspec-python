@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.path.general import get_is_remote_path
+from fairspec_metadata import get_is_remote_path
 
 from fairspec_dataset.models.dataset import SaveDatasetResult
 from fairspec_dataset.plugin import DatasetPlugin
@@ -11,8 +11,8 @@ from .actions.dataset.load import load_dataset_from_folder
 from .actions.dataset.save import save_dataset_to_folder
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
 
     from fairspec_dataset.models.dataset import SaveDatasetOptions
 

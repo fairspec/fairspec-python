@@ -3,22 +3,22 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from fairspec_metadata import get_column_properties
-from fairspec_metadata.models.column.array import ArrayColumn, ArrayColumnProperty
-from fairspec_metadata.models.column.boolean import BooleanColumn, BooleanColumnProperty
-from fairspec_metadata.models.column.date import DateColumn, DateColumnProperty
-from fairspec_metadata.models.column.date_time import (
+from fairspec_metadata import ArrayColumn, ArrayColumnProperty
+from fairspec_metadata import BooleanColumn, BooleanColumnProperty
+from fairspec_metadata import DateColumn, DateColumnProperty
+from fairspec_metadata import (
     DateTimeColumn,
     DateTimeColumnProperty,
 )
-from fairspec_metadata.models.column.integer import IntegerColumn, IntegerColumnProperty
-from fairspec_metadata.models.column.number import NumberColumn, NumberColumnProperty
-from fairspec_metadata.models.column.object import ObjectColumn, ObjectColumnProperty
-from fairspec_metadata.models.column.string import StringColumn, StringColumnProperty
-from fairspec_metadata.models.column.time import TimeColumn, TimeColumnProperty
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import IntegerColumn, IntegerColumnProperty
+from fairspec_metadata import NumberColumn, NumberColumnProperty
+from fairspec_metadata import ObjectColumn, ObjectColumnProperty
+from fairspec_metadata import StringColumn, StringColumnProperty
+from fairspec_metadata import TimeColumn, TimeColumnProperty
+from fairspec_metadata import TableSchema
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.column.column import Column
+    from fairspec_metadata import Column
 
     from fairspec_dataset.plugins.ckan.models.field import CkanField
     from fairspec_dataset.plugins.ckan.models.schema import CkanSchema

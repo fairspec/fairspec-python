@@ -13,9 +13,9 @@ from fairspec_dataset.actions.stream.load import load_file_stream
 from fairspec_dataset.plugins.github.services.github import make_github_api_request
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
+    from fairspec_metadata import Resource
 
 
 def save_dataset_to_github(

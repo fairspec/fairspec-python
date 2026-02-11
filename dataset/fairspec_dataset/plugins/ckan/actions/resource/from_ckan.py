@@ -3,14 +3,16 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.path.general import get_file_name
-from fairspec_metadata.models.datacite.common import DateType, DescriptionType
-from fairspec_metadata.models.datacite.date import DataciteDate
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.integrity import Integrity, IntegrityType
-from fairspec_metadata.models.resource import Resource
+from fairspec_metadata import get_file_name
+from fairspec_metadata import DateType, DescriptionType
+from fairspec_metadata import DataciteDate
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Integrity, IntegrityType
+from fairspec_metadata import Resource
 
-from fairspec_dataset.plugins.ckan.actions.table_schema.from_ckan import convert_table_schema_from_ckan
+from fairspec_dataset.plugins.ckan.actions.table_schema.from_ckan import (
+    convert_table_schema_from_ckan,
+)
 
 if TYPE_CHECKING:
     from fairspec_dataset.plugins.ckan.models.resource import CkanResource
@@ -20,7 +22,12 @@ def convert_resource_from_ckan(ckan_resource: CkanResource) -> Resource:
     name = _convert_name(ckan_resource.name) if ckan_resource.name else None
 
     descriptions = (
-        [DataciteDescription(description=ckan_resource.description, descriptionType=DescriptionType.Abstract)]
+        [
+            DataciteDescription(
+                description=ckan_resource.description,
+                descriptionType=DescriptionType.Abstract,
+            )
+        ]
         if ckan_resource.description
         else None
     )
@@ -37,7 +44,9 @@ def convert_resource_from_ckan(ckan_resource: CkanResource) -> Resource:
     if ckan_resource.created:
         dates.append(DataciteDate(date=ckan_resource.created, dateType=DateType.Created))
     if ckan_resource.last_modified:
-        dates.append(DataciteDate(date=ckan_resource.last_modified, dateType=DateType.Updated))
+        dates.append(
+            DataciteDate(date=ckan_resource.last_modified, dateType=DateType.Updated)
+        )
 
     table_schema = (
         convert_table_schema_from_ckan(ckan_resource.schema_)

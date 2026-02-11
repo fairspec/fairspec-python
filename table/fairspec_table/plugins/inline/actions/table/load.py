@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import polars as pl
 from fairspec_metadata import get_data_records, resolve_table_schema
-from fairspec_metadata.models.resource import Resource
+from fairspec_metadata import Resource
 
 from fairspec_table.actions.table.normalize import normalize_table
 from fairspec_table.actions.table_schema.infer import infer_table_schema_from_table

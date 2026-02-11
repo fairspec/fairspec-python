@@ -39,9 +39,7 @@ def validate_dataset_descriptor(
     normalized: Dataset | None = None
     if report.valid:
         # Valid -> we can cast
-        normalized = normalize_dataset(
-            Dataset(**descriptor), basepath=basepath
-        )
+        normalized = normalize_dataset(Dataset(**descriptor), basepath=basepath)
 
     if normalized:
         for index, resource in enumerate(normalized.resources or []):

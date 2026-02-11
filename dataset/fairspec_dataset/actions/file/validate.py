@@ -8,12 +8,12 @@ from fairspec_metadata import (
     TextualError,
     create_report,
 )
-from fairspec_metadata.models.error.error import FairspecError
+from fairspec_metadata import FairspecError
 
 from .infer import infer_hash, infer_textual
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Resource
 
 
 def validate_file(resource: Resource) -> Report:

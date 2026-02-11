@@ -10,7 +10,7 @@ from fairspec_dataset.plugins.ckan.services.ckan import make_ckan_api_request
 from .from_ckan import convert_dataset_from_ckan
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 def load_dataset_from_ckan(

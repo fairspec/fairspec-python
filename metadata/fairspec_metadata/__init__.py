@@ -74,7 +74,10 @@ from .actions.table_schema.validate import (
     validate_table_schema,
 )
 from .models.catalog import Catalog, CatalogDataset
-from .models.datacite.alternate_identifier import AlternateIdentifier, AlternateIdentifiers
+from .models.datacite.alternate_identifier import (
+    AlternateIdentifier,
+    AlternateIdentifiers,
+)
 from .models.datacite.common import (
     ContributorType,
     ContentTypeGeneral,
@@ -91,7 +94,12 @@ from .models.datacite.common import (
 )
 from .models.datacite.content_type import ContentTypes
 from .models.datacite.contributor import Contributor, Contributors
-from .models.datacite.creator import Creator, CreatorAffiliation, CreatorNameIdentifier, Creators
+from .models.datacite.creator import (
+    Creator,
+    CreatorAffiliation,
+    CreatorNameIdentifier,
+    Creators,
+)
 from .models.datacite.date import DataciteDate, DateValue, Dates
 from .models.datacite.description import DataciteDescription, Descriptions
 from .models.datacite.formats import Formats
@@ -107,7 +115,11 @@ from .models.datacite.identifier import Doi, DoiPrefix, DoiSuffix
 from .models.datacite.language import Language
 from .models.datacite.publication_year import PublicationYear
 from .models.datacite.publisher import Publisher
-from .models.datacite.related_identifier import RelatedIdentifier, RelatedIdentifiers, RelatedObject
+from .models.datacite.related_identifier import (
+    RelatedIdentifier,
+    RelatedIdentifiers,
+    RelatedObject,
+)
 from .models.datacite.related_item import RelatedItem, RelatedItemIdentifier, RelatedItems
 from .models.datacite.rights import Rights, RightsList
 from .models.datacite.size import Sizes
@@ -121,7 +133,9 @@ from .models.column.boolean import BooleanColumn, BooleanColumnProperty
 from .models.column.categorical import (
     CategoricalColumn,
     IntegerCategoricalColumnProperty,
+    IntegerCategoryItem,
     StringCategoricalColumnProperty,
+    StringCategoryItem,
 )
 from .models.column.column import Column, ColumnProperty, ColumnType
 from .models.column.date import DateColumn, DateColumnProperty
@@ -389,6 +403,7 @@ __all__ = [
     "HexColumnProperty",
     "Integrity",
     "IntegerCategoricalColumnProperty",
+    "IntegerCategoryItem",
     "IntegerColumn",
     "IntegerColumnProperty",
     "IntegrityError",
@@ -445,6 +460,7 @@ __all__ = [
     "Sizes",
     "SqliteFileDialect",
     "StringCategoricalColumnProperty",
+    "StringCategoryItem",
     "StringColumn",
     "StringColumnProperty",
     "Subject",

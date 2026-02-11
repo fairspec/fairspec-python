@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import polars as pl
 from fairspec_metadata import get_columns
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import TableSchema
 
 from fairspec_table.actions.column.denormalize import denormalize_column
 from fairspec_table.helpers.schema import get_polars_schema

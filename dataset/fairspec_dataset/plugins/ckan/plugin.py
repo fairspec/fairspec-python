@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.path.general import get_is_remote_path
+from fairspec_metadata import get_is_remote_path
 
 from fairspec_dataset.plugin import DatasetPlugin
 from .actions.dataset.load import load_dataset_from_ckan
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 class CkanPlugin(DatasetPlugin):

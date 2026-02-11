@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import cast
 
 from fairspec_metadata import get_base_property_type
-from fairspec_metadata.models.column.column import Column
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import Column
+from fairspec_metadata import TableSchema
 
 
 def merge_missing_values(column: Column, table_schema: TableSchema) -> Column:

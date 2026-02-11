@@ -2,16 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_metadata.actions.dataset.load import load_dataset_descriptor
-from fairspec_metadata.actions.dataset.save import save_dataset_descriptor
-from fairspec_metadata.actions.path.general import get_file_extension, get_is_remote_path
+from fairspec_metadata import load_dataset_descriptor
+from fairspec_metadata import save_dataset_descriptor
+from fairspec_metadata import get_file_extension, get_is_remote_path
 
 from fairspec_dataset.models.dataset import SaveDatasetResult
 from fairspec_dataset.plugin import DatasetPlugin
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
 
     from fairspec_dataset.models.dataset import SaveDatasetOptions
 

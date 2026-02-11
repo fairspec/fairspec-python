@@ -9,7 +9,7 @@ from fairspec_table.plugin import TablePlugin
 from .actions.table.load import load_inline_table
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Resource
 
     from fairspec_table.models.table import LoadTableOptions, Table
 

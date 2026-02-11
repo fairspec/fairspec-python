@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal
 
 import polars as pl
-from fairspec_metadata.models.error.row import RowPrimaryKeyError, RowUniqueKeyError
+from fairspec_metadata import RowPrimaryKeyError, RowUniqueKeyError
 
 if TYPE_CHECKING:
     from fairspec_table.models import SchemaMapping

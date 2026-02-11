@@ -10,8 +10,8 @@ from fairspec_metadata import (
 )
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Descriptor
+    from fairspec_metadata import Resource
 
 
 class SaveFileProps:

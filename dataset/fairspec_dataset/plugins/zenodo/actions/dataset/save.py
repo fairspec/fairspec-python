@@ -17,9 +17,9 @@ from fairspec_dataset.plugins.zenodo.services.zenodo import make_zenodo_api_requ
 from .to_zenodo import convert_dataset_to_zenodo
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.dataset import Dataset
-    from fairspec_metadata.models.descriptor import Descriptor
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Dataset
+    from fairspec_metadata import Descriptor
+    from fairspec_metadata import Resource
 
 
 def save_dataset_to_zenodo(

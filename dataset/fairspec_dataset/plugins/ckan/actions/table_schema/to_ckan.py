@@ -8,8 +8,8 @@ from fairspec_dataset.plugins.ckan.models.field import CkanField, CkanFieldInfo
 from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.column.column import Column
-    from fairspec_metadata.models.table_schema import TableSchema
+    from fairspec_metadata import Column
+    from fairspec_metadata import TableSchema
 
 
 def convert_table_schema_to_ckan(table_schema: TableSchema) -> CkanSchema:

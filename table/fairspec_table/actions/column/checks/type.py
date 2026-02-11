@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import polars as pl
 from fairspec_metadata import CellTypeError
-from fairspec_metadata.models.column.column import Column, ColumnType
+from fairspec_metadata import Column, ColumnType
 
 from fairspec_table.models import CellMapping
 

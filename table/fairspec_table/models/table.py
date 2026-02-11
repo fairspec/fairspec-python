@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import polars as pl
-from fairspec_dataset.models.file_dialect import InferFileDialectOptions
+from fairspec_dataset import InferFileDialectOptions
 
 from .schema import InferTableSchemaOptions, TableSchemaOptions
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import TableSchema
 from pydantic import BaseModel
 
 from .column import PolarsColumn

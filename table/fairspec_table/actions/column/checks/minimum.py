@@ -5,7 +5,7 @@ from typing import Callable
 
 import polars as pl
 from fairspec_metadata import CellExclusiveMinimumError, CellMinimumError
-from fairspec_metadata.models.column.column import Column
+from fairspec_metadata import Column
 
 from fairspec_table.models import CellMapping
 

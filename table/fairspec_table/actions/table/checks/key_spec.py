@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import polars as pl
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
-from fairspec_metadata.models.error.row import RowPrimaryKeyError, RowUniqueKeyError
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import StringColumnProperty
+from fairspec_metadata import RowPrimaryKeyError, RowUniqueKeyError
+from fairspec_metadata import TableSchema
 
 from fairspec_table.actions.table.inspect import inspect_table
 

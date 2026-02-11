@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 def convert_resource_to_zenodo(resource: Descriptor) -> dict:

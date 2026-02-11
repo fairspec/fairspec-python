@@ -1,5 +1,5 @@
 from fairspec_metadata import Integrity, Resource
-from fairspec_metadata.models.integrity import IntegrityType
+from fairspec_metadata import IntegrityType
 
 from fairspec_dataset.actions.file.temp import write_temp_file
 

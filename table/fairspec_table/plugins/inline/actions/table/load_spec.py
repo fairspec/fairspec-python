@@ -4,10 +4,10 @@ from datetime import datetime
 
 import polars as pl
 import pytest
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
-from fairspec_metadata.models.resource import Resource
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import StringColumnProperty
+from fairspec_metadata import Resource
+from fairspec_metadata import TableSchema
 
 from .load import load_inline_table
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fairspec_metadata import load_dataset_descriptor
-from fairspec_metadata.models.dataset import Dataset
+from fairspec_metadata import Dataset
 
 
 def merge_datasets(

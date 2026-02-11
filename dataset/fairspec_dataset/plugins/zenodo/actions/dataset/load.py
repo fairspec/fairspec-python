@@ -10,7 +10,7 @@ from fairspec_dataset.plugins.zenodo.services.zenodo import make_zenodo_api_requ
 from .from_zenodo import convert_dataset_from_zenodo
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Descriptor
 
 
 def load_dataset_from_zenodo(

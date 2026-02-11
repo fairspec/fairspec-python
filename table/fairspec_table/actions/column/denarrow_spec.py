@@ -4,7 +4,7 @@ import polars as pl
 import pytest
 
 from fairspec_metadata import CategoricalColumn
-from fairspec_metadata.models.column.categorical import (
+from fairspec_metadata import (
     IntegerCategoricalColumnProperty,
     IntegerCategoryItem,
     StringCategoricalColumnProperty,

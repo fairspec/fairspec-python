@@ -4,9 +4,9 @@ import polars as pl
 import pytest
 
 from fairspec_metadata import IntegerColumn, NumberColumn, StringColumn
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.number import NumberColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import NumberColumnProperty
+from fairspec_metadata import StringColumnProperty
 
 from fairspec_table.models import ColumnMapping, DenormalizeColumnOptions, PolarsColumn
 

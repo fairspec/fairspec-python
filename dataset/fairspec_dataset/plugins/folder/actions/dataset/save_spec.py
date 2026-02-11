@@ -2,15 +2,15 @@ import json
 import os
 
 import pytest
-from fairspec_metadata.models.datacite.common import DescriptionType
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.datacite.title import Title
-from fairspec_metadata.models.dataset import Dataset
-from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
-from fairspec_metadata.models.resource import Resource
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import DescriptionType
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Title
+from fairspec_metadata import Dataset
+from fairspec_metadata import CsvFileDialect
+from fairspec_metadata import Resource
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import StringColumnProperty
+from fairspec_metadata import TableSchema
 
 from fairspec_dataset.actions.file.temp import get_temp_file_path, write_temp_file
 from .load import load_dataset_from_folder
@@ -30,7 +30,11 @@ class TestSaveDatasetToFolder:
         folder = get_temp_file_path()
         dataset = Dataset(
             titles=[Title(title="Test Dataset")],
-            descriptions=[DataciteDescription(description="A test", descriptionType=DescriptionType.Abstract)],
+            descriptions=[
+                DataciteDescription(
+                    description="A test", descriptionType=DescriptionType.Abstract
+                )
+            ],
             version="1.0",
             resources=[Resource(name="test_res", data=[{"id": 1}])],
         )
@@ -41,7 +45,9 @@ class TestSaveDatasetToFolder:
 
     def test_saves_dataset_with_inline_data_resources(self):
         folder = get_temp_file_path()
-        dataset = Dataset(resources=[Resource(name="test_res", data=[{"id": 1}, {"id": 2}])])
+        dataset = Dataset(
+            resources=[Resource(name="test_res", data=[{"id": 1}, {"id": 2}])]
+        )
 
         save_dataset_to_folder(dataset, folder_path=folder)
 
@@ -112,7 +118,11 @@ class TestSaveDatasetToFolder:
         folder = get_temp_file_path()
         dataset = Dataset(
             titles=[Title(title="My Dataset")],
-            descriptions=[DataciteDescription(description="Desc", descriptionType=DescriptionType.Abstract)],
+            descriptions=[
+                DataciteDescription(
+                    description="Desc", descriptionType=DescriptionType.Abstract
+                )
+            ],
             resources=[Resource(name="test_res", data=[{"id": 1}])],
         )
         save_dataset_to_folder(dataset, folder_path=folder)

@@ -8,7 +8,7 @@ from fairspec_dataset.actions.file.copy import copy_file
 from fairspec_dataset.actions.file.temp import get_temp_file_path
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.resource import Resource
+    from fairspec_metadata import Resource
 
 
 def prefetch_files(

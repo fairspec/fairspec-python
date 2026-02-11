@@ -4,10 +4,10 @@ import json
 from typing import cast
 
 import polars as pl
-from fairspec_metadata.models.column.column import ColumnType
-from fairspec_metadata.models.error.cell import CellError
-from fairspec_metadata.models.error.column import ColumnTypeError
-from fairspec_metadata.models.error.table import TableError
+from fairspec_metadata import ColumnType
+from fairspec_metadata import CellError
+from fairspec_metadata import ColumnTypeError
+from fairspec_metadata import TableError
 from pydantic import TypeAdapter
 
 from fairspec_table.models import CellMapping, ColumnMapping

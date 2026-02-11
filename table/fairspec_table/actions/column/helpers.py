@@ -17,8 +17,8 @@ from fairspec_metadata import (
     WktColumn,
     inspect_json,
 )
-from fairspec_metadata.models.column.column import ColumnType
-from fairspec_metadata.models.error.cell import CellError
+from fairspec_metadata import ColumnType
+from fairspec_metadata import CellError
 
 from fairspec_table.helpers import get_is_object
 from fairspec_table.models import Table

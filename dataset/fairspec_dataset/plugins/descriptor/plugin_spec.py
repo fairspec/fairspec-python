@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
-from fairspec_metadata.models.dataset import Dataset
-from fairspec_metadata.models.resource import Resource
+from fairspec_metadata import Dataset
+from fairspec_metadata import Resource
 
 from fairspec_dataset.models.dataset import SaveDatasetOptions
 

@@ -6,14 +6,14 @@ from typing import TYPE_CHECKING, cast
 
 import polars as pl
 from fairspec_metadata import create_column_from_property, get_column_properties
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import TableSchema
 
 from fairspec_table.helpers.schema import get_polars_schema
 from fairspec_table.models.schema import InferTableSchemaOptions
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.column.column import Column
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata import Column
+    from fairspec_metadata import Descriptor
 
     from fairspec_table.models.table import Table
 

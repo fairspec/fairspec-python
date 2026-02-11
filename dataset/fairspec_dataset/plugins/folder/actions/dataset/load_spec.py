@@ -1,15 +1,15 @@
 import os
 
 import pytest
-from fairspec_metadata.models.datacite.common import DescriptionType
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.datacite.title import Title
-from fairspec_metadata.models.dataset import Dataset
-from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
-from fairspec_metadata.models.resource import Resource
-from fairspec_metadata.models.column.integer import IntegerColumnProperty
-from fairspec_metadata.models.column.string import StringColumnProperty
-from fairspec_metadata.models.table_schema import TableSchema
+from fairspec_metadata import DescriptionType
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Title
+from fairspec_metadata import Dataset
+from fairspec_metadata import CsvFileDialect
+from fairspec_metadata import Resource
+from fairspec_metadata import IntegerColumnProperty
+from fairspec_metadata import StringColumnProperty
+from fairspec_metadata import TableSchema
 
 from fairspec_dataset.actions.file.temp import get_temp_file_path, write_temp_file
 from fairspec_dataset.actions.folder.temp import get_temp_folder_path
@@ -32,7 +32,11 @@ class TestLoadDatasetFromFolder:
         folder = get_temp_file_path()
         dataset = Dataset(
             titles=[Title(title="Test Dataset")],
-            descriptions=[DataciteDescription(description="A test", descriptionType=DescriptionType.Abstract)],
+            descriptions=[
+                DataciteDescription(
+                    description="A test", descriptionType=DescriptionType.Abstract
+                )
+            ],
             version="1.0",
             resources=[Resource(name="test_res", data=[{"id": 1}])],
         )

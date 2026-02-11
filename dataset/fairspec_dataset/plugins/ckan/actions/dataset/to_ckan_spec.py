@@ -3,18 +3,18 @@ from __future__ import annotations
 import json
 import os
 
-from fairspec_metadata.models.datacite.common import ContributorType, CreatorNameType, DateType, DescriptionType
-from fairspec_metadata.models.datacite.contributor import Contributor
-from fairspec_metadata.models.datacite.creator import Creator
-from fairspec_metadata.models.datacite.date import DataciteDate
-from fairspec_metadata.models.datacite.description import DataciteDescription
-from fairspec_metadata.models.datacite.rights import Rights
-from fairspec_metadata.models.datacite.subject import Subject
-from fairspec_metadata.models.datacite.title import Title
-from fairspec_metadata.models.dataset import Dataset
-from fairspec_metadata.models.integrity import Integrity, IntegrityType
-from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
-from fairspec_metadata.models.resource import Resource
+from fairspec_metadata import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata import Contributor
+from fairspec_metadata import Creator
+from fairspec_metadata import DataciteDate
+from fairspec_metadata import DataciteDescription
+from fairspec_metadata import Rights
+from fairspec_metadata import Subject
+from fairspec_metadata import Title
+from fairspec_metadata import Dataset
+from fairspec_metadata import Integrity, IntegrityType
+from fairspec_metadata import CsvFileDialect
+from fairspec_metadata import Resource
 
 from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 from .from_ckan import convert_dataset_from_ckan
