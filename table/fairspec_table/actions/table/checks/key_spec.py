@@ -47,13 +47,8 @@ class TestInspectTableRowUnique:
 
         pk_errors = [e for e in errors if e.type == "row/primaryKey"]
         assert len(pk_errors) == 1
-        assert errors == [
-            {
-                "type": "row/primaryKey",
-                "rowNumber": 4,
-                "columnNames": ["id"],
-            }
-        ]
+        assert pk_errors[0].rowNumber == 4
+        assert pk_errors[0].columnNames == ["id"]
 
     def test_should_not_error_when_all_rows_are_unique_for_unique_key(self):
         table = pl.DataFrame(
@@ -107,18 +102,10 @@ class TestInspectTableRowUnique:
 
         uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
         assert len(uk_errors) == 2
-        assert errors == [
-            {
-                "type": "row/uniqueKey",
-                "rowNumber": 3,
-                "columnNames": ["email"],
-            },
-            {
-                "type": "row/uniqueKey",
-                "rowNumber": 5,
-                "columnNames": ["email"],
-            },
-        ]
+        assert uk_errors[0].rowNumber == 3
+        assert uk_errors[0].columnNames == ["email"]
+        assert uk_errors[1].rowNumber == 5
+        assert uk_errors[1].columnNames == ["email"]
 
     def test_should_handle_composite_unique_keys(self):
         table = pl.DataFrame(
@@ -142,13 +129,8 @@ class TestInspectTableRowUnique:
 
         uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
         assert len(uk_errors) == 1
-        assert errors == [
-            {
-                "type": "row/uniqueKey",
-                "rowNumber": 4,
-                "columnNames": ["category", "subcategory"],
-            }
-        ]
+        assert uk_errors[0].rowNumber == 4
+        assert uk_errors[0].columnNames == ["category", "subcategory"]
 
     def test_should_handle_both_primary_key_and_unique_keys(self):
         table = pl.DataFrame(
@@ -176,12 +158,14 @@ class TestInspectTableRowUnique:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        assert {"type": "row/primaryKey", "rowNumber": 4, "columnNames": ["id"]} in errors
-        assert {
-            "type": "row/uniqueKey",
-            "rowNumber": 5,
-            "columnNames": ["email"],
-        } in errors
+        pk_errors = [e for e in errors if e.type == "row/primaryKey"]
+        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
+        assert len(pk_errors) == 1
+        assert pk_errors[0].rowNumber == 4
+        assert pk_errors[0].columnNames == ["id"]
+        assert len(uk_errors) == 1
+        assert uk_errors[0].rowNumber == 5
+        assert uk_errors[0].columnNames == ["email"]
 
     def test_should_handle_null_values_in_unique_keys_correctly(self):
         table = pl.DataFrame(
@@ -202,9 +186,15 @@ class TestInspectTableRowUnique:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        assert {"type": "row/uniqueKey", "rowNumber": 6, "columnNames": ["id"]} in errors
-        assert {
-            "type": "row/uniqueKey",
-            "rowNumber": 6,
-            "columnNames": ["id", "name"],
-        } in errors
+        assert any(
+            e.type == "row/uniqueKey"
+            and e.rowNumber == 6
+            and e.columnNames == ["id"]
+            for e in errors
+        )
+        assert any(
+            e.type == "row/uniqueKey"
+            and e.rowNumber == 6
+            and e.columnNames == ["id", "name"]
+            for e in errors
+        )

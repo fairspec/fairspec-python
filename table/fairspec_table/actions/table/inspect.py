@@ -5,7 +5,10 @@ import math
 
 import polars as pl
 from fairspec_metadata import TableError, get_columns
+from fairspec_metadata.models.error.column import ColumnMissingError
+from fairspec_metadata.models.error.row import RowError
 from fairspec_metadata.models.table_schema import TableSchema
+from pydantic import TypeAdapter
 
 from fairspec_table.actions.column.inspect import inspect_column
 from fairspec_table.helpers.schema import get_polars_schema
@@ -56,7 +59,7 @@ def _inspect_columns(
 
         if not polars_column:
             errors.append(
-                {"type": "column/missing", "columnName": column.name}  # type: ignore[arg-type]
+                ColumnMissingError(type="column/missing", columnName=column.name)
             )
             continue
 
@@ -94,11 +97,11 @@ def _inspect_rows(
             .collect()
         )
 
+        _row_error_adapter = TypeAdapter(RowError)
         for row in row_check_frame.to_dicts():
-            error_template = json.loads(row[ERROR_COLUMN_NAME])
-            errors.append(
-                {**error_template, "rowNumber": row[NUMBER_COLUMN_NAME]}  # type: ignore[arg-type]
-            )
+            error_dict = json.loads(row[ERROR_COLUMN_NAME])
+            error_dict["rowNumber"] = row[NUMBER_COLUMN_NAME]
+            errors.append(_row_error_adapter.validate_python(error_dict))
 
         if len(errors) >= max_errors:
             break

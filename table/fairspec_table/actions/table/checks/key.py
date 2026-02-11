@@ -5,10 +5,9 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal
 
 import polars as pl
+from fairspec_metadata.models.error.row import RowPrimaryKeyError, RowUniqueKeyError
 
 if TYPE_CHECKING:
-    from fairspec_metadata import RowPrimaryKeyError, RowUniqueKeyError
-
     from fairspec_table.models import SchemaMapping
 
 
@@ -43,13 +42,17 @@ def _create_row_key_check(
         & pl.concat_list(key_columns).list.min().is_not_null()
     )
 
-    error_template: RowPrimaryKeyError | RowUniqueKeyError = {  # type: ignore[assignment]
-        "type": "row/primaryKey" if key_type == "primary" else "row/uniqueKey",
-        "columnNames": key_columns,
-        "rowNumber": 0,
-    }
+    error_model: RowPrimaryKeyError | RowUniqueKeyError
+    if key_type == "primary":
+        error_model = RowPrimaryKeyError(
+            type="row/primaryKey", columnNames=key_columns, rowNumber=0
+        )
+    else:
+        error_model = RowUniqueKeyError(
+            type="row/uniqueKey", columnNames=key_columns, rowNumber=0
+        )
 
     return RowKeyCheck(
         is_error_expr=is_error_expr,
-        error_template=json.dumps(error_template),
+        error_template=error_model.model_dump_json(),
     )

@@ -3,6 +3,7 @@ from __future__ import annotations
 import polars as pl
 
 from fairspec_metadata import ArrayColumn, ArrayColumnProperty
+from fairspec_metadata.models.error.cell import CellJsonError, CellTypeError
 
 from .array import inspect_array_column
 
@@ -71,7 +72,7 @@ class TestInspectArrayColumn:
         errors = inspect_array_column(column, table)
 
         assert len(errors) == 1
-        assert errors[0].type == "cell/type"
+        assert isinstance(errors[0], CellTypeError)
         assert errors[0].columnName == "data"
         assert errors[0].columnType == "array"
         assert errors[0].rowNumber == 2
@@ -203,7 +204,7 @@ class TestInspectArrayColumn:
 
         errors = inspect_array_column(column, table)
 
-        json_errors = [e for e in errors if e.type == "cell/json"]
+        json_errors = [e for e in errors if isinstance(e, CellJsonError)]
         assert len(json_errors) == 3
         assert json_errors[0].rowNumber == 2
         assert json_errors[0].cell == '["not","numbers"]'
@@ -244,7 +245,7 @@ class TestInspectArrayColumn:
         errors = inspect_array_column(column, table)
 
         assert len(errors) == 1
-        assert errors[0].type == "cell/json"
+        assert isinstance(errors[0], CellJsonError)
         assert errors[0].rowNumber == 2
         assert errors[0].cell == '[{"name":"Bob","age":"invalid"}]'
         assert errors[0].message == "'invalid' is not of type 'number'"
@@ -271,7 +272,7 @@ class TestInspectArrayColumn:
         errors = inspect_array_column(column, table)
 
         assert len(errors) == 1
-        assert errors[0].type == "cell/json"
+        assert isinstance(errors[0], CellJsonError)
         assert errors[0].rowNumber == 2
         assert errors[0].cell == '["duplicate","duplicate"]'
         assert "has non-unique elements" in errors[0].message

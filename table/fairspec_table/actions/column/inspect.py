@@ -5,8 +5,10 @@ from typing import cast
 
 import polars as pl
 from fairspec_metadata.models.column.column import ColumnType
+from fairspec_metadata.models.error.cell import CellError
+from fairspec_metadata.models.error.column import ColumnTypeError
 from fairspec_metadata.models.error.table import TableError
-from pydantic import BaseModel
+from pydantic import TypeAdapter
 
 from fairspec_table.models import CellMapping, ColumnMapping
 from fairspec_table.models.table import Table
@@ -78,7 +80,7 @@ def _inspect_type(mapping: ColumnMapping) -> list[TableError]:
 
     compat_types: list[str] = []
     for dtype_cls, types in COMPAT_MAPPING.items():
-        if isinstance(mapping.source.type, dtype_cls):
+        if issubclass(mapping.source.type, dtype_cls):
             compat_types = types
             break
 
@@ -87,14 +89,14 @@ def _inspect_type(mapping: ColumnMapping) -> list[TableError]:
 
     if not is_compat:
         errors.append(
-            {  # type: ignore[arg-type]
-                "type": "column/type",
-                "columnName": mapping.target.name,
-                "expectedColumnType": str(ColumnType(mapping.target.type)),
-                "actualColumnType": str(
-                    ColumnType(compat_types[0] if compat_types else "unknown")
+            ColumnTypeError(
+                type="column/type",
+                columnName=mapping.target.name,
+                expectedColumnType=ColumnType(mapping.target.type),
+                actualColumnType=ColumnType(
+                    compat_types[0] if compat_types else "unknown"
                 ),
-            }
+            )
         )
 
     return errors
@@ -109,19 +111,19 @@ def _inspect_cells(
     target = mapping.target
     match target.type:
         case "duration":
-            return _to_dicts(inspect_duration_column(target, table))  # type: ignore[arg-type]
+            return inspect_duration_column(target, table)  # type: ignore[arg-type, return-type]
         case "wkb":
-            return _to_dicts(inspect_wkb_column(target, table))  # type: ignore[arg-type]
+            return inspect_wkb_column(target, table)  # type: ignore[arg-type, return-type]
         case "wkt":
-            return _to_dicts(inspect_wkt_column(target, table))  # type: ignore[arg-type]
+            return inspect_wkt_column(target, table)  # type: ignore[arg-type, return-type]
         case "array":
-            return _to_dicts(inspect_array_column(target, table))  # type: ignore[arg-type]
+            return inspect_array_column(target, table)  # type: ignore[arg-type, return-type]
         case "object":
-            return _to_dicts(inspect_object_column(target, table))  # type: ignore[arg-type]
+            return inspect_object_column(target, table)  # type: ignore[arg-type, return-type]
         case "geojson":
-            return _to_dicts(inspect_geojson_column(target, table))  # type: ignore[arg-type]
+            return inspect_geojson_column(target, table)  # type: ignore[arg-type, return-type]
         case "topojson":
-            return _to_dicts(inspect_topojson_column(target, table))  # type: ignore[arg-type]
+            return inspect_topojson_column(target, table)  # type: ignore[arg-type, return-type]
         case _:
             return _inspect_cells_in_polars(mapping, table, max_errors=max_errors)
 
@@ -181,14 +183,11 @@ def _inspect_cells_in_polars(
         .collect()
     )
 
+    _cell_error_adapter = TypeAdapter(CellError)
     for row in cast(pl.DataFrame, column_check_frame).to_dicts():
-        error_template = json.loads(row["error"])
-        error_template["rowNumber"] = row[NUMBER_COLUMN_NAME]
-        error_template["cell"] = str(row["source"] if row["source"] is not None else "")
-        errors.append(error_template)
+        error_dict = json.loads(row["error"])
+        error_dict["rowNumber"] = row[NUMBER_COLUMN_NAME]
+        error_dict["cell"] = str(row["source"] if row["source"] is not None else "")
+        errors.append(_cell_error_adapter.validate_python(error_dict))
 
     return errors
-
-
-def _to_dicts(errors: list[BaseModel]) -> list[TableError]:
-    return [e.model_dump(by_alias=True, exclude_none=True) for e in errors]

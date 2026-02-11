@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import polars as pl
+from fairspec_metadata.models.error.cell import CellTypeError
+from fairspec_metadata.models.error.column import ColumnMissingError, ColumnTypeError
 from fairspec_metadata.models.table_schema import TableSchema
 
 from fairspec_table.actions.table.inspect import inspect_table
@@ -13,7 +15,9 @@ class TestInspectColumnName:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert {"type": "column/missing", "columnName": "id"} in errors
+        assert len(errors) == 1
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "id"
 
     def test_should_not_error_when_column_names_match(self):
         table = pl.DataFrame({"id": [1, 2, 3]}).lazy()
@@ -30,7 +34,8 @@ class TestInspectColumnName:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 1
-        assert {"type": "column/missing", "columnName": "id"} in errors
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "id"
 
 
 class TestInspectColumnType:
@@ -41,12 +46,10 @@ class TestInspectColumnType:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 1
-        assert {
-            "type": "column/type",
-            "columnName": "id",
-            "expectedColumnType": "integer",
-            "actualColumnType": "boolean",
-        } in errors
+        assert isinstance(errors[0], ColumnTypeError)
+        assert errors[0].columnName == "id"
+        assert errors[0].expectedColumnType == "integer"
+        assert errors[0].actualColumnType == "boolean"
 
     def test_should_not_error_when_column_types_match(self):
         table = pl.DataFrame({"id": [1, 2, 3]}).lazy()
@@ -88,14 +91,11 @@ class TestInspectColumnNamedNumber:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "bad"
-            and e.get("columnName") == "number"
-            and e.get("columnType") == "integer"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
+        cell_errors = [e for e in errors if isinstance(e, CellTypeError)]
+        assert len(cell_errors) == 1
+        assert cell_errors[0].cell == "bad"
+        assert cell_errors[0].columnName == "number"
+        assert cell_errors[0].rowNumber == 2
 
 
 class TestInspectCellTypes:
@@ -106,22 +106,14 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "bad"
-            and e.get("columnName") == "id"
-            and e.get("columnType") == "integer"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "4x"
-            and e.get("columnName") == "id"
-            and e.get("columnType") == "integer"
-            and e.get("rowNumber") == 4
-            for e in errors
-        )
+        assert isinstance(errors[0], CellTypeError)
+        assert errors[0].cell == "bad"
+        assert errors[0].columnName == "id"
+        assert errors[0].columnType == "integer"
+        assert errors[0].rowNumber == 2
+        assert isinstance(errors[1], CellTypeError)
+        assert errors[1].cell == "4x"
+        assert errors[1].rowNumber == 4
 
     def test_should_validate_string_to_number_conversion_errors(self):
         table = pl.DataFrame({"price": ["10.5", "twenty", "30.75", "$40"]}).lazy()
@@ -130,22 +122,14 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "twenty"
-            and e.get("columnName") == "price"
-            and e.get("columnType") == "number"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "$40"
-            and e.get("columnName") == "price"
-            and e.get("columnType") == "number"
-            and e.get("rowNumber") == 4
-            for e in errors
-        )
+        assert isinstance(errors[0], CellTypeError)
+        assert errors[0].cell == "twenty"
+        assert errors[0].columnName == "price"
+        assert errors[0].columnType == "number"
+        assert errors[0].rowNumber == 2
+        assert isinstance(errors[1], CellTypeError)
+        assert errors[1].cell == "$40"
+        assert errors[1].rowNumber == 4
 
     def test_should_validate_string_to_boolean_conversion_errors(self):
         table = pl.DataFrame({"active": ["true", "yes", "false", "0", "1"]}).lazy()
@@ -154,14 +138,11 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 1
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "yes"
-            and e.get("columnName") == "active"
-            and e.get("columnType") == "boolean"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
+        assert isinstance(errors[0], CellTypeError)
+        assert errors[0].cell == "yes"
+        assert errors[0].columnName == "active"
+        assert errors[0].columnType == "boolean"
+        assert errors[0].rowNumber == 2
 
     def test_should_validate_string_to_date_conversion_errors(self):
         table = pl.DataFrame(
@@ -174,30 +155,13 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 3
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "Jan 15, 2023"
-            and e.get("columnName") == "created"
-            and e.get("columnType") == "date"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "20230115"
-            and e.get("columnName") == "created"
-            and e.get("columnType") == "date"
-            and e.get("rowNumber") == 3
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "not-a-date"
-            and e.get("columnName") == "created"
-            and e.get("columnType") == "date"
-            and e.get("rowNumber") == 4
-            for e in errors
-        )
+        assert all(isinstance(e, CellTypeError) for e in errors)
+        assert errors[0].cell == "Jan 15, 2023"
+        assert errors[0].rowNumber == 2
+        assert errors[1].cell == "20230115"
+        assert errors[1].rowNumber == 3
+        assert errors[2].cell == "not-a-date"
+        assert errors[2].rowNumber == 4
 
     def test_should_validate_string_to_time_conversion_errors(self):
         table = pl.DataFrame({"time": ["14:30:00", "2:30pm", "invalid", "14h30"]}).lazy()
@@ -208,30 +172,13 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 3
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "2:30pm"
-            and e.get("columnName") == "time"
-            and e.get("columnType") == "time"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "invalid"
-            and e.get("columnName") == "time"
-            and e.get("columnType") == "time"
-            and e.get("rowNumber") == 3
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "14h30"
-            and e.get("columnName") == "time"
-            and e.get("columnType") == "time"
-            and e.get("rowNumber") == 4
-            for e in errors
-        )
+        assert all(isinstance(e, CellTypeError) for e in errors)
+        assert errors[0].cell == "2:30pm"
+        assert errors[0].rowNumber == 2
+        assert errors[1].cell == "invalid"
+        assert errors[1].rowNumber == 3
+        assert errors[2].cell == "14h30"
+        assert errors[2].rowNumber == 4
 
     def test_should_validate_string_to_datetime_conversion_errors(self):
         table = pl.DataFrame(
@@ -251,22 +198,11 @@ class TestInspectCellTypes:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) > 0
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "January 15, 2023 2:30 PM"
-            and e.get("columnName") == "timestamp"
-            and e.get("columnType") == "date-time"
-            and e.get("rowNumber") == 2
-            for e in errors
-        )
-        assert any(
-            e.get("type") == "cell/type"
-            and e.get("cell") == "not-a-datetime"
-            and e.get("columnName") == "timestamp"
-            and e.get("columnType") == "date-time"
-            and e.get("rowNumber") == 4
-            for e in errors
-        )
+        cell_errors = [e for e in errors if isinstance(e, CellTypeError)]
+        assert len(cell_errors) >= 2
+        cells = {e.cell for e in cell_errors}
+        assert "January 15, 2023 2:30 PM" in cells
+        assert "not-a-datetime" in cells
 
     def test_should_pass_validation_when_all_cells_are_valid(self):
         table = pl.DataFrame({"id": ["1", "2", "3", "4"]}).lazy()

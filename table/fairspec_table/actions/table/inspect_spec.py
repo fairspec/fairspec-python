@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 import polars as pl
+from fairspec_metadata.models.error.column import ColumnMissingError
 from fairspec_metadata.models.table_schema import TableSchema
 
 from .inspect import inspect_table
@@ -44,12 +45,9 @@ class TestInspectTable:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert errors == [
-            {
-                "type": "column/missing",
-                "columnName": "name",
-            }
-        ]
+        assert len(errors) == 1
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "name"
 
     def test_should_detect_missing_columns(self):
         table = pl.DataFrame(
@@ -68,7 +66,8 @@ class TestInspectTable:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 1
-        assert {"type": "column/missing", "columnName": "name"} in errors
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "name"
 
     def test_should_pass_when_column_names_match_regardless_of_order(self):
         table = pl.DataFrame(
@@ -107,7 +106,8 @@ class TestInspectTable:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 1
-        assert {"type": "column/missing", "columnName": "name"} in errors
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "name"
 
     @pytest.mark.skip(reason="Decide on required")
     def test_should_pass_when_non_required_columns_are_missing(self):
@@ -184,7 +184,9 @@ class TestInspectTable:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert {"type": "column/missing", "columnName": "name"} in errors
+        assert len(errors) == 1
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "name"
 
     @pytest.mark.skip(reason="Decide on required")
     def test_should_pass_when_schema_contains_all_data_columns(self):
@@ -261,7 +263,9 @@ class TestInspectTable:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert {"type": "column/missing", "columnName": "name"} in errors
+        assert len(errors) == 1
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "name"
 
     def test_should_detect_when_no_columns_match(self):
         table = pl.DataFrame(
@@ -281,5 +285,7 @@ class TestInspectTable:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        assert {"type": "column/missing", "columnName": "id"} in errors
-        assert {"type": "column/missing", "columnName": "name"} in errors
+        assert isinstance(errors[0], ColumnMissingError)
+        assert errors[0].columnName == "id"
+        assert isinstance(errors[1], ColumnMissingError)
+        assert errors[1].columnName == "name"

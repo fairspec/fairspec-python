@@ -83,7 +83,7 @@ def infer_table_schema_from_sample(
 
         col_type = (
             (column_types.get(name) if column_types else None)
-            or TYPE_MAPPING.get(type(polars_column.type))
+            or TYPE_MAPPING.get(polars_column.type)
             or "unknown"
         )
         is_nullable = False
