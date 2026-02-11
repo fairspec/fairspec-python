@@ -7,11 +7,11 @@ from fairspec_metadata.actions.path.general import get_file_name_slug
 from .data import get_data_first_path
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def infer_resource_name(
-    resource: Descriptor, *, resource_number: int | None = None
+    resource: Resource, *, resource_number: int | None = None
 ) -> str:
     first_path = get_data_first_path(resource)
 

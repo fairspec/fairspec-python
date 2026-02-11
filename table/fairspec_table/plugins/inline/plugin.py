@@ -20,8 +20,7 @@ class InlinePlugin(TablePlugin):
         resource: Resource,
         options: LoadTableOptions | None = None,
     ) -> Table | None:
-        descriptor = resource.model_dump(by_alias=True, exclude_none=True)
-        records = get_data_records(descriptor)
+        records = get_data_records(resource)
         if not records:
             return None
         return load_inline_table(resource, options)

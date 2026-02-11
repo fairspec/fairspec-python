@@ -16,8 +16,7 @@ if TYPE_CHECKING:
 def load_inline_table(
     resource: Resource, options: LoadTableOptions | None = None
 ) -> Table:
-    descriptor = resource.model_dump(by_alias=True, exclude_none=True)
-    data_records = get_data_records(descriptor)
+    data_records = get_data_records(resource)
     if not data_records:
         raise Exception("Resource data is not defined or tabular")
 

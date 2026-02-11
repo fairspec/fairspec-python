@@ -13,28 +13,28 @@ from fairspec_metadata.models.error.error import FairspecError
 from .infer import infer_hash, infer_textual
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
-def validate_file(resource: Descriptor) -> Report:
+def validate_file(resource: Resource) -> Report:
     errors: list[FairspecError] = []
 
-    if resource.get("textual"):
+    if resource.textual:
         actual_textual = infer_textual(resource)
 
         if not actual_textual:
             errors.append(TextualError(type="file/textual"))
 
-    integrity = resource.get("integrity")
+    integrity = resource.integrity
     if integrity:
-        expected_hash = integrity["hash"]
-        actual_hash = infer_hash(resource, hash_type=integrity["type"])
+        expected_hash = integrity.hash
+        actual_hash = infer_hash(resource, hash_type=integrity.type)
 
         if actual_hash != expected_hash:
             errors.append(
                 IntegrityError(
                     type="file/integrity",
-                    hashType=integrity["type"],
+                    hashType=integrity.type,
                     expectedHash=expected_hash,
                     actualHash=actual_hash or "",
                 )

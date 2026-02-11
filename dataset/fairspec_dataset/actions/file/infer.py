@@ -15,11 +15,11 @@ from fairspec_dataset.actions.stream.concat import concat_file_streams
 from fairspec_dataset.actions.stream.load import load_file_stream
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def infer_textual(
-    resource: Descriptor,
+    resource: Resource,
     *,
     sample_bytes: int = 10_000,
 ) -> bool:
@@ -51,7 +51,7 @@ def infer_textual(
 
 
 def infer_integrity(
-    resource: Descriptor,
+    resource: Resource,
     *,
     hash_type: str = "sha256",
 ) -> Integrity | None:
@@ -64,7 +64,7 @@ def infer_integrity(
 
 
 def infer_hash(
-    resource: Descriptor,
+    resource: Resource,
     *,
     hash_type: str = "sha256",
 ) -> str:
@@ -81,7 +81,7 @@ def infer_hash(
     return h.hexdigest()
 
 
-def infer_bytes(resource: Descriptor) -> int:
+def infer_bytes(resource: Resource) -> int:
     local_paths = prefetch_files(resource)
 
     total = 0

@@ -11,16 +11,17 @@ from .resolve import resolve_file_dialect
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def get_supported_file_dialect(
-    resource: Descriptor, supported_formats: list[str]
+    resource: Resource, supported_formats: list[str]
 ) -> Descriptor | BaseModel | None:
     data_path = get_data_path(resource)
     if not data_path:
         return None
 
-    resolved = resolve_file_dialect(resource.get("fileDialect"))
+    resolved = resolve_file_dialect(resource.fileDialect)
     if resolved is None:
         format = infer_file_dialect_format(resource)
         resolved = {"format": format} if format else None

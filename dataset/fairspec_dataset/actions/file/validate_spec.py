@@ -1,3 +1,6 @@
+from fairspec_metadata import Integrity, Resource
+from fairspec_metadata.models.integrity import IntegrityType
+
 from fairspec_dataset.actions.file.temp import write_temp_file
 
 from .infer import infer_hash
@@ -7,19 +10,19 @@ from .validate import validate_file
 class TestValidateFile:
     def test_validates_textual_for_utf8(self):
         path = write_temp_file("Hello, World!")
-        report = validate_file({"data": path, "textual": True})
+        report = validate_file(Resource(data=path, textual=True))
         assert report.valid is True
         assert report.errors == []
 
     def test_validates_textual_for_ascii(self):
         path = write_temp_file(b"Simple ASCII text only")
-        report = validate_file({"data": path, "textual": True})
+        report = validate_file(Resource(data=path, textual=True))
         assert report.valid is True
         assert report.errors == []
 
     def test_returns_error_when_textual_expected_but_binary(self):
         path = write_temp_file(bytes([0xFF, 0xD8, 0xFF, 0xE0, 0x00]))
-        report = validate_file({"data": path, "textual": True})
+        report = validate_file(Resource(data=path, textual=True))
         assert report.valid is False
         assert len(report.errors) == 1
         assert report.errors[0].type == "file/textual"
@@ -70,31 +73,31 @@ class TestValidateFile:
             ]
         )
         path = write_temp_file(buffer)
-        report = validate_file({"data": path, "textual": True})
+        report = validate_file(Resource(data=path, textual=True))
         assert report.valid is False
         assert len(report.errors) == 1
         assert report.errors[0].type == "file/textual"
 
     def test_validates_integrity_md5(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="md5")
+        actual_hash = infer_hash(Resource(data=path), hash_type="md5")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "md5", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.md5, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
 
     def test_returns_error_when_integrity_mismatch(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="md5")
+        actual_hash = infer_hash(Resource(data=path), hash_type="md5")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "md5", "hash": "wronghash"},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.md5, hash="wronghash"),
+            )
         )
         assert report.valid is False
         assert len(report.errors) == 1
@@ -105,49 +108,49 @@ class TestValidateFile:
 
     def test_validates_sha256_integrity(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="sha256")
+        actual_hash = infer_hash(Resource(data=path), hash_type="sha256")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "sha256", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.sha256, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
 
     def test_validates_sha1_integrity(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="sha1")
+        actual_hash = infer_hash(Resource(data=path), hash_type="sha1")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "sha1", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.sha1, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
 
     def test_validates_sha512_integrity(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="sha512")
+        actual_hash = infer_hash(Resource(data=path), hash_type="sha512")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "sha512", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.sha512, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
 
     def test_validates_both_textual_and_integrity(self):
         path = write_temp_file("Hello, World!")
-        actual_hash = infer_hash({"data": path}, hash_type="md5")
+        actual_hash = infer_hash(Resource(data=path), hash_type="md5")
         report = validate_file(
-            {
-                "data": path,
-                "textual": True,
-                "integrity": {"type": "md5", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                textual=True,
+                integrity=Integrity(type=IntegrityType.md5, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
@@ -155,11 +158,11 @@ class TestValidateFile:
     def test_returns_multiple_errors(self):
         path = write_temp_file(bytes([0xFF, 0xD8, 0xFF, 0xE0, 0x00]))
         report = validate_file(
-            {
-                "data": path,
-                "textual": True,
-                "integrity": {"type": "md5", "hash": "wronghash"},
-            }
+            Resource(
+                data=path,
+                textual=True,
+                integrity=Integrity(type=IntegrityType.md5, hash="wronghash"),
+            )
         )
         assert report.valid is False
         assert len(report.errors) == 2
@@ -168,13 +171,13 @@ class TestValidateFile:
 
     def test_returns_error_only_textual_mismatch(self):
         path = write_temp_file(bytes([0xFF, 0xD8, 0xFF, 0xE0, 0x00]))
-        actual_hash = infer_hash({"data": path}, hash_type="md5")
+        actual_hash = infer_hash(Resource(data=path), hash_type="md5")
         report = validate_file(
-            {
-                "data": path,
-                "textual": True,
-                "integrity": {"type": "md5", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                textual=True,
+                integrity=Integrity(type=IntegrityType.md5, hash=actual_hash),
+            )
         )
         assert report.valid is False
         assert len(report.errors) == 1
@@ -183,11 +186,11 @@ class TestValidateFile:
     def test_returns_error_only_integrity_mismatch(self):
         path = write_temp_file("Hello, World!")
         report = validate_file(
-            {
-                "data": path,
-                "textual": True,
-                "integrity": {"type": "md5", "hash": "wronghash"},
-            }
+            Resource(
+                data=path,
+                textual=True,
+                integrity=Integrity(type=IntegrityType.md5, hash="wronghash"),
+            )
         )
         assert report.valid is False
         assert len(report.errors) == 1
@@ -195,18 +198,18 @@ class TestValidateFile:
 
     def test_handles_empty_file(self):
         path = write_temp_file("")
-        actual_hash = infer_hash({"data": path}, hash_type="sha256")
+        actual_hash = infer_hash(Resource(data=path), hash_type="sha256")
         report = validate_file(
-            {
-                "data": path,
-                "integrity": {"type": "sha256", "hash": actual_hash},
-            }
+            Resource(
+                data=path,
+                integrity=Integrity(type=IntegrityType.sha256, hash=actual_hash),
+            )
         )
         assert report.valid is True
         assert report.errors == []
 
     def test_validates_textual_with_special_characters(self):
         path = write_temp_file("Special: é, ñ, ü, ö, à")
-        report = validate_file({"data": path, "textual": True})
+        report = validate_file(Resource(data=path, textual=True))
         assert report.valid is True
         assert report.errors == []

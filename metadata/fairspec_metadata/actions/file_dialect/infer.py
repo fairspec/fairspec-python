@@ -6,7 +6,7 @@ from fairspec_metadata.actions.path.general import get_file_extension
 from fairspec_metadata.actions.resource.data import get_data_first_path
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 _EXTENSION_TO_FORMAT: dict[str, str] = {
     "csv": "csv",
@@ -23,7 +23,7 @@ _EXTENSION_TO_FORMAT: dict[str, str] = {
 }
 
 
-def infer_file_dialect_format(resource: Descriptor) -> str | None:
+def infer_file_dialect_format(resource: Resource) -> str | None:
     path = get_data_first_path(resource)
     if not path:
         return None
