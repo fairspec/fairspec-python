@@ -30,7 +30,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = ["fairspec-dataset", "fairspec-metadata", "isodate", "polars", "shapely"]
+dependencies = ["fairspec-dataset", "fairspec-metadata", "isodate", "odfpy", "openpyxl", "polars", "shapely"]
 
 [[project.authors]]
 name = "Evgeny Karev"

@@ -29,7 +29,9 @@ def infer_json_file_dialect(
     if not dialect:
         return None
 
-    format: str = getattr(dialect, "format", None) or (dialect.get("format") if isinstance(dialect, dict) else None)  # type: ignore[union-attr]
+    format: str = getattr(dialect, "format", None) or (
+        dialect.get("format") if isinstance(dialect, dict) else None
+    )  # type: ignore[union-attr]
 
     try:
         if format == "json":

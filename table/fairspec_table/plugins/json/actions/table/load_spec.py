@@ -26,7 +26,9 @@ class TestLoadJsonTable:
         path1 = write_temp_file(body)
         path2 = write_temp_file(body)
 
-        table = load_json_table(Resource(data=[path1, path2], fileDialect=JsonFileDialect()))
+        table = load_json_table(
+            Resource(data=[path1, path2], fileDialect=JsonFileDialect())
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -40,7 +42,9 @@ class TestLoadJsonTable:
         body = '{"key": [{"id":1,"name":"english"},{"id":2,"name":"中文"}]}'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonFileDialect(jsonPointer="key")))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonFileDialect(jsonPointer="key"))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -52,7 +56,9 @@ class TestLoadJsonTable:
         body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonFileDialect(columnNames=["name"])))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonFileDialect(columnNames=["name"]))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -64,7 +70,9 @@ class TestLoadJsonTable:
         body = '[["id","name"],[1,"english"],[2,"中文"]]'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonFileDialect(rowType=RowType.array)))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonFileDialect(rowType=RowType.array))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -76,7 +84,9 @@ class TestLoadJsonTable:
         body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonFileDialect(rowType=RowType.object)))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonFileDialect(rowType=RowType.object))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -103,7 +113,9 @@ class TestLoadJsonTableJsonl:
         path1 = write_temp_file(body)
         path2 = write_temp_file(body)
 
-        table = load_json_table(Resource(data=[path1, path2], fileDialect=JsonlFileDialect()))
+        table = load_json_table(
+            Resource(data=[path1, path2], fileDialect=JsonlFileDialect())
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -117,7 +129,9 @@ class TestLoadJsonTableJsonl:
         body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonlFileDialect(columnNames=["name"])))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonlFileDialect(columnNames=["name"]))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -129,7 +143,9 @@ class TestLoadJsonTableJsonl:
         body = '["id","name"]\n[1,"english"]\n[2,"中文"]'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonlFileDialect(rowType=RowType.array)))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonlFileDialect(rowType=RowType.array))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -141,7 +157,9 @@ class TestLoadJsonTableJsonl:
         body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
         path = write_temp_file(body)
 
-        table = load_json_table(Resource(data=path, fileDialect=JsonlFileDialect(rowType=RowType.object)))
+        table = load_json_table(
+            Resource(data=path, fileDialect=JsonlFileDialect(rowType=RowType.object))
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [

@@ -26,7 +26,9 @@ class ParquetPlugin(TablePlugin):
         return load_parquet_table(resource, options)
 
     def save_table(self, table: Table, options: SaveTableOptions) -> str | None:
-        resource = Resource(data=options.path, fileDialect=cast(FileDialect | None, options.fileDialect))
+        resource = Resource(
+            data=options.path, fileDialect=cast(FileDialect | None, options.fileDialect)
+        )
         file_dialect = get_supported_file_dialect(resource, ["parquet"])
         if not file_dialect:
             return None

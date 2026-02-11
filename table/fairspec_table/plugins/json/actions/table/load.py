@@ -20,9 +20,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_json_table(
-    resource: Resource, options: LoadTableOptions | None = None
-) -> Table:
+def load_json_table(resource: Resource, options: LoadTableOptions | None = None) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["json", "jsonl"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
@@ -72,9 +70,15 @@ def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
     if isinstance(dialect, dict):
         keys = set(dialect.keys())
     elif isinstance(dialect, BaseModel):
-        keys = {k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None}
+        keys = {
+            k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None
+        }
     else:
-        keys = {k for k, v in dialect.__dict__.items() if v is not None and not k.startswith("_")}
+        keys = {
+            k
+            for k, v in dialect.__dict__.items()
+            if v is not None and not k.startswith("_")
+        }
     meaningful = keys - {"format", "type", "title", "description"}
     return len(meaningful) == 0
 
@@ -97,7 +101,9 @@ def _process_data(
     data: object,
     dialect: JsonFileDialect | JsonlFileDialect | dict[str, object] | BaseModel,
 ) -> list[dict[str, object]]:
-    if getattr(dialect, "format", None) == "json" and getattr(dialect, "jsonPointer", None):
+    if getattr(dialect, "format", None) == "json" and getattr(
+        dialect, "jsonPointer", None
+    ):
         json_pointer: str = getattr(dialect, "jsonPointer")
         assert isinstance(data, dict)
         data = data[json_pointer]
@@ -105,10 +111,7 @@ def _process_data(
     if getattr(dialect, "rowType", None) == "array":
         assert isinstance(data, list)
         keys = cast("list[str]", data[0])
-        data = [
-            dict(zip(keys, cast("list[object]", row)))
-            for row in data[1:]
-        ]
+        data = [dict(zip(keys, cast("list[object]", row))) for row in data[1:]]
 
     column_names: list[str] | None = getattr(dialect, "columnNames", None)
     if column_names:

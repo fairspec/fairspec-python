@@ -26,7 +26,10 @@ def save_parquet_table(table: Table, options: SaveTableOptions) -> str:
     if not isinstance(table_schema, TableSchema):
         table_schema = infer_table_schema_from_table(
             table,
-            InferTableSchemaOptions(**options.model_dump(include=set(InferTableSchemaOptions.model_fields)), keepStrings=True),
+            InferTableSchemaOptions(
+                **options.model_dump(include=set(InferTableSchemaOptions.model_fields)),
+                keepStrings=True,
+            ),
         )
 
     table = denormalize_table(

@@ -36,7 +36,11 @@ class TestSaveArrowTable:
             [
                 pl.Series("boolean", [True], dtype=pl.Boolean),
                 pl.Series("date", [date(2025, 1, 1)], dtype=pl.Date),
-                pl.Series("datetime", [datetime(2025, 1, 1, tzinfo=timezone.utc)], dtype=pl.Datetime),
+                pl.Series(
+                    "datetime",
+                    [datetime(2025, 1, 1, tzinfo=timezone.utc)],
+                    dtype=pl.Datetime,
+                ),
                 pl.Series("integer", [1], dtype=pl.Int32),
                 pl.Series("number", [1.1], dtype=pl.Float64),
                 pl.Series("string", ["string"], dtype=pl.String),
@@ -45,7 +49,9 @@ class TestSaveArrowTable:
 
         save_arrow_table(source, SaveTableOptions(path=path))
 
-        target = load_arrow_table(Resource(data=path), LoadTableOptions(denormalized=True))
+        target = load_arrow_table(
+            Resource(data=path), LoadTableOptions(denormalized=True)
+        )
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [

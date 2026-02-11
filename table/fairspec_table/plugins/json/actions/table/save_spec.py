@@ -29,7 +29,10 @@ class TestSaveJsonTable:
     def test_should_handle_property(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect(jsonPointer="key")))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(path=path, fileDialect=JsonFileDialect(jsonPointer="key")),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -38,7 +41,12 @@ class TestSaveJsonTable:
     def test_should_handle_item_keys(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect(columnNames=["name"])))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(
+                path=path, fileDialect=JsonFileDialect(columnNames=["name"])
+            ),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -49,7 +57,12 @@ class TestSaveJsonTable:
     def test_should_handle_item_type_array(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect(rowType=RowType.array)))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(
+                path=path, fileDialect=JsonFileDialect(rowType=RowType.array)
+            ),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -96,48 +109,73 @@ class TestSaveJsonTableJsonl:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect()))
+        save_json_table(
+            TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect())
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == "\n".join([
-            json.dumps(ROW1, ensure_ascii=False),
-            json.dumps(ROW2, ensure_ascii=False),
-        ])
+        assert content == "\n".join(
+            [
+                json.dumps(ROW1, ensure_ascii=False),
+                json.dumps(ROW2, ensure_ascii=False),
+            ]
+        )
 
     def test_should_handle_item_keys(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect(columnNames=["name"])))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(
+                path=path, fileDialect=JsonlFileDialect(columnNames=["name"])
+            ),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == "\n".join([
-            json.dumps({"name": ROW1["name"]}, ensure_ascii=False),
-            json.dumps({"name": ROW2["name"]}, ensure_ascii=False),
-        ])
+        assert content == "\n".join(
+            [
+                json.dumps({"name": ROW1["name"]}, ensure_ascii=False),
+                json.dumps({"name": ROW2["name"]}, ensure_ascii=False),
+            ]
+        )
 
     def test_should_handle_item_type_array(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect(rowType=RowType.array)))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(
+                path=path, fileDialect=JsonlFileDialect(rowType=RowType.array)
+            ),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == "\n".join([
-            json.dumps(list(ROW1.keys()), ensure_ascii=False),
-            json.dumps(list(ROW1.values()), ensure_ascii=False),
-            json.dumps(list(ROW2.values()), ensure_ascii=False),
-        ])
+        assert content == "\n".join(
+            [
+                json.dumps(list(ROW1.keys()), ensure_ascii=False),
+                json.dumps(list(ROW1.values()), ensure_ascii=False),
+                json.dumps(list(ROW2.values()), ensure_ascii=False),
+            ]
+        )
 
     def test_should_handle_item_type_object(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect(rowType=RowType.object)))
+        save_json_table(
+            TABLE,
+            SaveTableOptions(
+                path=path, fileDialect=JsonlFileDialect(rowType=RowType.object)
+            ),
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == "\n".join([
-            json.dumps(ROW1, ensure_ascii=False),
-            json.dumps(ROW2, ensure_ascii=False),
-        ])
+        assert content == "\n".join(
+            [
+                json.dumps(ROW1, ensure_ascii=False),
+                json.dumps(ROW2, ensure_ascii=False),
+            ]
+        )

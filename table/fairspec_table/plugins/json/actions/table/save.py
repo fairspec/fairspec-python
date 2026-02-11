@@ -39,7 +39,10 @@ def save_json_table(table: Table, options: SaveTableOptions) -> str:
     if not isinstance(table_schema, TableSchema):
         table_schema = infer_table_schema_from_table(
             table,
-            InferTableSchemaOptions(**options.model_dump(include=set(InferTableSchemaOptions.model_fields)), keepStrings=True),
+            InferTableSchemaOptions(
+                **options.model_dump(include=set(InferTableSchemaOptions.model_fields)),
+                keepStrings=True,
+            ),
         )
 
     table = denormalize_table(
@@ -83,10 +86,7 @@ def _process_data(
         names: list[str] = column_names or list(cast("dict[str, object]", data[0]).keys())
         data = [
             names,
-            *[
-                [cast("dict[str, object]", row)[name] for name in names]
-                for row in data
-            ],
+            *[[cast("dict[str, object]", row)[name] for name in names] for row in data],
         ]
 
     if getattr(dialect, "format", None) == "json":

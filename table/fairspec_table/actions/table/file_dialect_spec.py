@@ -92,9 +92,7 @@ class TestJoinHeaderRows:
             }
         ).lazy()
 
-        result = join_header_rows(
-            table, CsvFileDialect(headerRows=[2, 3, 4])
-        )
+        result = join_header_rows(table, CsvFileDialect(headerRows=[2, 3, 4]))
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.columns == [
@@ -191,9 +189,7 @@ class TestSkipCommentRows:
             }
         ).lazy()
 
-        result = skip_comment_rows(
-            table, CsvFileDialect(headerRows=[2], commentRows=[5])
-        )
+        result = skip_comment_rows(table, CsvFileDialect(headerRows=[2], commentRows=[5]))
 
         collected: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert collected.height == 3

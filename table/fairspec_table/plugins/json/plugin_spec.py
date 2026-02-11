@@ -15,7 +15,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_load_table_from_json_file(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_load_table_from_json_file(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="test.json")
         mock_table = pl.DataFrame().lazy()
         mock_load.return_value = mock_table
@@ -27,7 +29,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_load_table_from_jsonl_file(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_load_table_from_jsonl_file(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="test.jsonl")
         mock_table = pl.DataFrame().lazy()
         mock_load.return_value = mock_table
@@ -39,7 +43,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_load_table_from_ndjson_file(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_load_table_from_ndjson_file(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="test.ndjson")
         mock_table = pl.DataFrame().lazy()
         mock_load.return_value = mock_table
@@ -60,7 +66,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_handle_explicit_json_format(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_handle_explicit_json_format(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="test.txt", fileDialect=JsonFileDialect())
         mock_table = pl.DataFrame().lazy()
         mock_load.return_value = mock_table
@@ -72,7 +80,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_pass_through_load_options(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_pass_through_load_options(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="test.json")
         options = LoadTableOptions(denormalized=True)
         mock_load.return_value = pl.DataFrame().lazy()
@@ -84,7 +94,9 @@ class TestJsonPluginLoadTable:
 
     @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
     @patch("fairspec_table.plugins.json.plugin.load_json_table")
-    def test_should_handle_paths_with_directories(self, mock_load: MagicMock, mock_infer: MagicMock):
+    def test_should_handle_paths_with_directories(
+        self, mock_load: MagicMock, mock_infer: MagicMock
+    ):
         resource = Resource(data="/path/to/data.json")
         mock_load.return_value = pl.DataFrame().lazy()
         mock_infer.return_value = JsonFileDialect()

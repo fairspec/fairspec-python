@@ -18,8 +18,19 @@ from .models.schema import (
 from .models.table import Table
 from .plugin import TablePlugin
 from .plugins.arrow import ArrowPlugin, load_arrow_table, save_arrow_table
-from .plugins.json import JsonPlugin, infer_json_file_dialect, load_json_table, save_json_table
+from .plugins.json import (
+    JsonPlugin,
+    infer_json_file_dialect,
+    load_json_table,
+    save_json_table,
+)
 from .plugins.parquet import ParquetPlugin, load_parquet_table, save_parquet_table
+from .plugins.xlsx import (
+    XlsxPlugin,
+    infer_xlsx_file_dialect,
+    load_xlsx_table,
+    save_xlsx_table,
+)
 
 __all__ = [
     "ArrowPlugin",
@@ -50,4 +61,8 @@ __all__ = [
     "save_arrow_table",
     "save_json_table",
     "save_parquet_table",
+    "XlsxPlugin",
+    "infer_xlsx_file_dialect",
+    "load_xlsx_table",
+    "save_xlsx_table",
 ]
