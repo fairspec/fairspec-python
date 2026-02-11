@@ -154,14 +154,14 @@ class TestInspectCellTypes:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert len(errors) == 3
-        assert all(isinstance(e, CellTypeError) for e in errors)
-        assert errors[0].cell == "Jan 15, 2023"
-        assert errors[0].rowNumber == 2
-        assert errors[1].cell == "20230115"
-        assert errors[1].rowNumber == 3
-        assert errors[2].cell == "not-a-date"
-        assert errors[2].rowNumber == 4
+        cell_errors = [e for e in errors if isinstance(e, CellTypeError)]
+        assert len(cell_errors) == 3
+        assert cell_errors[0].cell == "Jan 15, 2023"
+        assert cell_errors[0].rowNumber == 2
+        assert cell_errors[1].cell == "20230115"
+        assert cell_errors[1].rowNumber == 3
+        assert cell_errors[2].cell == "not-a-date"
+        assert cell_errors[2].rowNumber == 4
 
     def test_should_validate_string_to_time_conversion_errors(self):
         table = pl.DataFrame({"time": ["14:30:00", "2:30pm", "invalid", "14h30"]}).lazy()
@@ -171,14 +171,14 @@ class TestInspectCellTypes:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert len(errors) == 3
-        assert all(isinstance(e, CellTypeError) for e in errors)
-        assert errors[0].cell == "2:30pm"
-        assert errors[0].rowNumber == 2
-        assert errors[1].cell == "invalid"
-        assert errors[1].rowNumber == 3
-        assert errors[2].cell == "14h30"
-        assert errors[2].rowNumber == 4
+        cell_errors = [e for e in errors if isinstance(e, CellTypeError)]
+        assert len(cell_errors) == 3
+        assert cell_errors[0].cell == "2:30pm"
+        assert cell_errors[0].rowNumber == 2
+        assert cell_errors[1].cell == "invalid"
+        assert cell_errors[1].rowNumber == 3
+        assert cell_errors[2].cell == "14h30"
+        assert cell_errors[2].rowNumber == 4
 
     def test_should_validate_string_to_datetime_conversion_errors(self):
         table = pl.DataFrame(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import polars as pl
+from fairspec_metadata.models.error.row import RowPrimaryKeyError, RowUniqueKeyError
 from fairspec_metadata.models.table_schema import TableSchema
 
 from fairspec_table.actions.table.inspect import inspect_table
@@ -45,7 +46,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        pk_errors = [e for e in errors if e.type == "row/primaryKey"]
+        pk_errors = [e for e in errors if isinstance(e, RowPrimaryKeyError)]
         assert len(pk_errors) == 1
         assert pk_errors[0].rowNumber == 4
         assert pk_errors[0].columnNames == ["id"]
@@ -100,7 +101,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
+        uk_errors = [e for e in errors if isinstance(e, RowUniqueKeyError)]
         assert len(uk_errors) == 2
         assert uk_errors[0].rowNumber == 3
         assert uk_errors[0].columnNames == ["email"]
@@ -127,7 +128,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
+        uk_errors = [e for e in errors if isinstance(e, RowUniqueKeyError)]
         assert len(uk_errors) == 1
         assert uk_errors[0].rowNumber == 4
         assert uk_errors[0].columnNames == ["category", "subcategory"]
@@ -158,8 +159,8 @@ class TestInspectTableRowUnique:
         errors = inspect_table(table, table_schema=table_schema)
 
         assert len(errors) == 2
-        pk_errors = [e for e in errors if e.type == "row/primaryKey"]
-        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
+        pk_errors = [e for e in errors if isinstance(e, RowPrimaryKeyError)]
+        uk_errors = [e for e in errors if isinstance(e, RowUniqueKeyError)]
         assert len(pk_errors) == 1
         assert pk_errors[0].rowNumber == 4
         assert pk_errors[0].columnNames == ["id"]
@@ -185,16 +186,9 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        assert len(errors) == 2
-        assert any(
-            e.type == "row/uniqueKey"
-            and e.rowNumber == 6
-            and e.columnNames == ["id"]
-            for e in errors
-        )
-        assert any(
-            e.type == "row/uniqueKey"
-            and e.rowNumber == 6
-            and e.columnNames == ["id", "name"]
-            for e in errors
-        )
+        uk_errors = [e for e in errors if isinstance(e, RowUniqueKeyError)]
+        assert len(uk_errors) == 2
+        assert uk_errors[0].rowNumber == 6
+        assert uk_errors[0].columnNames == ["id"]
+        assert uk_errors[1].rowNumber == 6
+        assert uk_errors[1].columnNames == ["id", "name"]

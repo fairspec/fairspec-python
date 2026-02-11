@@ -54,7 +54,7 @@ class TestParseListColumn:
         column = ListColumn(
             name="name",
             type="list",
-            property=ListColumnProperty(format="list", itemType="integer"),
+            property=ListColumnProperty(format="list", itemType="integer"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
@@ -80,7 +80,7 @@ class TestParseListColumn:
         column = ListColumn(
             name="name",
             type="list",
-            property=ListColumnProperty(format="list", itemType="number"),
+            property=ListColumnProperty(format="list", itemType="number"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
@@ -160,7 +160,7 @@ class TestStringifyListColumn:
         column = ListColumn(
             name="name",
             type="list",
-            property=ListColumnProperty(format="list", itemType="integer"),
+            property=ListColumnProperty(format="list", itemType="integer"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
@@ -186,7 +186,7 @@ class TestStringifyListColumn:
         column = ListColumn(
             name="name",
             type="list",
-            property=ListColumnProperty(format="list", itemType="number"),
+            property=ListColumnProperty(format="list", itemType="number"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
