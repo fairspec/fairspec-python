@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import polars as pl
+from fairspec_metadata.models.column.boolean import BooleanColumnProperty
+from fairspec_metadata.models.column.integer import IntegerColumnProperty
+from fairspec_metadata.models.column.string import StringColumnProperty
 from fairspec_metadata.models.table_schema import TableSchema
 
 from .normalize import normalize_table
@@ -11,20 +14,20 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "id": [1, 2],
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -35,21 +38,21 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "id": [1, 2],
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
-                "other": {"type": "boolean"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
+                "other": BooleanColumnProperty(type="boolean"),
             }
         )
 
         records = [
             {"id": 1, "name": "english", "other": None},
-            {"id": 2, "name": "\u4e2d\u6587", "other": None},
+            {"id": 2, "name": "中文", "other": None},
         ]
 
         result = normalize_table(table, table_schema)
@@ -60,21 +63,21 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "id": [1, 2],
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
                 "other": [True, False],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -85,14 +88,14 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "field1": [1, 2],
-                "field2": ["english", "\u4e2d\u6587"],
+                "field2": ["english", "中文"],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -107,21 +110,21 @@ class TestNormalizeTable:
     def test_should_work_based_on_field_names_equal(self):
         table = pl.DataFrame(
             {
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
                 "id": [1, 2],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -131,21 +134,21 @@ class TestNormalizeTable:
     def test_should_work_based_on_field_names_subset(self):
         table = pl.DataFrame(
             {
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
                 "id": [1, 2],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -155,21 +158,21 @@ class TestNormalizeTable:
     def test_should_work_based_on_field_names_superset(self):
         table = pl.DataFrame(
             {
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
                 "id": [1, 2],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -179,21 +182,21 @@ class TestNormalizeTable:
     def test_should_work_based_on_field_names_partial(self):
         table = pl.DataFrame(
             {
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
                 "id": [1, 2],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -204,20 +207,20 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "id": ["1", "2"],
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
         records = [
             {"id": 1, "name": "english"},
-            {"id": 2, "name": "\u4e2d\u6587"},
+            {"id": 2, "name": "中文"},
         ]
 
         result = normalize_table(table, table_schema)
@@ -228,14 +231,14 @@ class TestNormalizeTable:
         table = pl.DataFrame(
             {
                 "id": [1, 2],
-                "name": ["english", "\u4e2d\u6587"],
+                "name": ["english", "中文"],
             }
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "integer"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": IntegerColumnProperty(type="integer"),
             }
         )
 

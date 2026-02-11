@@ -4,6 +4,8 @@ from datetime import datetime
 
 import polars as pl
 import pytest
+from fairspec_metadata.models.column.integer import IntegerColumnProperty
+from fairspec_metadata.models.column.string import StringColumnProperty
 from fairspec_metadata.models.resource import Resource
 from fairspec_metadata.models.table_schema import TableSchema
 
@@ -47,9 +49,9 @@ class TestLoadInlineTable:
                 {"id": 2, "name": "中文", "extra": "bad"},
             ],
             tableSchema=TableSchema(
-                properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                    "id": {"type": "integer"},
-                    "name": {"type": "string"},
+                properties={
+                    "id": IntegerColumnProperty(type="integer"),
+                    "name": StringColumnProperty(type="string"),
                 },
             ),
         )
@@ -67,9 +69,9 @@ class TestLoadInlineTable:
             name="test",
             data=[{"id": 1, "name": "english"}, {"id": 2}],
             tableSchema=TableSchema(
-                properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                    "id": {"type": "integer"},
-                    "name": {"type": "string"},
+                properties={
+                    "id": IntegerColumnProperty(type="integer"),
+                    "name": StringColumnProperty(type="string"),
                 },
             ),
         )

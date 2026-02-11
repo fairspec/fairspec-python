@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import polars as pl
+from fairspec_metadata.models.column.number import NumberColumnProperty
+from fairspec_metadata.models.column.string import StringColumnProperty
 from fairspec_metadata.models.error.column import ColumnMissingError
 from fairspec_metadata.models.table_schema import TableSchema
 
@@ -17,9 +19,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -37,9 +39,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             allRequired=True,
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "number"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": NumberColumnProperty(type="number"),
             },
         )
 
@@ -58,9 +60,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             allRequired=True,
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             },
         )
 
@@ -79,9 +81,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -98,9 +100,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             required=["name"],
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             },
         )
 
@@ -118,9 +120,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -138,9 +140,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -157,9 +159,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -176,9 +178,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             required=["name"],
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             },
         )
 
@@ -196,9 +198,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -215,9 +217,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -234,9 +236,9 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             }
         )
 
@@ -253,9 +255,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             allRequired=True,
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             },
         )
 
@@ -275,9 +277,9 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             allRequired=True,
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "number"},
-                "name": {"type": "string"},
+            properties={
+                "id": NumberColumnProperty(type="number"),
+                "name": StringColumnProperty(type="string"),
             },
         )
 

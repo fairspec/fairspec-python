@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import polars as pl
+from fairspec_metadata.models.column.integer import IntegerColumnProperty
+from fairspec_metadata.models.column.string import StringColumnProperty
 from fairspec_metadata.models.error.row import RowPrimaryKeyError, RowUniqueKeyError
 from fairspec_metadata.models.table_schema import TableSchema
 
@@ -17,9 +19,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             },
             primaryKey=["id"],
         )
@@ -37,9 +39,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "name": StringColumnProperty(type="string"),
             },
             primaryKey=["id"],
         )
@@ -66,9 +68,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "email": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "email": StringColumnProperty(type="string"),
             },
             uniqueKeys=[["email"]],
         )
@@ -92,9 +94,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "email": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "email": StringColumnProperty(type="string"),
             },
             uniqueKeys=[["email"]],
         )
@@ -118,10 +120,10 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "category": {"type": "string"},
-                "subcategory": {"type": "string"},
-                "value": {"type": "integer"},
+            properties={
+                "category": StringColumnProperty(type="string"),
+                "subcategory": StringColumnProperty(type="string"),
+                "value": IntegerColumnProperty(type="integer"),
             },
             uniqueKeys=[["category", "subcategory"]],
         )
@@ -148,9 +150,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": "integer"},
-                "email": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type="integer"),
+                "email": StringColumnProperty(type="string"),
             },
             primaryKey=["id"],
             uniqueKeys=[["email"]],
@@ -177,9 +179,9 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
-                "id": {"type": ["integer", "null"]},
-                "name": {"type": "string"},
+            properties={
+                "id": IntegerColumnProperty(type=("integer", "null")),
+                "name": StringColumnProperty(type="string"),
             },
             uniqueKeys=[["id"], ["id", "name"]],
         )
