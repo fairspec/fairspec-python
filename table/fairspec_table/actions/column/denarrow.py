@@ -18,9 +18,9 @@ ALPHANUMERIC_VARIANTS = INTEGER_VARIANTS | NUMBER_VARIANTS | STRING_VARIANTS
 def denarrow_column(mapping: ColumnMapping, column_expr: pl.Expr) -> pl.Expr:
     variant = mapping.source.type
 
-    if mapping.target.type == "categorical":
+    if isinstance(mapping.target, CategoricalColumn):
         if variant in ALPHANUMERIC_VARIANTS:
-            target = cast(CategoricalColumn, mapping.target)
+            target = mapping.target
             values, labels = get_categorical_values_and_labels(target)
 
             polars_type: type[pl.DataType] = (

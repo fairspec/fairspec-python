@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import cast
-
 import polars as pl
 
 from fairspec_metadata import CategoricalColumn
@@ -36,10 +34,9 @@ def narrow_column(mapping: ColumnMapping, column_expr: pl.Expr) -> pl.Expr:
                 .otherwise(pl.lit(None))
             )
 
-    if mapping.target.type == "categorical":
+    if isinstance(mapping.target, CategoricalColumn):
         if variant in ALPHANUMERIC_VARIANTS:
-            target = cast(CategoricalColumn, mapping.target)
-            values, labels = get_categorical_values_and_labels(target)
+            values, labels = get_categorical_values_and_labels(mapping.target)
 
             if values:
                 return column_expr.replace_strict(

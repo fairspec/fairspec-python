@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import cast
-
 import polars as pl
 
 from fairspec_metadata import (
@@ -40,30 +38,29 @@ def parse_column(mapping: ColumnMapping, column_expr: pl.Expr) -> pl.Expr:
         return column_expr
 
     column = mapping.target
-    match column.type:
-        case "base64":
-            return parse_base64_column(cast(Base64Column, column), column_expr)
-        case "boolean":
-            return parse_boolean_column(cast(BooleanColumn, column), column_expr)
-        case "date":
-            return parse_date_column(cast(DateColumn, column), column_expr)
-        case "date-time":
-            return parse_date_time_column(cast(DateTimeColumn, column), column_expr)
-        case "decimal":
-            return parse_decimal_column(cast(DecimalColumn, column), column_expr)
-        case "email":
-            return parse_email_column(cast(EmailColumn, column), column_expr)
-        case "hex":
-            return parse_hex_column(cast(HexColumn, column), column_expr)
-        case "integer":
-            return parse_integer_column(cast(IntegerColumn, column), column_expr)
-        case "list":
-            return parse_list_column(cast(ListColumn, column), column_expr)
-        case "number":
-            return parse_number_column(cast(NumberColumn, column), column_expr)
-        case "time":
-            return parse_time_column(cast(TimeColumn, column), column_expr)
-        case "url":
-            return parse_url_column(cast(UrlColumn, column), column_expr)
-        case _:
-            return column_expr
+    if isinstance(column, Base64Column):
+        return parse_base64_column(column, column_expr)
+    elif isinstance(column, BooleanColumn):
+        return parse_boolean_column(column, column_expr)
+    elif isinstance(column, DateColumn):
+        return parse_date_column(column, column_expr)
+    elif isinstance(column, DateTimeColumn):
+        return parse_date_time_column(column, column_expr)
+    elif isinstance(column, DecimalColumn):
+        return parse_decimal_column(column, column_expr)
+    elif isinstance(column, EmailColumn):
+        return parse_email_column(column, column_expr)
+    elif isinstance(column, HexColumn):
+        return parse_hex_column(column, column_expr)
+    elif isinstance(column, IntegerColumn):
+        return parse_integer_column(column, column_expr)
+    elif isinstance(column, ListColumn):
+        return parse_list_column(column, column_expr)
+    elif isinstance(column, NumberColumn):
+        return parse_number_column(column, column_expr)
+    elif isinstance(column, TimeColumn):
+        return parse_time_column(column, column_expr)
+    elif isinstance(column, UrlColumn):
+        return parse_url_column(column, column_expr)
+    else:
+        return column_expr

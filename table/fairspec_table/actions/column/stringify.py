@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import cast
-
 import polars as pl
 
 from fairspec_metadata import (
@@ -34,24 +32,23 @@ def stringify_column(mapping: ColumnMapping, column_expr: pl.Expr) -> pl.Expr:
         return column_expr
 
     column = mapping.target
-    match column.type:
-        case "boolean":
-            return stringify_boolean_column(cast(BooleanColumn, column), column_expr)
-        case "date":
-            return stringify_date_column(cast(DateColumn, column), column_expr)
-        case "date-time":
-            return stringify_date_time_column(cast(DateTimeColumn, column), column_expr)
-        case "decimal":
-            return stringify_decimal_column(cast(DecimalColumn, column), column_expr)
-        case "integer":
-            return stringify_integer_column(cast(IntegerColumn, column), column_expr)
-        case "list":
-            return stringify_list_column(cast(ListColumn, column), column_expr)
-        case "number":
-            return stringify_number_column(cast(NumberColumn, column), column_expr)
-        case "time":
-            return stringify_time_column(cast(TimeColumn, column), column_expr)
-        case "unknown":
-            return stringify_unknown_column(cast(UnknownColumn, column), column_expr)
-        case _:
-            return column_expr
+    if isinstance(column, BooleanColumn):
+        return stringify_boolean_column(column, column_expr)
+    elif isinstance(column, DateColumn):
+        return stringify_date_column(column, column_expr)
+    elif isinstance(column, DateTimeColumn):
+        return stringify_date_time_column(column, column_expr)
+    elif isinstance(column, DecimalColumn):
+        return stringify_decimal_column(column, column_expr)
+    elif isinstance(column, IntegerColumn):
+        return stringify_integer_column(column, column_expr)
+    elif isinstance(column, ListColumn):
+        return stringify_list_column(column, column_expr)
+    elif isinstance(column, NumberColumn):
+        return stringify_number_column(column, column_expr)
+    elif isinstance(column, TimeColumn):
+        return stringify_time_column(column, column_expr)
+    elif isinstance(column, UnknownColumn):
+        return stringify_unknown_column(column, column_expr)
+    else:
+        return column_expr
