@@ -45,7 +45,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        pk_errors = [e for e in errors if e["type"] == "row/primaryKey"]
+        pk_errors = [e for e in errors if e.type == "row/primaryKey"]
         assert len(pk_errors) == 1
         assert errors == [
             {
@@ -105,7 +105,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        uk_errors = [e for e in errors if e["type"] == "row/uniqueKey"]
+        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
         assert len(uk_errors) == 2
         assert errors == [
             {
@@ -140,7 +140,7 @@ class TestInspectTableRowUnique:
 
         errors = inspect_table(table, table_schema=table_schema)
 
-        uk_errors = [e for e in errors if e["type"] == "row/uniqueKey"]
+        uk_errors = [e for e in errors if e.type == "row/uniqueKey"]
         assert len(uk_errors) == 1
         assert errors == [
             {
