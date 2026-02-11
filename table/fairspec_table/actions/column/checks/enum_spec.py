@@ -24,7 +24,7 @@ class TestCheckCellEnum:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -125,7 +125,7 @@ class TestCheckCellEnum:
         column = IntegerColumn(
             name="priority",
             type="integer",
-            property=IntegerColumnProperty(type="integer", enum=[1, 2, 3]),
+            property=IntegerColumnProperty(enum=[1, 2, 3]),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame({"source": [1, 2, 5], "target": [1, 2, 5]}).lazy()
@@ -141,7 +141,7 @@ class TestCheckCellEnum:
         column = NumberColumn(
             name="rating",
             type="number",
-            property=NumberColumnProperty(type="number", enum=[1.5, 2.5, 3.5]),
+            property=NumberColumnProperty(enum=[1.5, 2.5, 3.5]),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

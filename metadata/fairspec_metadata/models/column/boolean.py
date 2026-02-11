@@ -4,7 +4,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from .base import BaseColumn, BaseColumnProperty, BooleanNullablePropertyType
+from .base import BaseColumn, BaseColumnProperty
+
+BooleanNullablePropertyType = (
+    Literal["boolean"]
+    | tuple[Literal["boolean"], Literal["null"]]
+    | tuple[Literal["null"], Literal["boolean"]]
+)
 
 
 class StringIntMissingValue(BaseModel):
@@ -13,8 +19,8 @@ class StringIntMissingValue(BaseModel):
 
 
 class BooleanColumnProperty(BaseColumnProperty):
-    type: BooleanNullablePropertyType | None = None
-    format: Literal[""] | None = None
+    type: BooleanNullablePropertyType = "boolean"
+    format: Literal[None] = None
     enum: list[bool] | None = Field(
         default=None,
         description="An optional array of allowed values for the column",

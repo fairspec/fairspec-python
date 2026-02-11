@@ -20,8 +20,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -44,9 +44,9 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
-                "other": BooleanColumnProperty(type="boolean"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
+                "other": BooleanColumnProperty(),
             }
         )
 
@@ -70,8 +70,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -94,8 +94,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -117,8 +117,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -141,8 +141,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -165,8 +165,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -189,8 +189,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -213,8 +213,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -237,8 +237,8 @@ class TestNormalizeTable:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": IntegerColumnProperty(type="integer"),
+                "id": IntegerColumnProperty(),
+                "name": IntegerColumnProperty(),
             }
         )
 

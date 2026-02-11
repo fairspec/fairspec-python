@@ -24,7 +24,7 @@ class TestCheckCellMultipleOf:
         column = IntegerColumn(
             name="quantity",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -36,7 +36,7 @@ class TestCheckCellMultipleOf:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -48,7 +48,7 @@ class TestCheckCellMultipleOf:
         column = IntegerColumn(
             name="quantity",
             type="integer",
-            property=IntegerColumnProperty(type="integer", multipleOf=10),
+            property=IntegerColumnProperty(multipleOf=10),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -65,7 +65,7 @@ class TestCheckCellMultipleOf:
         column = IntegerColumn(
             name="quantity",
             type="integer",
-            property=IntegerColumnProperty(type="integer", multipleOf=10),
+            property=IntegerColumnProperty(multipleOf=10),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame({"source": [10, 15, 20], "target": [10, 15, 20]}).lazy()
@@ -82,7 +82,7 @@ class TestCheckCellMultipleOf:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number", multipleOf=2.5),
+            property=NumberColumnProperty(multipleOf=2.5),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -99,7 +99,7 @@ class TestCheckCellMultipleOf:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number", multipleOf=2.5),
+            property=NumberColumnProperty(multipleOf=2.5),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -116,7 +116,7 @@ class TestCheckCellMultipleOf:
         column = IntegerColumn(
             name="count",
             type="integer",
-            property=IntegerColumnProperty(type="integer", multipleOf=1),
+            property=IntegerColumnProperty(multipleOf=1),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame({"source": [1, 2, 3, 4], "target": [1, 2, 3, 4]}).lazy()

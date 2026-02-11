@@ -24,7 +24,7 @@ class TestCheckCellMaximum:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         check = create_check_cell_maximum()
@@ -37,7 +37,7 @@ class TestCheckCellMaximum:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         check = create_check_cell_maximum()
@@ -50,7 +50,7 @@ class TestCheckCellMaximum:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number", maximum=50),
+            property=NumberColumnProperty(maximum=50),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -68,7 +68,7 @@ class TestCheckCellMaximum:
         column = NumberColumn(
             name="temperature",
             type="number",
-            property=NumberColumnProperty(type="number", maximum=40),
+            property=NumberColumnProperty(maximum=40),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -88,7 +88,7 @@ class TestCheckCellMaximum:
         column = NumberColumn(
             name="temperature",
             type="number",
-            property=NumberColumnProperty(type="number", exclusiveMaximum=40),
+            property=NumberColumnProperty(exclusiveMaximum=40),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -108,7 +108,7 @@ class TestCheckCellMaximum:
         column = IntegerColumn(
             name="year",
             type="integer",
-            property=IntegerColumnProperty(type="integer", maximum=2022),
+            property=IntegerColumnProperty(maximum=2022),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -127,7 +127,7 @@ class TestCheckCellMaximum:
         column = IntegerColumn(
             name="year",
             type="integer",
-            property=IntegerColumnProperty(type="integer", exclusiveMaximum=2022),
+            property=IntegerColumnProperty(exclusiveMaximum=2022),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

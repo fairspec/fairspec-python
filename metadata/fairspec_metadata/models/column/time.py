@@ -9,7 +9,7 @@ from .string import BaseStringColumnProperty
 
 
 class TimeColumnProperty(BaseStringColumnProperty):
-    format: Literal["time"]
+    format: Literal["time"] = "time"
     temporalFormat: str | None = Field(
         default=None,
         description="An optional string specifying the datetime format pattern as per the Strftime specification",

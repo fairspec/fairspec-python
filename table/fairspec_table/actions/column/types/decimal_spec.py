@@ -31,7 +31,7 @@ class TestParseDecimalColumn:
         column = DecimalColumn(
             name="name",
             type="decimal",
-            property=DecimalColumnProperty(format="decimal"),
+            property=DecimalColumnProperty(),
         )
 
         result = table.select(parse_decimal_column(column, pl.col("name")))
@@ -53,7 +53,7 @@ class TestParseDecimalColumn:
         column = DecimalColumn(
             name="name",
             type="decimal",
-            property=DecimalColumnProperty(format="decimal", groupChar=","),
+            property=DecimalColumnProperty(groupChar=","),
         )
 
         result = table.select(parse_decimal_column(column, pl.col("name")))
@@ -73,7 +73,7 @@ class TestParseDecimalColumn:
         column = DecimalColumn(
             name="name",
             type="decimal",
-            property=DecimalColumnProperty(format="decimal", decimalChar=","),
+            property=DecimalColumnProperty(decimalChar=","),
         )
 
         result = table.select(parse_decimal_column(column, pl.col("name")))
@@ -117,7 +117,7 @@ class TestParseDecimalColumn:
         column = DecimalColumn(
             name="name",
             type="decimal",
-            property=DecimalColumnProperty(format="decimal", withText=True),
+            property=DecimalColumnProperty(withText=True),
         )
 
         result = table.select(parse_decimal_column(column, pl.col("name")))
@@ -195,7 +195,7 @@ class TestStringifyDecimalColumn:
         column = DecimalColumn(
             name="name",
             type="decimal",
-            property=DecimalColumnProperty(format="decimal"),
+            property=DecimalColumnProperty(),
         )
 
         result = table.select(stringify_decimal_column(column, pl.col("name")))

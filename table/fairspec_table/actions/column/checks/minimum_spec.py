@@ -24,7 +24,7 @@ class TestCheckCellMinimum:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         check = create_check_cell_minimum()
@@ -37,7 +37,7 @@ class TestCheckCellMinimum:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         check = create_check_cell_minimum()
@@ -50,7 +50,7 @@ class TestCheckCellMinimum:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number", minimum=5),
+            property=NumberColumnProperty(minimum=5),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -68,7 +68,7 @@ class TestCheckCellMinimum:
         column = NumberColumn(
             name="temperature",
             type="number",
-            property=NumberColumnProperty(type="number", minimum=10),
+            property=NumberColumnProperty(minimum=10),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -88,7 +88,7 @@ class TestCheckCellMinimum:
         column = NumberColumn(
             name="temperature",
             type="number",
-            property=NumberColumnProperty(type="number", exclusiveMinimum=10),
+            property=NumberColumnProperty(exclusiveMinimum=10),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -108,7 +108,7 @@ class TestCheckCellMinimum:
         column = IntegerColumn(
             name="year",
             type="integer",
-            property=IntegerColumnProperty(type="integer", minimum=2019),
+            property=IntegerColumnProperty(minimum=2019),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -127,7 +127,7 @@ class TestCheckCellMinimum:
         column = IntegerColumn(
             name="year",
             type="integer",
-            property=IntegerColumnProperty(type="integer", exclusiveMinimum=2019),
+            property=IntegerColumnProperty(exclusiveMinimum=2019),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

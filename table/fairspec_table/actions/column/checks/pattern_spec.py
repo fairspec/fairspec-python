@@ -20,7 +20,7 @@ class TestCheckCellPattern:
         column = StringColumn(
             name="email",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -32,7 +32,7 @@ class TestCheckCellPattern:
         column = IntegerColumn(
             name="id",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -45,7 +45,7 @@ class TestCheckCellPattern:
         column = StringColumn(
             name="email",
             type="string",
-            property=StringColumnProperty(type="string", pattern=email_pattern),
+            property=StringColumnProperty(pattern=email_pattern),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -66,7 +66,7 @@ class TestCheckCellPattern:
         column = StringColumn(
             name="email",
             type="string",
-            property=StringColumnProperty(type="string", pattern=email_pattern),
+            property=StringColumnProperty(pattern=email_pattern),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

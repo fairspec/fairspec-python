@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class UrlColumnProperty(BaseStringColumnProperty):
-    format: Literal["url"]
+    format: Literal["url"] = "url"
 
 
 class UrlColumn(BaseColumn):

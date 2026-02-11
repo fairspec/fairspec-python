@@ -11,7 +11,7 @@ from .hex import parse_hex_column
 COLUMN = HexColumn(
     name="name",
     type="hex",
-    property=HexColumnProperty(format="hex"),
+    property=HexColumnProperty(),
 )
 
 

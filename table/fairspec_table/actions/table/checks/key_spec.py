@@ -20,8 +20,8 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             },
             primaryKey=["id"],
         )
@@ -40,8 +40,8 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "name": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "name": StringColumnProperty(),
             },
             primaryKey=["id"],
         )
@@ -69,8 +69,8 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "email": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "email": StringColumnProperty(),
             },
             uniqueKeys=[["email"]],
         )
@@ -95,8 +95,8 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "email": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "email": StringColumnProperty(),
             },
             uniqueKeys=[["email"]],
         )
@@ -121,9 +121,9 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "category": StringColumnProperty(type="string"),
-                "subcategory": StringColumnProperty(type="string"),
-                "value": IntegerColumnProperty(type="integer"),
+                "category": StringColumnProperty(),
+                "subcategory": StringColumnProperty(),
+                "value": IntegerColumnProperty(),
             },
             uniqueKeys=[["category", "subcategory"]],
         )
@@ -151,8 +151,8 @@ class TestInspectTableRowUnique:
 
         table_schema = TableSchema(
             properties={
-                "id": IntegerColumnProperty(type="integer"),
-                "email": StringColumnProperty(type="string"),
+                "id": IntegerColumnProperty(),
+                "email": StringColumnProperty(),
             },
             primaryKey=["id"],
             uniqueKeys=[["email"]],
@@ -181,7 +181,7 @@ class TestInspectTableRowUnique:
         table_schema = TableSchema(
             properties={
                 "id": IntegerColumnProperty(type=("integer", "null")),
-                "name": StringColumnProperty(type="string"),
+                "name": StringColumnProperty(),
             },
             uniqueKeys=[["id"], ["id", "name"]],
         )

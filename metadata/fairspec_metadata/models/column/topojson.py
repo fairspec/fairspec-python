@@ -7,7 +7,7 @@ from .object import BaseObjectColumnProperty
 
 
 class TopojsonColumnProperty(BaseObjectColumnProperty):
-    format: Literal["topojson"]
+    format: Literal["topojson"] = "topojson"
 
 
 class TopojsonColumn(BaseColumn):

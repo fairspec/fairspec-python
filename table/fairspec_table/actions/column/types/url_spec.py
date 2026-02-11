@@ -11,7 +11,7 @@ from .url import parse_url_column
 COLUMN = UrlColumn(
     name="name",
     type="url",
-    property=UrlColumnProperty(format="url"),
+    property=UrlColumnProperty(),
 )
 
 

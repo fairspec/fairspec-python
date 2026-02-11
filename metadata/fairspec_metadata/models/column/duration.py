@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class DurationColumnProperty(BaseStringColumnProperty):
-    format: Literal["duration"]
+    format: Literal["duration"] = "duration"
 
 
 class DurationColumn(BaseColumn):

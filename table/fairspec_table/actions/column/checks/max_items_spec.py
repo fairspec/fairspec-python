@@ -17,7 +17,7 @@ class TestCheckCellMaxItems:
         column = StringColumn(
             name="tags",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -29,7 +29,7 @@ class TestCheckCellMaxItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list"),
+            property=ListColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -41,7 +41,7 @@ class TestCheckCellMaxItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", maxItems=3),
+            property=ListColumnProperty(maxItems=3),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -61,7 +61,7 @@ class TestCheckCellMaxItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", maxItems=3),
+            property=ListColumnProperty(maxItems=3),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -88,7 +88,7 @@ class TestCheckCellMaxItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", maxItems=2),
+            property=ListColumnProperty(maxItems=2),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -108,7 +108,7 @@ class TestCheckCellMaxItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", maxItems=1),
+            property=ListColumnProperty(maxItems=1),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

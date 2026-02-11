@@ -20,7 +20,7 @@ class TestInspectTopojsonColumn:
         column = TopojsonColumn(
             name="topology",
             type="topojson",
-            property=TopojsonColumnProperty(format="topojson"),
+            property=TopojsonColumnProperty(),
         )
 
         errors = inspect_topojson_column(column, table)
@@ -40,7 +40,7 @@ class TestInspectTopojsonColumn:
         column = TopojsonColumn(
             name="topology",
             type="topojson",
-            property=TopojsonColumnProperty(format="topojson"),
+            property=TopojsonColumnProperty(),
         )
 
         errors = inspect_topojson_column(column, table)
@@ -65,7 +65,7 @@ class TestInspectTopojsonColumn:
         column = TopojsonColumn(
             name="geometry",
             type="topojson",
-            property=TopojsonColumnProperty(format="topojson"),
+            property=TopojsonColumnProperty(),
         )
 
         errors = inspect_topojson_column(column, table)
@@ -84,7 +84,7 @@ class TestInspectTopojsonColumn:
         column = TopojsonColumn(
             name="topology",
             type="topojson",
-            property=TopojsonColumnProperty(format="topojson"),
+            property=TopojsonColumnProperty(),
         )
 
         errors = inspect_topojson_column(column, table)

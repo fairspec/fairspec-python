@@ -28,7 +28,7 @@ class TestCheckCellType:
         column = IntegerColumn(
             name="id",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -45,7 +45,7 @@ class TestCheckCellType:
         column = IntegerColumn(
             name="id",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -64,7 +64,7 @@ class TestCheckCellType:
         column = NumberColumn(
             name="price",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -84,7 +84,7 @@ class TestCheckCellType:
         column = BooleanColumn(
             name="active",
             type="boolean",
-            property=BooleanColumnProperty(type="boolean"),
+            property=BooleanColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -104,7 +104,7 @@ class TestCheckCellType:
         column = IntegerColumn(
             name="id",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame({"source": ["1", None, "3"], "target": [1, None, 3]}).lazy()
@@ -119,7 +119,7 @@ class TestCheckCellType:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 

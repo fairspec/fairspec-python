@@ -20,7 +20,7 @@ class TestInspectTextColumn:
         column = DurationColumn(
             name="duration",
             type="duration",
-            property=DurationColumnProperty(format="duration"),
+            property=DurationColumnProperty(),
         )
 
         errors = inspect_text_column(
@@ -34,7 +34,7 @@ class TestInspectTextColumn:
         column = DurationColumn(
             name="duration",
             type="duration",
-            property=DurationColumnProperty(format="duration"),
+            property=DurationColumnProperty(),
         )
 
         errors = inspect_text_column(
@@ -52,7 +52,7 @@ class TestInspectTextColumn:
         column = DurationColumn(
             name="duration",
             type="duration",
-            property=DurationColumnProperty(format="duration"),
+            property=DurationColumnProperty(),
         )
 
         errors = inspect_text_column(
@@ -69,7 +69,7 @@ class TestInspectTextColumn:
         column = DurationColumn(
             name="duration",
             type="duration",
-            property=DurationColumnProperty(format="duration"),
+            property=DurationColumnProperty(),
         )
 
         errors = inspect_text_column(column, table, parse=failing_parse)

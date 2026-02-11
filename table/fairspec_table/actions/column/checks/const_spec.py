@@ -28,7 +28,7 @@ class TestCheckCellConst:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -40,7 +40,7 @@ class TestCheckCellConst:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string", const="active"),
+            property=StringColumnProperty(const="active"),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -61,7 +61,7 @@ class TestCheckCellConst:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string", const="active"),
+            property=StringColumnProperty(const="active"),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -81,7 +81,7 @@ class TestCheckCellConst:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string", const="active"),
+            property=StringColumnProperty(const="active"),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -101,7 +101,7 @@ class TestCheckCellConst:
         column = StringColumn(
             name="status",
             type="string",
-            property=StringColumnProperty(type="string", const="active"),
+            property=StringColumnProperty(const="active"),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -121,7 +121,7 @@ class TestCheckCellConst:
         column = IntegerColumn(
             name="priority",
             type="integer",
-            property=IntegerColumnProperty(type="integer", const=1),
+            property=IntegerColumnProperty(const=1),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame({"source": [1, 1, 2], "target": [1, 1, 2]}).lazy()
@@ -137,7 +137,7 @@ class TestCheckCellConst:
         column = NumberColumn(
             name="rate",
             type="number",
-            property=NumberColumnProperty(type="number", const=1.5),
+            property=NumberColumnProperty(const=1.5),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -155,7 +155,7 @@ class TestCheckCellConst:
         column = BooleanColumn(
             name="enabled",
             type="boolean",
-            property=BooleanColumnProperty(type="boolean", const=True),
+            property=BooleanColumnProperty(const=True),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

@@ -4,7 +4,13 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-from .base import BaseColumn, BaseColumnProperty, ObjectNullablePropertyType
+from .base import BaseColumn, BaseColumnProperty
+
+ObjectNullablePropertyType = (
+    Literal["object"]
+    | tuple[Literal["object"], Literal["null"]]
+    | tuple[Literal["null"], Literal["object"]]
+)
 
 
 class ObjectMissingValueItem(BaseModel):
@@ -13,7 +19,7 @@ class ObjectMissingValueItem(BaseModel):
 
 
 class BaseObjectColumnProperty(BaseColumnProperty):
-    type: ObjectNullablePropertyType | None = None
+    type: ObjectNullablePropertyType = "object"
     enum: list[dict[str, Any]] | None = Field(
         default=None,
         description="An optional array of allowed values for the column",
@@ -54,7 +60,7 @@ class BaseObjectColumnProperty(BaseColumnProperty):
 
 
 class ObjectColumnProperty(BaseObjectColumnProperty):
-    format: Literal[""] | None = None
+    format: Literal[None] = None
 
 
 class ObjectColumn(BaseColumn):

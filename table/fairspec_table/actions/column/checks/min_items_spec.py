@@ -17,7 +17,7 @@ class TestCheckCellMinItems:
         column = StringColumn(
             name="tags",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -29,7 +29,7 @@ class TestCheckCellMinItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list"),
+            property=ListColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -41,7 +41,7 @@ class TestCheckCellMinItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", minItems=3),
+            property=ListColumnProperty(minItems=3),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -65,7 +65,7 @@ class TestCheckCellMinItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", minItems=3),
+            property=ListColumnProperty(minItems=3),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -92,7 +92,7 @@ class TestCheckCellMinItems:
         column = ListColumn(
             name="tags",
             type="list",
-            property=ListColumnProperty(type="string", format="list", minItems=3),
+            property=ListColumnProperty(minItems=3),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

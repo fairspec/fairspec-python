@@ -14,7 +14,7 @@ class UnknownMissingValueItem(BaseModel):
 
 class UnknownColumnProperty(BaseColumnProperty):
     type: Literal["null"] | None = None
-    format: Literal[""] | None = None
+    format: Literal[None] = None
     enum: list[list[Any]] | None = Field(
         default=None,
         description="An optional array of allowed values for the column",

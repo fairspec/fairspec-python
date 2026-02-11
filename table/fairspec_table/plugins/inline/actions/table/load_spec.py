@@ -50,8 +50,8 @@ class TestLoadInlineTable:
             ],
             tableSchema=TableSchema(
                 properties={
-                    "id": IntegerColumnProperty(type="integer"),
-                    "name": StringColumnProperty(type="string"),
+                    "id": IntegerColumnProperty(),
+                    "name": StringColumnProperty(),
                 },
             ),
         )
@@ -70,8 +70,8 @@ class TestLoadInlineTable:
             data=[{"id": 1, "name": "english"}, {"id": 2}],
             tableSchema=TableSchema(
                 properties={
-                    "id": IntegerColumnProperty(type="integer"),
-                    "name": StringColumnProperty(type="string"),
+                    "id": IntegerColumnProperty(),
+                    "name": StringColumnProperty(),
                 },
             ),
         )

@@ -60,7 +60,7 @@ class TestMergeMissingValues:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         table_schema = TableSchema(missingValues=["", 99])
 
@@ -72,7 +72,7 @@ class TestMergeMissingValues:
         column = StringColumn(
             name="name",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         table_schema = TableSchema(
             missingValues=[

@@ -15,7 +15,7 @@ class IntegerCategoryItem(BaseModel):
 
 
 class IntegerCategoricalColumnProperty(BaseIntegerColumnProperty):
-    format: Literal["categorical"]
+    format: Literal["categorical"] = "categorical"
     categories: list[int | IntegerCategoryItem] | None = Field(
         default=None,
         description="An optional array of categorical values with optional labels",
@@ -32,7 +32,7 @@ class StringCategoryItem(BaseModel):
 
 
 class StringCategoricalColumnProperty(BaseStringColumnProperty):
-    format: Literal["categorical"]
+    format: Literal["categorical"] = "categorical"
     categories: list[str | StringCategoryItem] | None = Field(
         default=None,
         description="An optional array of categorical values with optional labels",

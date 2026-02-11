@@ -11,7 +11,7 @@ from .email import parse_email_column
 COLUMN = EmailColumn(
     name="name",
     type="email",
-    property=EmailColumnProperty(format="email"),
+    property=EmailColumnProperty(),
 )
 
 

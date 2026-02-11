@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class Base64ColumnProperty(BaseStringColumnProperty):
-    format: Literal["base64"]
+    format: Literal["base64"] = "base64"
 
 
 class Base64Column(BaseColumn):

@@ -21,7 +21,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="location",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -41,7 +41,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="geometry",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -61,7 +61,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="feature",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -80,7 +80,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="collection",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -100,7 +100,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="location",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -120,7 +120,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="data",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -145,7 +145,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="data",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -168,7 +168,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="data",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -187,7 +187,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="data",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -217,7 +217,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="location",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -245,7 +245,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="line",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -273,7 +273,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="feature",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)
@@ -302,7 +302,7 @@ class TestInspectGeojsonColumn:
         column = GeojsonColumn(
             name="collection",
             type="geojson",
-            property=GeojsonColumnProperty(format="geojson"),
+            property=GeojsonColumnProperty(),
         )
 
         errors = inspect_geojson_column(column, table)

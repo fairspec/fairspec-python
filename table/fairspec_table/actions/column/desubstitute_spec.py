@@ -29,7 +29,7 @@ class TestDesubstituteColumnString:
             target=StringColumn(
                 name="name",
                 type="string",
-                property=StringColumnProperty(type="string"),
+                property=StringColumnProperty(),
             ),
         )
 
@@ -53,7 +53,7 @@ class TestDesubstituteColumnString:
             target=StringColumn(
                 name="name",
                 type="string",
-                property=StringColumnProperty(type="string", missingValues=[]),
+                property=StringColumnProperty(missingValues=[]),
             ),
         )
 
@@ -77,7 +77,7 @@ class TestDesubstituteColumnString:
             target=StringColumn(
                 name="name",
                 type="string",
-                property=StringColumnProperty(type="string", missingValues=["-"]),
+                property=StringColumnProperty(missingValues=["-"]),
             ),
         )
 
@@ -101,7 +101,7 @@ class TestDesubstituteColumnString:
             target=StringColumn(
                 name="name",
                 type="string",
-                property=StringColumnProperty(type="string", missingValues=["x"]),
+                property=StringColumnProperty(missingValues=["x"]),
             ),
         )
 
@@ -125,7 +125,7 @@ class TestDesubstituteColumnString:
             target=StringColumn(
                 name="name",
                 type="string",
-                property=StringColumnProperty(type="string", missingValues=["n/a"]),
+                property=StringColumnProperty(missingValues=["n/a"]),
             ),
         )
 
@@ -178,7 +178,7 @@ class TestDesubstituteColumnInteger:
             target=IntegerColumn(
                 name="value",
                 type="integer",
-                property=IntegerColumnProperty(type="integer", missingValues=[-1]),
+                property=IntegerColumnProperty(missingValues=[-1]),
             ),
         )
 
@@ -209,7 +209,7 @@ class TestDesubstituteColumnInteger:
             target=IntegerColumn(
                 name="value",
                 type="integer",
-                property=IntegerColumnProperty(type="integer", missingValues=[-999]),
+                property=IntegerColumnProperty(missingValues=[-999]),
             ),
         )
 
@@ -274,7 +274,7 @@ class TestDesubstituteColumnNumber:
             target=NumberColumn(
                 name="value",
                 type="number",
-                property=NumberColumnProperty(type="number", missingValues=[-1]),
+                property=NumberColumnProperty(missingValues=[-1]),
             ),
         )
 
@@ -305,7 +305,7 @@ class TestDesubstituteColumnNumber:
             target=NumberColumn(
                 name="value",
                 type="number",
-                property=NumberColumnProperty(type="number", missingValues=[-999]),
+                property=NumberColumnProperty(missingValues=[-999]),
             ),
         )
 

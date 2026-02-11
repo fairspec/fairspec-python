@@ -7,7 +7,7 @@ from .object import BaseObjectColumnProperty
 
 
 class GeojsonColumnProperty(BaseObjectColumnProperty):
-    format: Literal["geojson"]
+    format: Literal["geojson"] = "geojson"
 
 
 class GeojsonColumn(BaseColumn):

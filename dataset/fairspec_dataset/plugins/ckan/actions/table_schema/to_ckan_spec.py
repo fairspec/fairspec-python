@@ -40,27 +40,27 @@ class TestConvertTableSchemaToCkan:
                     title="Name",
                     description="Person's full name",
                 ),
-                "age": IntegerColumnProperty(type="integer"),
+                "age": IntegerColumnProperty(),
                 "score": NumberColumnProperty(
                     type="number",
                     title="Score",
                     description="Test score",
                 ),
-                "is_active": BooleanColumnProperty(type="boolean"),
+                "is_active": BooleanColumnProperty(),
                 "birth_date": DateColumnProperty(
                     type="string",
                     format="date",
                     title="Birth Date",
                     description="Date of birth",
                 ),
-                "start_time": TimeColumnProperty(type="string", format="time"),
+                "start_time": TimeColumnProperty(),
                 "created_at": DateTimeColumnProperty(
                     type="string",
                     format="date-time",
                     title="Created At",
                     description="Timestamp when record was created",
                 ),
-                "metadata": ObjectColumnProperty(type="object"),
+                "metadata": ObjectColumnProperty(),
                 "tags": ArrayColumnProperty(
                     type="array",
                     title="Tags",
@@ -134,9 +134,7 @@ class TestConvertTableSchemaToCkan:
         assert tags_field.info.type_override == "array"
 
     def test_handles_columns_with_only_title(self):
-        schema = TableSchema(
-            properties={"field1": StringColumnProperty(type="string", title="Field 1")}
-        )
+        schema = TableSchema(properties={"field1": StringColumnProperty(title="Field 1")})
 
         result = convert_table_schema_to_ckan(schema)
 
@@ -172,9 +170,7 @@ class TestConvertTableSchemaToCkan:
         assert field.info.type_override == "text"
 
     def test_handles_columns_without_title_or_description(self):
-        schema = TableSchema(
-            properties={"simple_field": StringColumnProperty(type="string")}
-        )
+        schema = TableSchema(properties={"simple_field": StringColumnProperty()})
 
         result = convert_table_schema_to_ckan(schema)
 

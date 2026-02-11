@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class WkbColumnProperty(BaseStringColumnProperty):
-    format: Literal["wkb"]
+    format: Literal["wkb"] = "wkb"
 
 
 class WkbColumn(BaseColumn):

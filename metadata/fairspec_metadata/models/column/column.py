@@ -86,28 +86,42 @@ class ColumnType(StrEnum):
     wkt = "wkt"
 
 
+StringColumnPropertyWithFormat = Annotated[
+    Union[
+        ListColumnProperty,
+        Base64ColumnProperty,
+        HexColumnProperty,
+        EmailColumnProperty,
+        UrlColumnProperty,
+        DateTimeColumnProperty,
+        DateColumnProperty,
+        TimeColumnProperty,
+        DurationColumnProperty,
+        WktColumnProperty,
+        WkbColumnProperty,
+        StringCategoricalColumnProperty,
+        DecimalColumnProperty,
+    ],
+    Field(discriminator="format"),
+]
+
+ObjectColumnPropertyWithFormat = Annotated[
+    Union[
+        GeojsonColumnProperty,
+        TopojsonColumnProperty,
+    ],
+    Field(discriminator="format"),
+]
+
 ColumnProperty = Union[
     BooleanColumnProperty,
     IntegerColumnProperty,
     IntegerCategoricalColumnProperty,
     NumberColumnProperty,
-    ListColumnProperty,
-    Base64ColumnProperty,
-    HexColumnProperty,
-    EmailColumnProperty,
-    UrlColumnProperty,
-    DateTimeColumnProperty,
-    DateColumnProperty,
-    TimeColumnProperty,
-    DurationColumnProperty,
-    WktColumnProperty,
-    WkbColumnProperty,
+    StringColumnPropertyWithFormat,
     StringColumnProperty,
-    StringCategoricalColumnProperty,
-    DecimalColumnProperty,
     ArrayColumnProperty,
-    GeojsonColumnProperty,
-    TopojsonColumnProperty,
+    ObjectColumnPropertyWithFormat,
     ObjectColumnProperty,
     UnknownColumnProperty,
 ]

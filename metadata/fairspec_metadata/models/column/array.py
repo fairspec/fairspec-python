@@ -4,7 +4,13 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-from .base import ArrayNullablePropertyType, BaseColumn, BaseColumnProperty
+from .base import BaseColumn, BaseColumnProperty
+
+ArrayNullablePropertyType = (
+    Literal["array"]
+    | tuple[Literal["array"], Literal["null"]]
+    | tuple[Literal["null"], Literal["array"]]
+)
 
 
 class ArrayMissingValueItem(BaseModel):
@@ -13,8 +19,8 @@ class ArrayMissingValueItem(BaseModel):
 
 
 class ArrayColumnProperty(BaseColumnProperty):
-    type: ArrayNullablePropertyType | None = None
-    format: Literal[""] | None = None
+    type: ArrayNullablePropertyType = "array"
+    format: Literal[None] = None
     enum: list[Any] | None = Field(
         default=None,
         description="An optional array of allowed values for the column",

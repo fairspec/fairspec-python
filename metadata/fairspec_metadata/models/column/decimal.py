@@ -9,7 +9,7 @@ from .string import BaseStringColumnProperty
 
 
 class DecimalColumnProperty(BaseStringColumnProperty):
-    format: Literal["decimal"]
+    format: Literal["decimal"] = "decimal"
     minimum: float | None = Field(
         default=None,
         description="An optional minimum value constraint (inclusive)",

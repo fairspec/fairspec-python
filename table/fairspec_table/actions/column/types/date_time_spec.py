@@ -28,7 +28,7 @@ class TestParseDateTimeColumn:
         column = DateTimeColumn(
             name="name",
             type="date-time",
-            property=DateTimeColumnProperty(format="date-time"),
+            property=DateTimeColumnProperty(),
         )
 
         result = table.select(parse_date_time_column(column, pl.col("name")))
@@ -74,7 +74,7 @@ class TestParseDateTimeColumn:
         column = DateTimeColumn(
             name="name",
             type="date-time",
-            property=DateTimeColumnProperty(format="date-time", temporalFormat="invalid"),
+            property=DateTimeColumnProperty(temporalFormat="invalid"),
         )
 
         result = table.select(parse_date_time_column(column, pl.col("name")))
@@ -102,7 +102,7 @@ class TestStringifyDateTimeColumn:
         column = DateTimeColumn(
             name="name",
             type="date-time",
-            property=DateTimeColumnProperty(format="date-time"),
+            property=DateTimeColumnProperty(),
         )
 
         result = table.select(stringify_date_time_column(column, pl.col("name")))

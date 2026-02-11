@@ -20,8 +20,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -40,8 +40,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             allRequired=True,
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": NumberColumnProperty(type="number"),
+                "id": NumberColumnProperty(),
+                "name": NumberColumnProperty(),
             },
         )
 
@@ -61,8 +61,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             allRequired=True,
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             },
         )
 
@@ -82,8 +82,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -101,8 +101,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             required=["name"],
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             },
         )
 
@@ -121,8 +121,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -141,8 +141,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -160,8 +160,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -179,8 +179,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             required=["name"],
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             },
         )
 
@@ -199,8 +199,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -218,8 +218,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -237,8 +237,8 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             }
         )
 
@@ -256,8 +256,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             allRequired=True,
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             },
         )
 
@@ -278,8 +278,8 @@ class TestInspectTable:
         table_schema = TableSchema(
             allRequired=True,
             properties={
-                "id": NumberColumnProperty(type="number"),
-                "name": StringColumnProperty(type="string"),
+                "id": NumberColumnProperty(),
+                "name": StringColumnProperty(),
             },
         )
 

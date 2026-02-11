@@ -11,7 +11,7 @@ from .base64 import parse_base64_column
 COLUMN = Base64Column(
     name="name",
     type="base64",
-    property=Base64ColumnProperty(format="base64"),
+    property=Base64ColumnProperty(),
 )
 
 

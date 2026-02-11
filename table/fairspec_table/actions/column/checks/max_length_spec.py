@@ -20,7 +20,7 @@ class TestCheckCellMaxLength:
         column = StringColumn(
             name="code",
             type="string",
-            property=StringColumnProperty(type="string"),
+            property=StringColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -32,7 +32,7 @@ class TestCheckCellMaxLength:
         column = IntegerColumn(
             name="id",
             type="integer",
-            property=IntegerColumnProperty(type="integer"),
+            property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -44,7 +44,7 @@ class TestCheckCellMaxLength:
         column = StringColumn(
             name="code",
             type="string",
-            property=StringColumnProperty(type="string", maxLength=4),
+            property=StringColumnProperty(maxLength=4),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -61,7 +61,7 @@ class TestCheckCellMaxLength:
         column = StringColumn(
             name="username",
             type="string",
-            property=StringColumnProperty(type="string", maxLength=8),
+            property=StringColumnProperty(maxLength=8),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(

@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class EmailColumnProperty(BaseStringColumnProperty):
-    format: Literal["email"]
+    format: Literal["email"] = "email"
 
 
 class EmailColumn(BaseColumn):

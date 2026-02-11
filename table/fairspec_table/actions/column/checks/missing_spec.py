@@ -16,7 +16,7 @@ class TestCheckCellMissing:
         column = NumberColumn(
             name="id",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -35,7 +35,7 @@ class TestCheckCellMissing:
             name="id",
             type="number",
             nullable=True,
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 
@@ -47,7 +47,7 @@ class TestCheckCellMissing:
         column = NumberColumn(
             name="id",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
         table = pl.DataFrame(
@@ -64,7 +64,7 @@ class TestCheckCellMissing:
         column = NumberColumn(
             name="id",
             type="number",
-            property=NumberColumnProperty(type="number"),
+            property=NumberColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
 

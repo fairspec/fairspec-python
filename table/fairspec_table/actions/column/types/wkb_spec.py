@@ -23,7 +23,7 @@ class TestInspectWkbColumn:
         column = WkbColumn(
             name="name",
             type="wkb",
-            property=WkbColumnProperty(format="wkb"),
+            property=WkbColumnProperty(),
         )
 
         errors = inspect_wkb_column(column, table)

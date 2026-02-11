@@ -20,7 +20,7 @@ class ListItemType(StrEnum):
 
 
 class ListColumnProperty(BaseStringColumnProperty):
-    format: Literal["list"]
+    format: Literal["list"] = "list"
     itemType: ListItemType | None = Field(
         default=None,
         description="An optional type for items in a list column",

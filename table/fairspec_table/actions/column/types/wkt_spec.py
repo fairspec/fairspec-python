@@ -24,7 +24,7 @@ class TestInspectWktColumn:
         column = WktColumn(
             name="name",
             type="wkt",
-            property=WktColumnProperty(format="wkt"),
+            property=WktColumnProperty(),
         )
 
         errors = inspect_wkt_column(column, table)

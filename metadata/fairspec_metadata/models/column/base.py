@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Any, Literal
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -13,64 +13,6 @@ class BasePropertyType(StrEnum):
     boolean = "boolean"
     array = "array"
     object = "object"
-
-
-NullablePropertyType = (
-    Literal["string"]
-    | tuple[Literal["string"], Literal["null"]]
-    | tuple[Literal["null"], Literal["string"]]
-    | Literal["number"]
-    | tuple[Literal["number"], Literal["null"]]
-    | tuple[Literal["null"], Literal["number"]]
-    | Literal["integer"]
-    | tuple[Literal["integer"], Literal["null"]]
-    | tuple[Literal["null"], Literal["integer"]]
-    | Literal["boolean"]
-    | tuple[Literal["boolean"], Literal["null"]]
-    | tuple[Literal["null"], Literal["boolean"]]
-    | Literal["array"]
-    | tuple[Literal["array"], Literal["null"]]
-    | tuple[Literal["null"], Literal["array"]]
-    | Literal["object"]
-    | tuple[Literal["object"], Literal["null"]]
-    | tuple[Literal["null"], Literal["object"]]
-)
-
-StringNullablePropertyType = (
-    Literal["string"]
-    | tuple[Literal["string"], Literal["null"]]
-    | tuple[Literal["null"], Literal["string"]]
-)
-
-IntegerNullablePropertyType = (
-    Literal["integer"]
-    | tuple[Literal["integer"], Literal["null"]]
-    | tuple[Literal["null"], Literal["integer"]]
-)
-
-NumberNullablePropertyType = (
-    Literal["number"]
-    | tuple[Literal["number"], Literal["null"]]
-    | tuple[Literal["null"], Literal["number"]]
-)
-
-BooleanNullablePropertyType = (
-    Literal["boolean"]
-    | tuple[Literal["boolean"], Literal["null"]]
-    | tuple[Literal["null"], Literal["boolean"]]
-)
-
-ArrayNullablePropertyType = (
-    Literal["array"]
-    | tuple[Literal["array"], Literal["null"]]
-    | tuple[Literal["null"], Literal["array"]]
-)
-
-ObjectNullablePropertyType = (
-    Literal["object"]
-    | tuple[Literal["object"], Literal["null"]]
-    | tuple[Literal["null"], Literal["object"]]
-)
 
 
 class BaseColumnProperty(BaseModel):

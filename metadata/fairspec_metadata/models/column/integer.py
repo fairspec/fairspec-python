@@ -4,7 +4,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from .base import BaseColumn, BaseColumnProperty, IntegerNullablePropertyType
+from .base import BaseColumn, BaseColumnProperty
+
+IntegerNullablePropertyType = (
+    Literal["integer"]
+    | tuple[Literal["integer"], Literal["null"]]
+    | tuple[Literal["null"], Literal["integer"]]
+)
 
 
 class IntegerMissingValueItem(BaseModel):
@@ -13,7 +19,7 @@ class IntegerMissingValueItem(BaseModel):
 
 
 class BaseIntegerColumnProperty(BaseColumnProperty):
-    type: IntegerNullablePropertyType | None = None
+    type: IntegerNullablePropertyType = "integer"
     enum: list[int] | None = Field(
         default=None,
         description="An optional array of allowed values for the column",
@@ -68,7 +74,7 @@ class BaseIntegerColumnProperty(BaseColumnProperty):
 
 
 class IntegerColumnProperty(BaseIntegerColumnProperty):
-    format: Literal[""] | None = None
+    format: Literal[None] = None
 
 
 class IntegerColumn(BaseColumn):

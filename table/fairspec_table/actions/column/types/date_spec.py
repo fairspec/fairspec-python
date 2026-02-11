@@ -25,7 +25,7 @@ class TestParseDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date"),
+            property=DateColumnProperty(),
         )
 
         result = table.select(parse_date_column(column, pl.col("name")))
@@ -46,7 +46,7 @@ class TestParseDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date", temporalFormat="%d/%m/%Y"),
+            property=DateColumnProperty(temporalFormat="%d/%m/%Y"),
         )
 
         result = table.select(parse_date_column(column, pl.col("name")))
@@ -65,7 +65,7 @@ class TestParseDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date", temporalFormat="%Y/%m/%d"),
+            property=DateColumnProperty(temporalFormat="%Y/%m/%d"),
         )
 
         result = table.select(parse_date_column(column, pl.col("name")))
@@ -84,7 +84,7 @@ class TestParseDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date", temporalFormat="invalid"),
+            property=DateColumnProperty(temporalFormat="invalid"),
         )
 
         result = table.select(parse_date_column(column, pl.col("name")))
@@ -106,7 +106,7 @@ class TestStringifyDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date"),
+            property=DateColumnProperty(),
         )
 
         result = table.select(stringify_date_column(column, pl.col("name")))
@@ -125,7 +125,7 @@ class TestStringifyDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date", temporalFormat="%d/%m/%Y"),
+            property=DateColumnProperty(temporalFormat="%d/%m/%Y"),
         )
 
         result = table.select(stringify_date_column(column, pl.col("name")))
@@ -144,7 +144,7 @@ class TestStringifyDateColumn:
         column = DateColumn(
             name="name",
             type="date",
-            property=DateColumnProperty(format="date", temporalFormat="%Y/%m/%d"),
+            property=DateColumnProperty(temporalFormat="%Y/%m/%d"),
         )
 
         result = table.select(stringify_date_column(column, pl.col("name")))

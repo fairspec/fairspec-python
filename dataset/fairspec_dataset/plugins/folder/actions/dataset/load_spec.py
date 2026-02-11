@@ -89,8 +89,8 @@ class TestLoadDatasetFromFolder:
                     data=[{"id": 1}],
                     tableSchema=TableSchema(
                         properties={
-                            "id": IntegerColumnProperty(type="integer"),
-                            "name": StringColumnProperty(type="string"),
+                            "id": IntegerColumnProperty(),
+                            "name": StringColumnProperty(),
                         }
                     ),
                 )

@@ -7,7 +7,7 @@ from .string import BaseStringColumnProperty
 
 
 class HexColumnProperty(BaseStringColumnProperty):
-    format: Literal["hex"]
+    format: Literal["hex"] = "hex"
 
 
 class HexColumn(BaseColumn):

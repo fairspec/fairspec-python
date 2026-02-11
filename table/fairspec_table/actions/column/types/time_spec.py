@@ -27,7 +27,7 @@ class TestParseTimeColumn:
         column = TimeColumn(
             name="name",
             type="time",
-            property=TimeColumnProperty(format="time"),
+            property=TimeColumnProperty(),
         )
 
         result = table.select(parse_time_column(column, pl.col("name")))
@@ -49,7 +49,7 @@ class TestParseTimeColumn:
         column = TimeColumn(
             name="name",
             type="time",
-            property=TimeColumnProperty(format="time", temporalFormat="%H:%M"),
+            property=TimeColumnProperty(temporalFormat="%H:%M"),
         )
 
         result = table.select(parse_time_column(column, pl.col("name")))
@@ -71,7 +71,7 @@ class TestStringifyTimeColumn:
         column = TimeColumn(
             name="name",
             type="time",
-            property=TimeColumnProperty(format="time"),
+            property=TimeColumnProperty(),
         )
 
         result = table.select(stringify_time_column(column, pl.col("name")))
@@ -91,7 +91,7 @@ class TestStringifyTimeColumn:
         column = TimeColumn(
             name="name",
             type="time",
-            property=TimeColumnProperty(format="time", temporalFormat="%H:%M"),
+            property=TimeColumnProperty(temporalFormat="%H:%M"),
         )
 
         result = table.select(stringify_time_column(column, pl.col("name")))

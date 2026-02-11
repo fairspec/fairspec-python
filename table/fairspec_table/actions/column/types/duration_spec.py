@@ -11,7 +11,7 @@ from .duration import inspect_duration_column
 COLUMN = DurationColumn(
     name="name",
     type="duration",
-    property=DurationColumnProperty(format="duration"),
+    property=DurationColumnProperty(),
 )
 
 
