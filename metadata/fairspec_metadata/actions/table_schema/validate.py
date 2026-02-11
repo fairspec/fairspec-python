@@ -1,22 +1,18 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import cast
 
 from fairspec_metadata.actions.descriptor.load import load_descriptor
 from fairspec_metadata.actions.descriptor.validate import validate_descriptor
 from fairspec_metadata.actions.profile.load import load_profile
 from fairspec_metadata.models.descriptor import Descriptor
-from fairspec_metadata.models.error.error import FairspecError
 from fairspec_metadata.models.profile import ProfileType
+from fairspec_metadata.models.report import Report
 from fairspec_metadata.models.table_schema import TableSchema
 
 
-@dataclass
-class TableSchemaValidationResult:
-    valid: bool
-    errors: list[FairspecError]
-    table_schema: TableSchema | None = None
+class TableSchemaValidationResult(Report):
+    table_schema: TableSchema | None
 
 
 def validate_table_schema(
@@ -46,7 +42,7 @@ def validate_table_schema(
         # Valid -> we can cast it
         table_schema = cast(TableSchema, descriptor)
 
-    return TableSchemaValidationResult(
+    return TableSchemaValidationResult.model_construct(
         valid=report.valid,
         errors=report.errors,
         table_schema=table_schema,
