@@ -1,0 +1,25 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from fairspec_metadata import get_data_records
+
+from ...plugin import TablePlugin
+from .actions.table.load import load_inline_table
+
+if TYPE_CHECKING:
+    from fairspec_metadata.models.descriptor import Descriptor
+
+    from ...models.table import LoadTableOptions, Table
+
+
+class InlinePlugin(TablePlugin):
+    def load_table(
+        self,
+        resource: Descriptor,
+        options: LoadTableOptions | None = None,
+    ) -> Table | None:
+        records = get_data_records(resource)
+        if not records:
+            return None
+        return load_inline_table(resource, options)
