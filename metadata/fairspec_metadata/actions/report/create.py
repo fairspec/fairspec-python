@@ -9,6 +9,6 @@ def create_report(
     *,
     max_errors: int | None = None,
 ) -> Report:
-    errors = (errors or [])[: max_errors]
+    errors = (errors or [])[:max_errors]
     valid = len(errors) == 0
     return Report(valid=valid, errors=errors)

@@ -12,7 +12,9 @@ class TestLoadDataset:
     @patch("fairspec_dataset.plugins.descriptor.plugin.load_dataset_descriptor")
     def test_loads_from_local_datapackage_json(self, mock_load: MagicMock):
         mock_dataset = MagicMock()
-        mock_dataset.model_dump.return_value = {"resources": [{"name": "test", "data": []}]}
+        mock_dataset.model_dump.return_value = {
+            "resources": [{"name": "test", "data": []}]
+        }
         mock_load.return_value = mock_dataset
 
         result = self.plugin.load_dataset("./datapackage.json")
@@ -23,7 +25,9 @@ class TestLoadDataset:
     @patch("fairspec_dataset.plugins.descriptor.plugin.load_dataset_descriptor")
     def test_loads_from_local_json(self, mock_load: MagicMock):
         mock_dataset = MagicMock()
-        mock_dataset.model_dump.return_value = {"resources": [{"name": "test", "data": []}]}
+        mock_dataset.model_dump.return_value = {
+            "resources": [{"name": "test", "data": []}]
+        }
         mock_load.return_value = mock_dataset
 
         result = self.plugin.load_dataset("./dataset.json")
@@ -34,7 +38,9 @@ class TestLoadDataset:
     @patch("fairspec_dataset.plugins.descriptor.plugin.load_dataset_descriptor")
     def test_loads_from_absolute_path(self, mock_load: MagicMock):
         mock_dataset = MagicMock()
-        mock_dataset.model_dump.return_value = {"resources": [{"name": "test", "data": []}]}
+        mock_dataset.model_dump.return_value = {
+            "resources": [{"name": "test", "data": []}]
+        }
         mock_load.return_value = mock_dataset
 
         result = self.plugin.load_dataset("/absolute/path/datapackage.json")
@@ -92,7 +98,9 @@ class TestSaveDataset:
 
         result = self.plugin.save_dataset(self.dataset, options)
 
-        mock_save.assert_called_once_with(self.dataset, path="/absolute/path/datapackage.json")
+        mock_save.assert_called_once_with(
+            self.dataset, path="/absolute/path/datapackage.json"
+        )
         assert result is not None
         assert result.path == "/absolute/path/datapackage.json"
 

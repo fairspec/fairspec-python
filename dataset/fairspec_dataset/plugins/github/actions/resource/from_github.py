@@ -43,4 +43,6 @@ def _convert_path(*, url: str, ref: str, file_path: str) -> str:
         owner, repo = parts[0], parts[1]
     else:
         owner, repo = "", ""
-    return f"https://raw.githubusercontent.com/{owner}/{repo}/refs/heads/{ref}/{file_path}"
+    return (
+        f"https://raw.githubusercontent.com/{owner}/{repo}/refs/heads/{ref}/{file_path}"
+    )

@@ -30,9 +30,7 @@ class RelatedObject(BaseModel):
 
 
 class RelatedIdentifier(RelatedObject):
-    relatedIdentifier: str = Field(
-        description="Identifiers of related resources"
-    )
+    relatedIdentifier: str = Field(description="Identifiers of related resources")
     relatedIdentifierType: RelatedIdentifierType = Field(
         description="The type of the RelatedIdentifier (e.g., DOI, Handle, URL, etc.)"
     )

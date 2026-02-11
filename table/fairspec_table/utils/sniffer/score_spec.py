@@ -65,9 +65,15 @@ class TestFindBestDialect:
         data = csv.encode()
 
         dialects = [
-            PotentialDialect(delimiter=44, quote=Quote(), line_terminator=LineTerminator.LF),
-            PotentialDialect(delimiter=9, quote=Quote(), line_terminator=LineTerminator.LF),
-            PotentialDialect(delimiter=59, quote=Quote(), line_terminator=LineTerminator.LF),
+            PotentialDialect(
+                delimiter=44, quote=Quote(), line_terminator=LineTerminator.LF
+            ),
+            PotentialDialect(
+                delimiter=9, quote=Quote(), line_terminator=LineTerminator.LF
+            ),
+            PotentialDialect(
+                delimiter=59, quote=Quote(), line_terminator=LineTerminator.LF
+            ),
         ]
 
         scores = [score_dialect(data, d) for d in dialects]
@@ -85,8 +91,12 @@ class TestFindBestDialect:
         data = csv.encode()
 
         dialects = [
-            PotentialDialect(delimiter=44, quote=Quote(), line_terminator=LineTerminator.LF),
-            PotentialDialect(delimiter=94, quote=Quote(), line_terminator=LineTerminator.LF),
+            PotentialDialect(
+                delimiter=44, quote=Quote(), line_terminator=LineTerminator.LF
+            ),
+            PotentialDialect(
+                delimiter=94, quote=Quote(), line_terminator=LineTerminator.LF
+            ),
         ]
 
         scores = [score_dialect(data, d) for d in dialects]
@@ -168,9 +178,7 @@ class TestGammaCalculation:
     def test_reward_reasonable_field_counts(self):
         csv_2 = "a,b\n1,2\n3,4"
         csv_100 = (
-            "a," + "b," * 98 + "z\n"
-            + "1," + "2," * 98 + "3\n"
-            + "4," + "5," * 98 + "6"
+            "a," + "b," * 98 + "z\n" + "1," + "2," * 98 + "3\n" + "4," + "5," * 98 + "6"
         )
         dialect = PotentialDialect(
             delimiter=44, quote=Quote(), line_terminator=LineTerminator.LF

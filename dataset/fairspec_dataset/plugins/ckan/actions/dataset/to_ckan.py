@@ -56,8 +56,7 @@ def convert_dataset_to_ckan(dataset: Descriptor) -> dict:
     subjects = dataset.get("subjects", [])
     if subjects:
         ckan_dataset["tags"] = [
-            {"name": s["subject"], "display_name": s["subject"]}
-            for s in subjects
+            {"name": s["subject"], "display_name": s["subject"]} for s in subjects
         ]
 
     dates = dataset.get("dates", [])

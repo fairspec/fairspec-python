@@ -22,9 +22,7 @@ class TestSaveDatasetToZip:
         path = get_temp_file_path(format="zip")
         dataset = {
             "titles": [{"title": "Test Dataset"}],
-            "descriptions": [
-                {"description": "A test", "descriptionType": "Abstract"}
-            ],
+            "descriptions": [{"description": "A test", "descriptionType": "Abstract"}],
             "version": "1.0",
             "resources": [{"name": "test_res", "data": [{"id": 1}]}],
         }
@@ -36,11 +34,7 @@ class TestSaveDatasetToZip:
 
     def test_saves_dataset_with_inline_data_resources(self):
         path = get_temp_file_path(format="zip")
-        dataset = {
-            "resources": [
-                {"name": "test_res", "data": [{"id": 1}, {"id": 2}]}
-            ]
-        }
+        dataset = {"resources": [{"name": "test_res", "data": [{"id": 1}, {"id": 2}]}]}
 
         save_dataset_to_zip(dataset, archive_path=path)
 
@@ -111,9 +105,7 @@ class TestSaveDatasetToZip:
         path = get_temp_file_path(format="zip")
         dataset = {
             "titles": [{"title": "My Dataset"}],
-            "descriptions": [
-                {"description": "Desc", "descriptionType": "Abstract"}
-            ],
+            "descriptions": [{"description": "Desc", "descriptionType": "Abstract"}],
             "resources": [{"name": "test_res", "data": [{"id": 1}]}],
         }
         save_dataset_to_zip(dataset, archive_path=path)

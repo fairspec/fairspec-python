@@ -8,9 +8,7 @@ from .common import FunderIdentifierType
 
 
 class FundingReference(BaseModel):
-    funderName: str = Field(
-        description="Name of the funding provider"
-    )
+    funderName: str = Field(description="Name of the funding provider")
     funderIdentifier: str | None = Field(
         default=None,
         description="Uniquely identifies a funding entity, according to various identifier schemes",

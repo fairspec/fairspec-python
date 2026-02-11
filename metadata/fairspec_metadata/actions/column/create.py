@@ -90,20 +90,34 @@ def create_column_from_property(name: str, property: Descriptor) -> Column:
             base_type, StringCategoricalColumnProperty
         )
         property_model = cat_property_cls.model_validate(property)
-        return cast("Column", CategoricalColumn.model_validate(
-            {"type": column_type, "name": name, "nullable": nullable, "property": property_model}
-        ))
+        return cast(
+            "Column",
+            CategoricalColumn.model_validate(
+                {
+                    "type": column_type,
+                    "name": name,
+                    "nullable": nullable,
+                    "property": property_model,
+                }
+            ),
+        )
 
     column_cls, property_cls = _COLUMN_CLASS_MAP[column_type]
     property_model = property_cls.model_validate(property)
-    return cast("Column", column_cls.model_validate(
-        {"type": column_type, "name": name, "nullable": nullable, "property": property_model}
-    ))
+    return cast(
+        "Column",
+        column_cls.model_validate(
+            {
+                "type": column_type,
+                "name": name,
+                "nullable": nullable,
+                "property": property_model,
+            }
+        ),
+    )
 
 
-def _get_column_type(
-    base_type: str | None, format: str | None
-) -> ColumnType:
+def _get_column_type(base_type: str | None, format: str | None) -> ColumnType:
     match base_type:
         case "boolean":
             return ColumnType.boolean

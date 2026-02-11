@@ -28,7 +28,10 @@ from .actions.file_dialect.load import load_file_dialect
 from .actions.file_dialect.resolve import resolve_file_dialect
 from .actions.file_dialect.save import save_file_dialect
 from .actions.file_dialect.support import get_supported_file_dialect
-from .actions.file_dialect.validate import FileDialectValidationResult, validate_file_dialect
+from .actions.file_dialect.validate import (
+    FileDialectValidationResult,
+    validate_file_dialect,
+)
 from .actions.json.inspect import inspect_json
 from .actions.json_schema.assert_ import assert_json_schema
 from .actions.json_schema.inspect import inspect_json_schema
@@ -66,7 +69,10 @@ from .actions.table_schema.column import get_columns
 from .actions.table_schema.load import load_table_schema
 from .actions.table_schema.resolve import resolve_table_schema
 from .actions.table_schema.save import save_table_schema
-from .actions.table_schema.validate import TableSchemaValidationResult, validate_table_schema
+from .actions.table_schema.validate import (
+    TableSchemaValidationResult,
+    validate_table_schema,
+)
 from .models.catalog import Catalog, CatalogDataset
 from .models.column.array import ArrayColumn, ArrayColumnProperty
 from .models.column.base import BaseColumn, BaseColumnProperty, BasePropertyType

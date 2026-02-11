@@ -7,9 +7,7 @@ from fairspec_metadata.models.exception import FairspecException
 from .validate import validate_dataset_descriptor
 
 
-def assert_dataset(
-    source: Descriptor, *, basepath: str | None = None
-) -> Dataset:
+def assert_dataset(source: Descriptor, *, basepath: str | None = None) -> Dataset:
     result = validate_dataset_descriptor(source, basepath=basepath)
 
     if not result.dataset:

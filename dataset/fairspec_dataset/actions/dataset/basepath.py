@@ -30,8 +30,7 @@ def get_common_local_basepath(paths: list[str]) -> str | None:
         return None
 
     segment_table = [
-        [segment or "/" for segment in path.split(os.sep)]
-        for path in absolute_basepaths
+        [segment or "/" for segment in path.split(os.sep)] for path in absolute_basepaths
     ]
 
     column = 0

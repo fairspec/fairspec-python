@@ -15,7 +15,8 @@ def convert_resource_from_zenodo(zenodo_file: Descriptor) -> Descriptor:
 
     resource: Descriptor = {
         "data": path,
-        "name": get_file_name_slug(zenodo_file.get("key", "")) or zenodo_file.get("id", ""),
+        "name": get_file_name_slug(zenodo_file.get("key", ""))
+        or zenodo_file.get("id", ""),
         "integrity": {
             "type": "md5",
             "hash": zenodo_file.get("checksum", "").replace("md5:", ""),

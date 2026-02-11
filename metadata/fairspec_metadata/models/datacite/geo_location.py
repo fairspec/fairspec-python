@@ -8,12 +8,8 @@ from .common import Latitude, Longitude
 
 
 class GeoLocationPoint(BaseModel):
-    pointLongitude: Longitude = Field(
-        description="Longitudinal dimension of point"
-    )
-    pointLatitude: Latitude = Field(
-        description="Latitudinal dimension of point"
-    )
+    pointLongitude: Longitude = Field(description="Longitudinal dimension of point")
+    pointLatitude: Latitude = Field(description="Latitudinal dimension of point")
 
 
 class GeoLocationBox(BaseModel):

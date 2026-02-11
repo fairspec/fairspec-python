@@ -8,9 +8,7 @@ class Table:
     field_counts: list[int]
     _cached_modal_field_count: int | None
 
-    def __init__(
-        self, rows: list[list[str]], field_counts: list[int]
-    ) -> None:
+    def __init__(self, rows: list[list[str]], field_counts: list[int]) -> None:
         self.rows = rows
         self.field_counts = field_counts
         self._cached_modal_field_count = None
@@ -23,11 +21,7 @@ class Table:
         field_counts: list[int] = []
 
         delimiter_char = chr(dialect.delimiter)
-        quote_char = (
-            chr(dialect.quote.char)
-            if dialect.quote.char is not None
-            else None
-        )
+        quote_char = chr(dialect.quote.char) if dialect.quote.char is not None else None
 
         terminator_string = {
             "CRLF": "\r\n",
@@ -42,9 +36,7 @@ class Table:
                 continue
 
             if quote_char:
-                fields = _parse_quoted_line(
-                    line, delimiter_char, quote_char
-                )
+                fields = _parse_quoted_line(line, delimiter_char, quote_char)
             else:
                 fields = line.split(delimiter_char)
 
@@ -117,11 +109,7 @@ def _parse_quoted_line(
         char = line[i]
 
         if char == quote:
-            if (
-                in_quotes
-                and i + 1 < len(line)
-                and line[i + 1] == quote
-            ):
+            if in_quotes and i + 1 < len(line) and line[i + 1] == quote:
                 current_field += quote
                 i += 2
             else:

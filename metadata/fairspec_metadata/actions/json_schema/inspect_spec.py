@@ -11,32 +11,40 @@ class TestInspectJsonSchemaValid:
         assert errors == []
 
     def test_valid_schema_with_properties(self):
-        errors = inspect_json_schema({
-            "type": "object",
-            "properties": {"name": {"type": "string"}},
-        })
+        errors = inspect_json_schema(
+            {
+                "type": "object",
+                "properties": {"name": {"type": "string"}},
+            }
+        )
         assert errors == []
 
     def test_valid_schema_with_required(self):
-        errors = inspect_json_schema({
-            "type": "object",
-            "required": ["name"],
-            "properties": {"name": {"type": "string"}},
-        })
+        errors = inspect_json_schema(
+            {
+                "type": "object",
+                "required": ["name"],
+                "properties": {"name": {"type": "string"}},
+            }
+        )
         assert errors == []
 
     def test_valid_array_schema(self):
-        errors = inspect_json_schema({
-            "type": "array",
-            "items": {"type": "integer"},
-        })
+        errors = inspect_json_schema(
+            {
+                "type": "array",
+                "items": {"type": "integer"},
+            }
+        )
         assert errors == []
 
     def test_valid_draft_2020_12_schema(self):
-        errors = inspect_json_schema({
-            "$schema": "https://json-schema.org/draft/2020-12/schema",
-            "type": "object",
-        })
+        errors = inspect_json_schema(
+            {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+            }
+        )
         assert errors == []
 
 

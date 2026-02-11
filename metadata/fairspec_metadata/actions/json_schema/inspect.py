@@ -18,10 +18,12 @@ def inspect_json_schema(
         root_path = root_json_pointer or ""
         json_pointer = _combine_json_pointers(root_path, instance_path)
 
-        errors.append({
-            "message": error.message,
-            "jsonPointer": json_pointer,
-        })
+        errors.append(
+            {
+                "message": error.message,
+                "jsonPointer": json_pointer,
+            }
+        )
 
     return errors
 

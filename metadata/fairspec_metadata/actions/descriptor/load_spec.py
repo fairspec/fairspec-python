@@ -21,7 +21,9 @@ class TestLoadDescriptor:
         expected = {"name": "test"}
         response_bytes = json.dumps(expected).encode()
 
-        with patch("fairspec_metadata.actions.descriptor.load.urllib.request.urlopen") as mock:
+        with patch(
+            "fairspec_metadata.actions.descriptor.load.urllib.request.urlopen"
+        ) as mock:
             mock.return_value.__enter__ = lambda s: s
             mock.return_value.__exit__ = lambda s, *a: None
             mock.return_value.read.return_value = response_bytes

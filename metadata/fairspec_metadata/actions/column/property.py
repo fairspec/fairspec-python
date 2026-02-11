@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
+
 from fairspec_metadata.models.column.column import Column, ColumnProperty
 
 
-def get_base_property_type(type: str | list[str] | None) -> str | None:
+def get_base_property_type(type: str | Sequence[str] | None) -> str | None:
     if type is None:
         return None
     if isinstance(type, str):
@@ -14,7 +16,7 @@ def get_base_property_type(type: str | list[str] | None) -> str | None:
     return "null"
 
 
-def get_is_nullable_property_type(type: str | list[str] | None) -> bool:
+def get_is_nullable_property_type(type: str | Sequence[str] | None) -> bool:
     if type is None:
         return False
     if isinstance(type, str):

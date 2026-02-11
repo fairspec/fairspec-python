@@ -21,7 +21,11 @@ def validate_descriptor(
     )
     return create_report(
         [
-            MetadataError(type="metadata", message=error["message"], jsonPointer=error["jsonPointer"])
+            MetadataError(
+                type="metadata",
+                message=error["message"],
+                jsonPointer=error["jsonPointer"],
+            )
             for error in errors
         ]
     )

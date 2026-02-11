@@ -6,7 +6,11 @@ from typing import TYPE_CHECKING
 from fairspec_metadata import denormalize_dataset, stringify_descriptor
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
-from fairspec_dataset.actions.resource.save import SaveFileCallback, SaveFileProps, save_resource_files
+from fairspec_dataset.actions.resource.save import (
+    SaveFileCallback,
+    SaveFileProps,
+    save_resource_files,
+)
 from fairspec_dataset.actions.stream.load import load_file_stream
 
 from ...services.zenodo import make_zenodo_api_request

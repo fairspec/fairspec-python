@@ -7,9 +7,7 @@ from pydantic import BaseModel, Field
 
 class CatalogDataset(BaseModel):
     loc: str = Field(description="The location (URI) of the dataset")
-    upd: str = Field(
-        description="The last updated date-time of the dataset"
-    )
+    upd: str = Field(description="The last updated date-time of the dataset")
 
 
 Catalog = Annotated[

@@ -6,7 +6,10 @@ from fairspec_metadata import get_column_properties
 from fairspec_metadata.models.column.array import ArrayColumn, ArrayColumnProperty
 from fairspec_metadata.models.column.boolean import BooleanColumn, BooleanColumnProperty
 from fairspec_metadata.models.column.date import DateColumn, DateColumnProperty
-from fairspec_metadata.models.column.date_time import DateTimeColumn, DateTimeColumnProperty
+from fairspec_metadata.models.column.date_time import (
+    DateTimeColumn,
+    DateTimeColumnProperty,
+)
 from fairspec_metadata.models.column.integer import IntegerColumn, IntegerColumnProperty
 from fairspec_metadata.models.column.number import NumberColumn, NumberColumnProperty
 from fairspec_metadata.models.column.object import ObjectColumn, ObjectColumnProperty
@@ -87,7 +90,9 @@ def _convert_column(ckan_field: CkanField) -> Column:
             return DateTimeColumn(
                 name=name,
                 type="date-time",
-                property=DateTimeColumnProperty(type="string", format="date-time", **base_kwargs),
+                property=DateTimeColumnProperty(
+                    type="string", format="date-time", **base_kwargs
+                ),
             )
         case "json" | "object":
             return ObjectColumn(

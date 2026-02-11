@@ -29,13 +29,13 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Descriptor:
 
     resources = ckan_dataset.get("resources", [])
     if resources:
-        dataset["resources"] = [
-            convert_resource_from_ckan(r) for r in resources
-        ]
+        dataset["resources"] = [convert_resource_from_ckan(r) for r in resources]
 
     if ckan_dataset.get("license_id") or ckan_dataset.get("license_title"):
         rights: Descriptor = {
-            "rights": ckan_dataset.get("license_title") or ckan_dataset.get("license_id") or "",
+            "rights": ckan_dataset.get("license_title")
+            or ckan_dataset.get("license_id")
+            or "",
         }
         if ckan_dataset.get("license_url"):
             rights["rightsUri"] = ckan_dataset["license_url"]
@@ -69,13 +69,9 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Descriptor:
 
     dates: list[Descriptor] = []
     if ckan_dataset.get("metadata_created"):
-        dates.append(
-            {"date": ckan_dataset["metadata_created"], "dateType": "Created"}
-        )
+        dates.append({"date": ckan_dataset["metadata_created"], "dateType": "Created"})
     if ckan_dataset.get("metadata_modified"):
-        dates.append(
-            {"date": ckan_dataset["metadata_modified"], "dateType": "Updated"}
-        )
+        dates.append({"date": ckan_dataset["metadata_modified"], "dateType": "Updated"})
     if dates:
         dataset["dates"] = dates
 

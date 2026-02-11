@@ -79,7 +79,5 @@ class TestCreateColumnFromProperty:
         assert column.type == "email"
 
     def test_creates_url_column(self):
-        column = create_column_from_property(
-            "url", {"type": "string", "format": "url"}
-        )
+        column = create_column_from_property("url", {"type": "string", "format": "url"})
         assert column.type == "url"

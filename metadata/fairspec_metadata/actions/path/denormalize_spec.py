@@ -53,6 +53,4 @@ class TestDenormalizePath:
         basepath: str | None,
         expected: str,
     ):
-        assert (
-            denormalize_path(path, basepath=basepath) == expected
-        )
+        assert denormalize_path(path, basepath=basepath) == expected

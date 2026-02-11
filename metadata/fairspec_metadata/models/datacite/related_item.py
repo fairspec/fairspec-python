@@ -17,9 +17,7 @@ from .title import Titles
 
 
 class RelatedItemIdentifier(BaseModel):
-    relatedItemIdentifier: str = Field(
-        description="Identifier for the related item"
-    )
+    relatedItemIdentifier: str = Field(description="Identifier for the related item")
     relatedItemIdentifierType: RelatedIdentifierType = Field(
         description="The type of the RelatedItemIdentifier"
     )
@@ -35,9 +33,7 @@ class RelatedItem(RelatedObject):
     )
     creators: Creators | None = None
     contributors: Contributors | None = None
-    titles: Titles = Field(
-        description="The title(s) of the related item"
-    )
+    titles: Titles = Field(description="The title(s) of the related item")
     publicationYear: PublicationYear | None = None
     volume: str | None = Field(
         default=None,
@@ -92,7 +88,5 @@ class RelatedItem(RelatedObject):
 
 RelatedItems = Annotated[
     list[RelatedItem],
-    Field(
-        description="Information about a resource related to the one being registered"
-    ),
+    Field(description="Information about a resource related to the one being registered"),
 ]

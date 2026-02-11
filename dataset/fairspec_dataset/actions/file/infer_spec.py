@@ -99,19 +99,74 @@ class TestInferTextual:
         assert infer_textual({"data": path}) is True
 
     def test_returns_false_for_latin1(self):
-        buffer = bytes([
-            0x43, 0x61, 0x66, 0xE9, 0x20, 0x72, 0xE9, 0x73, 0x75, 0x6D,
-            0xE9, 0x20, 0x6E, 0x61, 0xEF, 0x76, 0x65, 0x20, 0xE0, 0x20,
-            0x50, 0x61, 0x72, 0x69, 0x73, 0x2E, 0x20, 0xC7, 0x61, 0x20,
-            0x63, 0x27, 0x65, 0x73, 0x74, 0x20, 0x62, 0x6F, 0x6E, 0x21,
-        ])
+        buffer = bytes(
+            [
+                0x43,
+                0x61,
+                0x66,
+                0xE9,
+                0x20,
+                0x72,
+                0xE9,
+                0x73,
+                0x75,
+                0x6D,
+                0xE9,
+                0x20,
+                0x6E,
+                0x61,
+                0xEF,
+                0x76,
+                0x65,
+                0x20,
+                0xE0,
+                0x20,
+                0x50,
+                0x61,
+                0x72,
+                0x69,
+                0x73,
+                0x2E,
+                0x20,
+                0xC7,
+                0x61,
+                0x20,
+                0x63,
+                0x27,
+                0x65,
+                0x73,
+                0x74,
+                0x20,
+                0x62,
+                0x6F,
+                0x6E,
+                0x21,
+            ]
+        )
         path = write_temp_file(buffer)
         assert infer_textual({"data": path}) is False
 
     def test_returns_false_for_windows_1252(self):
-        buffer = bytes([
-            0x43, 0x61, 0x66, 0xE9, 0x20, 0x6E, 0x61, 0xEF, 0x76, 0x65,
-            0x20, 0x72, 0xE9, 0x73, 0x75, 0x6D, 0xE9,
-        ])
+        buffer = bytes(
+            [
+                0x43,
+                0x61,
+                0x66,
+                0xE9,
+                0x20,
+                0x6E,
+                0x61,
+                0xEF,
+                0x76,
+                0x65,
+                0x20,
+                0x72,
+                0xE9,
+                0x73,
+                0x75,
+                0x6D,
+                0xE9,
+            ]
+        )
         path = write_temp_file(buffer)
         assert infer_textual({"data": path}) is False

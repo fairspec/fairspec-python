@@ -34,6 +34,4 @@ def assert_profile(
         if regex.search(p):
             return json_schema
 
-    raise Error(
-        f"Profile at path {path} is not a valid {type.value} profile"
-    )
+    raise Error(f"Profile at path {path} is not a valid {type.value} profile")

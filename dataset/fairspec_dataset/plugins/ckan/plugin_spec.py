@@ -35,14 +35,18 @@ class TestLoadDataset:
     @patch("fairspec_dataset.plugins.ckan.plugin.load_dataset_from_ckan")
     def test_handles_additional_path_segments(self, mock_load: MagicMock):
         mock_load.return_value = {"resources": []}
-        result = self.plugin.load_dataset("https://demo.ckan.org/en_GB/dataset/my-dataset")
+        result = self.plugin.load_dataset(
+            "https://demo.ckan.org/en_GB/dataset/my-dataset"
+        )
         mock_load.assert_called_once()
         assert result == {"resources": []}
 
     @patch("fairspec_dataset.plugins.ckan.plugin.load_dataset_from_ckan")
     def test_handles_query_parameters(self, mock_load: MagicMock):
         mock_load.return_value = {"resources": []}
-        result = self.plugin.load_dataset("https://demo.ckan.org/dataset/my-dataset?page=1")
+        result = self.plugin.load_dataset(
+            "https://demo.ckan.org/dataset/my-dataset?page=1"
+        )
         mock_load.assert_called_once()
         assert result == {"resources": []}
 

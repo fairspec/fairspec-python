@@ -9,9 +9,7 @@ from .base import BaseError
 
 
 class ForeignKeyError(BaseError):
-    type: Literal["foreignKey"] = Field(
-        description="Error type identifier"
-    )
+    type: Literal["foreignKey"] = Field(description="Error type identifier")
     foreignKey: ForeignKey = Field(
         description="The foreign key constraint that was violated"
     )

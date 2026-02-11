@@ -8,9 +8,7 @@ from .common import TitleType
 
 
 class Title(BaseModel):
-    title: str = Field(
-        description="A name or title by which a resource is known"
-    )
+    title: str = Field(description="A name or title by which a resource is known")
     titleType: TitleType | None = Field(
         default=None,
         description="The type of title (e.g., AlternativeTitle, Subtitle, TranslatedTitle, Other)",

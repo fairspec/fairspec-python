@@ -8,15 +8,11 @@ class ForeignKeyReference(BaseModel):
         default=None,
         description="Target resource name (optional, omit for self-reference)",
     )
-    columns: list[str] = Field(
-        description="Target column(s) in the referenced resource"
-    )
+    columns: list[str] = Field(description="Target column(s) in the referenced resource")
 
 
 class ForeignKey(BaseModel):
-    columns: list[str] = Field(
-        description="Source column(s) in this table"
-    )
+    columns: list[str] = Field(description="Source column(s) in this table")
     reference: ForeignKeyReference = Field(
         description="Reference to columns in another resource"
     )

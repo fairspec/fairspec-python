@@ -35,9 +35,7 @@ def _calculate_std_dev(counts: list[int]) -> float:
     return math.sqrt(variance)
 
 
-def _calculate_range_score(
-    counts: list[int], modal_count: int
-) -> float:
+def _calculate_range_score(counts: list[int], modal_count: int) -> float:
     if len(counts) == 0:
         return 0
 
@@ -69,9 +67,7 @@ def _calculate_transition_score(counts: list[int]) -> float:
     return 1 - transition_rate
 
 
-def _calculate_mode_score(
-    counts: list[int], modal_count: int
-) -> float:
+def _calculate_mode_score(counts: list[int], modal_count: int) -> float:
     if len(counts) == 0:
         return 0
 

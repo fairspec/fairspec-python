@@ -36,7 +36,9 @@ def convert_dataset_from_github(repository: Descriptor) -> Descriptor:
     if owner:
         contributor = {
             "name": owner["login"],
-            "nameType": "Organizational" if owner.get("type") == "Organization" else "Personal",
+            "nameType": "Organizational"
+            if owner.get("type") == "Organization"
+            else "Personal",
         }
         if owner.get("type") == "Organization":
             dataset["contributors"] = [
@@ -51,8 +53,7 @@ def convert_dataset_from_github(repository: Descriptor) -> Descriptor:
         dataset["resources"] = [
             convert_resource_from_github(f, default_branch=default_branch)
             for f in files
-            if not f.get("path", "").startswith(".")
-            and f.get("type") == "blob"
+            if not f.get("path", "").startswith(".") and f.get("type") == "blob"
         ]
 
     topics = repository.get("topics", [])
@@ -60,8 +61,6 @@ def convert_dataset_from_github(repository: Descriptor) -> Descriptor:
         dataset["subjects"] = [{"subject": topic} for topic in topics]
 
     if repository.get("created_at"):
-        dataset["dates"] = [
-            {"date": repository["created_at"], "dateType": "Created"}
-        ]
+        dataset["dates"] = [{"date": repository["created_at"], "dateType": "Created"}]
 
     return dataset

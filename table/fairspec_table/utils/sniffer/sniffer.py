@@ -17,9 +17,7 @@ from .table import Table
 
 class Sniffer:
     def __init__(self) -> None:
-        self._sample_size: SampleSize = SampleSize(
-            type=SampleSizeType.BYTES, count=8192
-        )
+        self._sample_size: SampleSize = SampleSize(type=SampleSizeType.BYTES, count=8192)
         self._forced_delimiter: int | None = None
         self._forced_quote: Quote | None = None
 
@@ -39,9 +37,7 @@ class Sniffer:
         bytes_no_bom = self._skip_bom(data)
         current = bytes_no_bom
 
-        without_comment_preamble, comment_preamble_lines = (
-            self._skip_preamble(current)
-        )
+        without_comment_preamble, comment_preamble_lines = self._skip_preamble(current)
         current = without_comment_preamble
 
         sample = self._take_sample(current)
@@ -49,15 +45,11 @@ class Sniffer:
         line_terminator = detect_line_terminator(sample)
 
         if self._forced_delimiter is not None:
-            dialects = self._generate_forced_dialects(
-                line_terminator
-            )
+            dialects = self._generate_forced_dialects(line_terminator)
         else:
             dialects = generate_potential_dialects(line_terminator)
 
-        scores = [
-            score_dialect(sample, dialect) for dialect in dialects
-        ]
+        scores = [score_dialect(sample, dialect) for dialect in dialects]
 
         best_score = find_best_dialect(
             scores,
@@ -79,20 +71,12 @@ class Sniffer:
             ),
         )
 
-        structural_preamble_rows = (
-            self._detect_structural_preamble(current, dialect)
-        )
+        structural_preamble_rows = self._detect_structural_preamble(current, dialect)
         dialect.header.num_preamble_rows += structural_preamble_rows
 
-        data_after_all_preamble = self._skip_lines(
-            current, structural_preamble_rows
-        )
-        header_detection_result = self._detect_header(
-            data_after_all_preamble, dialect
-        )
-        dialect.header.has_header_row = (
-            header_detection_result
-        )
+        data_after_all_preamble = self._skip_lines(current, structural_preamble_rows)
+        header_detection_result = self._detect_header(data_after_all_preamble, dialect)
+        dialect.header.has_header_row = header_detection_result
 
         return self._build_metadata(bytes_no_bom, dialect)
 
@@ -132,37 +116,23 @@ class Sniffer:
         lines: list[str] = []
 
         for row in rows:
-            values = [
-                self._escape_field(self._value_to_string(value))
-                for value in row
-            ]
+            values = [self._escape_field(self._value_to_string(value)) for value in row]
             lines.append(",".join(values))
 
         return "\n".join(lines)
 
     def _skip_bom(self, data: bytes) -> bytes:
-        if (
-            len(data) >= 3
-            and data[0] == 0xEF
-            and data[1] == 0xBB
-            and data[2] == 0xBF
-        ):
+        if len(data) >= 3 and data[0] == 0xEF and data[1] == 0xBB and data[2] == 0xBF:
             return data[3:]
         return data
 
-    def _skip_preamble(
-        self, data: bytes
-    ) -> tuple[bytes, int]:
+    def _skip_preamble(self, data: bytes) -> tuple[bytes, int]:
         line_count = 0
         i = 0
 
         while i < len(data):
             if data[i] == 35:
-                while (
-                    i < len(data)
-                    and data[i] != 10
-                    and data[i] != 13
-                ):
+                while i < len(data) and data[i] != 10 and data[i] != 13:
                     i += 1
 
                 if (
@@ -191,16 +161,11 @@ class Sniffer:
         line_count = 0
         i = 0
 
-        while (
-            i < len(data)
-            and line_count < self._sample_size.count
-        ):
+        while i < len(data) and line_count < self._sample_size.count:
             if data[i] == 10:
                 line_count += 1
             elif data[i] == 13:
-                if (
-                    i + 1 < len(data) and data[i + 1] == 10
-                ):
+                if i + 1 < len(data) and data[i + 1] == 10:
                     i += 1
                 line_count += 1
             i += 1
@@ -212,9 +177,7 @@ class Sniffer:
         line_terminator: LineTerminator,
     ) -> list[PotentialDialect]:
         if self._forced_delimiter is None:
-            raise ValueError(
-                "generateForcedDialects called without forcedDelimiter"
-            )
+            raise ValueError("generateForcedDialects called without forcedDelimiter")
 
         delimiter = self._forced_delimiter
 
@@ -267,9 +230,7 @@ class Sniffer:
 
         return preamble_rows
 
-    def _skip_lines(
-        self, data: bytes, num_lines: int
-    ) -> bytes:
+    def _skip_lines(self, data: bytes, num_lines: int) -> bytes:
         if num_lines == 0:
             return data
 
@@ -281,9 +242,7 @@ class Sniffer:
                 line_count += 1
                 i += 1
             elif data[i] == 13:
-                if (
-                    i + 1 < len(data) and data[i + 1] == 10
-                ):
+                if i + 1 < len(data) and data[i + 1] == 10:
                     i += 2
                 else:
                     i += 1
@@ -327,14 +286,10 @@ class Sniffer:
                 header_score -= 0.3
                 continue
 
-            if re.fullmatch(
-                r"^[a-zA-Z_][a-zA-Z0-9_]*$", trimmed
-            ):
+            if re.fullmatch(r"^[a-zA-Z_][a-zA-Z0-9_]*$", trimmed):
                 header_score += 0.3
 
-            if re.search(r"[A-Z]", trimmed) and not re.fullmatch(
-                r"^\d+$", trimmed
-            ):
+            if re.search(r"[A-Z]", trimmed) and not re.fullmatch(r"^\d+$", trimmed):
                 header_score += 0.2
 
             if re.search(r"[_\s-]", trimmed):
@@ -345,12 +300,8 @@ class Sniffer:
 
         return header_score > 0
 
-    def _build_metadata(
-        self, data: bytes, dialect: Dialect
-    ) -> Metadata:
-        data_after_preamble = self._skip_lines(
-            data, dialect.header.num_preamble_rows
-        )
+    def _build_metadata(self, data: bytes, dialect: Dialect) -> Metadata:
+        data_after_preamble = self._skip_lines(data, dialect.header.num_preamble_rows)
 
         table = Table.parse(
             data_after_preamble,
@@ -361,17 +312,13 @@ class Sniffer:
             ),
         )
 
-        if (
-            dialect.header.has_header_row
-            and len(table.field_counts) > 0
-        ):
+        if dialect.header.has_header_row and len(table.field_counts) > 0:
             data_field_counts = table.field_counts[1:]
         else:
             data_field_counts = table.field_counts
 
         is_uniform = len(data_field_counts) == 0 or all(
-            count == data_field_counts[0]
-            for count in data_field_counts
+            count == data_field_counts[0] for count in data_field_counts
         )
 
         dialect.flexible = not is_uniform
@@ -379,26 +326,15 @@ class Sniffer:
         num_fields = table.get_modal_field_count()
 
         fields: list[str] = []
-        if (
-            dialect.header.has_header_row
-            and table.num_rows() > 0
-        ):
+        if dialect.header.has_header_row and table.num_rows() > 0:
             header_row = table.rows[0]
-            fields = (
-                [field.strip() for field in header_row]
-                if header_row
-                else []
-            )
+            fields = [field.strip() for field in header_row] if header_row else []
         else:
-            fields = [
-                f"field_{i + 1}" for i in range(num_fields)
-            ]
+            fields = [f"field_{i + 1}" for i in range(num_fields)]
 
         total_bytes = len(data_after_preamble)
         total_rows = table.num_rows()
-        avg_record_len = (
-            total_bytes / total_rows if total_rows > 0 else 0
-        )
+        avg_record_len = total_bytes / total_rows if total_rows > 0 else 0
 
         return Metadata(
             dialect=dialect,

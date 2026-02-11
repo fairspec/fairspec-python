@@ -11,14 +11,16 @@ def get_basepath(path: str) -> str:
     if get_is_remote_path(path):
         parsed = urllib.parse.urlparse(path)
         url_path = parsed.path or "/"
-        url = urllib.parse.urlunparse((
-            parsed.scheme,
-            parsed.netloc,
-            url_path,
-            parsed.params,
-            parsed.query,
-            parsed.fragment,
-        ))
+        url = urllib.parse.urlunparse(
+            (
+                parsed.scheme,
+                parsed.netloc,
+                url_path,
+                parsed.params,
+                parsed.query,
+                parsed.fragment,
+            )
+        )
         return "/".join(url.split("/")[:-1])
 
     resolved = os.path.abspath(path)

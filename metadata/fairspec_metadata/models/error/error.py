@@ -8,6 +8,4 @@ from .metadata import MetadataError
 from .resource import ResourceError
 from .table import TableError
 
-FairspecError = Union[
-    MetadataError, ResourceError, TableError, DataError, FileError
-]
+FairspecError = Union[MetadataError, ResourceError, TableError, DataError, FileError]

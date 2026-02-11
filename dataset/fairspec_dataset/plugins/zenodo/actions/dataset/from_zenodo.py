@@ -38,9 +38,7 @@ def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Descriptor:
         dataset["subjects"] = [{"subject": kw} for kw in keywords]
 
     if metadata.get("publication_date"):
-        dataset["dates"] = [
-            {"date": metadata["publication_date"], "dateType": "Issued"}
-        ]
+        dataset["dates"] = [{"date": metadata["publication_date"], "dateType": "Issued"}]
 
     if metadata.get("license"):
         dataset["rightsList"] = [{"rights": metadata["license"]}]
@@ -53,8 +51,6 @@ def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Descriptor:
 
     files = zenodo_record.get("files", [])
     if files:
-        dataset["resources"] = [
-            convert_resource_from_zenodo(f) for f in files
-        ]
+        dataset["resources"] = [convert_resource_from_zenodo(f) for f in files]
 
     return dataset

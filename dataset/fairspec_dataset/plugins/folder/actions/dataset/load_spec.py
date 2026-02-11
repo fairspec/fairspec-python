@@ -25,9 +25,7 @@ class TestLoadDatasetFromFolder:
         folder = get_temp_file_path()
         dataset = {
             "titles": [{"title": "Test Dataset"}],
-            "descriptions": [
-                {"description": "A test", "descriptionType": "Abstract"}
-            ],
+            "descriptions": [{"description": "A test", "descriptionType": "Abstract"}],
             "version": "1.0",
             "resources": [{"name": "test_res", "data": [{"id": 1}]}],
         }

@@ -35,9 +35,7 @@ def score_dialect(
     table = Table.parse(data, dialect)
 
     tau0 = calculate_tau0(table.field_counts)
-    tau1 = calculate_tau1(
-        table.field_counts, table.get_modal_field_count()
-    )
+    tau1 = calculate_tau1(table.field_counts, table.get_modal_field_count())
     num_fields = table.get_modal_field_count()
     is_uniform = table.is_uniform()
     num_rows = table.num_rows()
@@ -133,9 +131,7 @@ def _analyze_quote_evidence(
             quote_count += 1
 
             prev_char = data[i - 1] if i > 0 else None
-            next_char = (
-                data[i + 1] if i < len(data) - 1 else None
-            )
+            next_char = data[i + 1] if i < len(data) - 1 else None
 
             at_boundary = (
                 prev_char is None
@@ -183,10 +179,7 @@ def find_best_dialect(
                 best_gamma += 0.05
 
         if preferences.prefer_double_quote:
-            if (
-                score.dialect.quote.char is not None
-                and score.dialect.quote.char == 34
-            ):
+            if score.dialect.quote.char is not None and score.dialect.quote.char == 34:
                 current_gamma += 0.05
             if (
                 best_score.dialect.quote.char is not None

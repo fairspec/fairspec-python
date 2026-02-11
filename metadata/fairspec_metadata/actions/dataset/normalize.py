@@ -9,9 +9,7 @@ if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
 
-def normalize_dataset(
-    dataset: Descriptor, *, basepath: str | None = None
-) -> Descriptor:
+def normalize_dataset(dataset: Descriptor, *, basepath: str | None = None) -> Descriptor:
     dataset = copy_descriptor(dataset)
 
     if "resources" in dataset:

@@ -8,7 +8,12 @@ from .potential_dialects import (
     generate_potential_dialects,
 )
 from .sample import SampleSize, SampleSizeType
-from .score import DialectScore, FindBestDialectPreferences, find_best_dialect, score_dialect
+from .score import (
+    DialectScore,
+    FindBestDialectPreferences,
+    find_best_dialect,
+    score_dialect,
+)
 from .sniffer import Sniffer
 from .table import Table
 from .uniformity import calculate_tau0, calculate_tau1

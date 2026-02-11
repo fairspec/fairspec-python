@@ -11,9 +11,13 @@ class TestLoadDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.load_dataset_from_folder")
-    def test_loads_from_local_directory(self, mock_load: MagicMock, _mock_isdir: MagicMock):
+    def test_loads_from_local_directory(
+        self, mock_load: MagicMock, _mock_isdir: MagicMock
+    ):
         mock_dataset = MagicMock()
-        mock_dataset.model_dump.return_value = {"resources": [{"name": "test", "data": []}]}
+        mock_dataset.model_dump.return_value = {
+            "resources": [{"name": "test", "data": []}]
+        }
         mock_load.return_value = mock_dataset
 
         result = self.plugin.load_dataset(".")
@@ -64,9 +68,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
-    def test_saves_to_local_directory(
-        self, mock_save: MagicMock, _mock_isdir: MagicMock
-    ):
+    def test_saves_to_local_directory(self, mock_save: MagicMock, _mock_isdir: MagicMock):
         options = SaveDatasetOptions(target="/tmp/test")
 
         result = self.plugin.save_dataset(self.dataset, options)
@@ -79,9 +81,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
-    def test_saves_with_remote_option(
-        self, mock_save: MagicMock, _mock_isdir: MagicMock
-    ):
+    def test_saves_with_remote_option(self, mock_save: MagicMock, _mock_isdir: MagicMock):
         options = SaveDatasetOptions(target="/tmp/test", with_remote=True)
 
         result = self.plugin.save_dataset(self.dataset, options)

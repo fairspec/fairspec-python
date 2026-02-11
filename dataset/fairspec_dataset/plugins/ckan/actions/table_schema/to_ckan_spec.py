@@ -98,9 +98,7 @@ class TestConvertTableSchemaToCkan:
         assert start_time_field["type"] == "time"
         assert "info" not in start_time_field
 
-        created_at_field = next(
-            f for f in result["fields"] if f["id"] == "created_at"
-        )
+        created_at_field = next(f for f in result["fields"] if f["id"] == "created_at")
         assert created_at_field["type"] == "timestamp"
         assert created_at_field["info"]["label"] == "Created At"
         assert created_at_field["info"]["notes"] == "Timestamp when record was created"
@@ -196,6 +194,10 @@ class TestConvertTableSchemaToCkan:
             if original_field.get("info"):
                 assert result_field.get("info") is not None
                 if original_field["info"].get("label"):
-                    assert result_field["info"]["label"] == original_field["info"]["label"]
+                    assert (
+                        result_field["info"]["label"] == original_field["info"]["label"]
+                    )
                 if original_field["info"].get("notes"):
-                    assert result_field["info"]["notes"] == original_field["info"]["notes"]
+                    assert (
+                        result_field["info"]["notes"] == original_field["info"]["notes"]
+                    )

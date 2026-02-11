@@ -111,10 +111,7 @@ class TestTable:
         assert len(table.rows) == 3
 
     def test_modal_field_count_wide_tables(self):
-        rows = [
-            ["x"] * (260 if i % 2 == 0 else 250)
-            for i in range(300)
-        ]
+        rows = [["x"] * (260 if i % 2 == 0 else 250) for i in range(300)]
         field_counts = [len(row) for row in rows]
         table = Table(rows, field_counts)
 

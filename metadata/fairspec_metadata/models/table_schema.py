@@ -42,11 +42,11 @@ class TableSchema(BaseModel):
         default=None,
         description="An object defining the schema for table columns, where each key is a column name",
     )
-    missingValues: (
-        list[Union[str, int, float, TableSchemaMissingValueItem]] | None
-    ) = Field(
-        default=None,
-        description="An optional list of values that represent missing or null data across all columns",
+    missingValues: list[Union[str, int, float, TableSchemaMissingValueItem]] | None = (
+        Field(
+            default=None,
+            description="An optional list of values that represent missing or null data across all columns",
+        )
     )
     primaryKey: list[str] | None = Field(
         default=None,

@@ -55,12 +55,8 @@ class TestNormalizePath:
             "path with empty basepath",
         ],
     )
-    def test_valid(
-        self, path: str, basepath: str | None, expected: str
-    ):
-        assert (
-            normalize_path(path, basepath=basepath) == expected
-        )
+    def test_valid(self, path: str, basepath: str | None, expected: str):
+        assert normalize_path(path, basepath=basepath) == expected
 
     @pytest.mark.parametrize(
         "path, basepath",

@@ -92,12 +92,7 @@ class TestGetFileExtension:
         assert get_file_extension("/data/users.csv") == "csv"
 
     def test_infers_format_from_url_path(self):
-        assert (
-            get_file_extension(
-                "https://example.com/data/products.json"
-            )
-            == "json"
-        )
+        assert get_file_extension("https://example.com/data/products.json") == "json"
 
     def test_preserve_extension_case(self):
         assert get_file_extension("/data/file.CSV") == "CSV"
@@ -116,28 +111,16 @@ class TestGetFileExtension:
         assert get_file_extension("/data/folder/") is None
 
     def test_handles_multiple_extensions(self):
-        assert (
-            get_file_extension("/data/file.backup.csv") == "csv"
-        )
+        assert get_file_extension("/data/file.backup.csv") == "csv"
 
     def test_handles_hidden_files_with_extension(self):
         assert get_file_extension("/data/.gitignore") is None
 
     def test_handles_url_with_query_parameters(self):
-        assert (
-            get_file_extension(
-                "https://example.com/file.json?key=value"
-            )
-            == "json"
-        )
+        assert get_file_extension("https://example.com/file.json?key=value") == "json"
 
     def test_handles_url_with_hash(self):
-        assert (
-            get_file_extension(
-                "https://example.com/file.pdf#page=1"
-            )
-            == "pdf"
-        )
+        assert get_file_extension("https://example.com/file.pdf#page=1") == "pdf"
 
 
 class TestGetFileNameSlug:
@@ -147,29 +130,18 @@ class TestGetFileNameSlug:
         assert get_file_name_slug("/data/users.csv") == "users"
 
     def test_returns_slugified_basename_from_url_path(self):
-        assert (
-            get_file_name_slug(
-                "https://example.com/data/products.json"
-            )
-            == "products"
-        )
+        assert get_file_name_slug("https://example.com/data/products.json") == "products"
 
     def test_returns_none_when_path_has_no_filename(self):
         assert get_file_name_slug("/data/folder/") is None
 
     def test_handles_complex_filename_with_multiple_dots(self):
-        assert (
-            get_file_name_slug("/data/file.backup.csv")
-            == "file_backup"
-        )
+        assert get_file_name_slug("/data/file.backup.csv") == "file_backup"
 
     def test_slugifies_filename_with_spaces_and_special_characters(
         self,
     ):
-        assert (
-            get_file_name_slug("/data/My Data File!.csv")
-            == "my_data_file"
-        )
+        assert get_file_name_slug("/data/My Data File!.csv") == "my_data_file"
 
     def test_returns_none_for_empty_string(self):
         assert get_file_name_slug("") is None
@@ -178,34 +150,16 @@ class TestGetFileNameSlug:
         assert get_file_name_slug("document.txt") == "document"
 
     def test_handles_url_with_query_parameters(self):
-        assert (
-            get_file_name_slug(
-                "https://example.com/file.json?key=value"
-            )
-            == "file"
-        )
+        assert get_file_name_slug("https://example.com/file.json?key=value") == "file"
 
     def test_handles_url_with_hash(self):
-        assert (
-            get_file_name_slug(
-                "https://example.com/report.pdf#page=1"
-            )
-            == "report"
-        )
+        assert get_file_name_slug("https://example.com/report.pdf#page=1") == "report"
 
     def test_handles_hidden_files(self):
-        assert (
-            get_file_name_slug("/data/.gitignore") == "gitignore"
-        )
+        assert get_file_name_slug("/data/.gitignore") == "gitignore"
 
     def test_slugifies_uppercase_letters_to_lowercase(self):
-        assert (
-            get_file_name_slug("/data/MyDocument.PDF")
-            == "my_document"
-        )
+        assert get_file_name_slug("/data/MyDocument.PDF") == "my_document"
 
     def test_replaces_hyphens_with_underscores(self):
-        assert (
-            get_file_name_slug("/data/my-file-name.csv")
-            == "my_file_name"
-        )
+        assert get_file_name_slug("/data/my-file-name.csv") == "my_file_name"

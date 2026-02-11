@@ -5,16 +5,16 @@ from pydantic import BaseModel
 from .metadata import LineTerminator, Quote
 
 DELIMITERS: list[int] = [
-    44,   # , (comma)
-    59,   # ; (semicolon)
-    9,    # \t (tab)
+    44,  # , (comma)
+    59,  # ; (semicolon)
+    9,  # \t (tab)
     124,  # | (pipe)
-    94,   # ^ (caret)
+    94,  # ^ (caret)
     126,  # ~ (tilde)
-    35,   # # (hash)
-    38,   # & (ampersand)
+    35,  # # (hash)
+    38,  # & (ampersand)
     167,  # § (section)
-    47,   # / (slash)
+    47,  # / (slash)
 ]
 
 QUOTE_CHARS: list[Quote] = [

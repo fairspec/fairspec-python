@@ -44,7 +44,9 @@ class TestSniffBytes:
         assert metadata.num_fields == 3
 
     def test_detect_quoted_fields(self):
-        csv = 'id,name,description\n1,"Alice","She said, ""Hello"""\n2,"Bob","Normal text"'
+        csv = (
+            'id,name,description\n1,"Alice","She said, ""Hello"""\n2,"Bob","Normal text"'
+        )
         sniffer = Sniffer()
         metadata = sniffer.sniff_bytes(csv.encode())
 
@@ -269,9 +271,7 @@ class TestSniffRows:
         assert metadata.num_fields == 2
 
     def test_configured_sample_size(self):
-        rows: list[list[object]] = [
-            [i, f"data{i}"] for i in range(1000)
-        ]
+        rows: list[list[object]] = [[i, f"data{i}"] for i in range(1000)]
         sniffer = Sniffer().with_sample_size(
             SampleSize(type=SampleSizeType.RECORDS, count=10)
         )
