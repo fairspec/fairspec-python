@@ -6,30 +6,33 @@ from fairspec_metadata import get_columns
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.table_schema import TableSchema
+
+    from fairspec_dataset.plugins.ckan.models.field import CkanField, CkanFieldInfo
+    from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 
 
-def convert_table_schema_to_ckan(table_schema: Descriptor) -> dict:
-    fields: list[dict] = []
+def convert_table_schema_to_ckan(table_schema: TableSchema) -> CkanSchema:
+    fields: list[CkanField] = []
 
-    columns = get_columns(table_schema)
+    columns = get_columns(table_schema.model_dump(by_alias=True, exclude_none=True))
     for column in columns:
         fields.append(_convert_column(column))
 
     return {"fields": fields}
 
 
-def _convert_column(column: Column) -> dict:
+def _convert_column(column: Column) -> CkanField:
     title = column.property.title
     description = column.property.description
 
-    ckan_field: dict = {
+    ckan_field: CkanField = {
         "id": column.name,
         "type": _convert_type(column),
     }
 
     if title or description:
-        info: dict = {}
+        info: CkanFieldInfo = {}
         if title:
             info["label"] = title
         if description:

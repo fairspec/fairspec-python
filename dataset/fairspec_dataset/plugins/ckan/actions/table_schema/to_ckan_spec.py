@@ -4,6 +4,18 @@ import json
 import os
 from typing import cast
 
+from fairspec_metadata.models.column.array import ArrayColumnProperty
+from fairspec_metadata.models.column.boolean import BooleanColumnProperty
+from fairspec_metadata.models.column.date import DateColumnProperty
+from fairspec_metadata.models.column.date_time import DateTimeColumnProperty
+from fairspec_metadata.models.column.integer import IntegerColumnProperty
+from fairspec_metadata.models.column.number import NumberColumnProperty
+from fairspec_metadata.models.column.object import ObjectColumnProperty
+from fairspec_metadata.models.column.string import StringColumnProperty
+from fairspec_metadata.models.column.time import TimeColumnProperty
+from fairspec_metadata.models.column.unknown import UnknownColumnProperty
+from fairspec_metadata.models.table_schema import TableSchema
+
 from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 from .from_ckan import convert_table_schema_from_ckan
 from .to_ckan import convert_table_schema_to_ckan
@@ -17,50 +29,51 @@ def _load_fixture() -> CkanSchema:
 
 class TestConvertTableSchemaToCkan:
     def test_converts_fairspec_schema_to_ckan_schema(self):
-        schema = {
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "title": "ID",
-                    "description": "Unique identifier",
-                },
-                "name": {
-                    "type": "string",
-                    "title": "Name",
-                    "description": "Person's full name",
-                },
-                "age": {"type": "integer"},
-                "score": {
-                    "type": "number",
-                    "title": "Score",
-                    "description": "Test score",
-                },
-                "is_active": {"type": "boolean"},
-                "birth_date": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Birth Date",
-                    "description": "Date of birth",
-                },
-                "start_time": {"type": "string", "format": "time"},
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "title": "Created At",
-                    "description": "Timestamp when record was created",
-                },
-                "metadata": {"type": "object"},
-                "tags": {
-                    "type": "array",
-                    "title": "Tags",
-                    "description": "List of tags",
-                },
+        schema = TableSchema(
+            properties={
+                "id": IntegerColumnProperty(
+                    type="integer",
+                    title="ID",
+                    description="Unique identifier",
+                ),
+                "name": StringColumnProperty(
+                    type="string",
+                    title="Name",
+                    description="Person's full name",
+                ),
+                "age": IntegerColumnProperty(type="integer"),
+                "score": NumberColumnProperty(
+                    type="number",
+                    title="Score",
+                    description="Test score",
+                ),
+                "is_active": BooleanColumnProperty(type="boolean"),
+                "birth_date": DateColumnProperty(
+                    type="string",
+                    format="date",
+                    title="Birth Date",
+                    description="Date of birth",
+                ),
+                "start_time": TimeColumnProperty(type="string", format="time"),
+                "created_at": DateTimeColumnProperty(
+                    type="string",
+                    format="date-time",
+                    title="Created At",
+                    description="Timestamp when record was created",
+                ),
+                "metadata": ObjectColumnProperty(type="object"),
+                "tags": ArrayColumnProperty(
+                    type="array",
+                    title="Tags",
+                    description="List of tags",
+                ),
             }
-        }
+        )
 
         result = convert_table_schema_to_ckan(schema)
 
-        assert len(result["fields"]) == len(schema["properties"])
+        assert schema.properties is not None
+        assert len(result["fields"]) == len(schema.properties)
 
         id_field = next(f for f in result["fields"] if f["id"] == "id")
         assert id_field["type"] == "int"
@@ -115,7 +128,9 @@ class TestConvertTableSchemaToCkan:
         assert tags_field["info"]["type_override"] == "array"
 
     def test_handles_columns_with_only_title(self):
-        schema = {"properties": {"field1": {"type": "string", "title": "Field 1"}}}
+        schema = TableSchema(
+            properties={"field1": StringColumnProperty(type="string", title="Field 1")}
+        )
 
         result = convert_table_schema_to_ckan(schema)
 
@@ -128,11 +143,13 @@ class TestConvertTableSchemaToCkan:
         assert field["info"]["type_override"] == "text"
 
     def test_handles_columns_with_only_description(self):
-        schema = {
-            "properties": {
-                "field1": {"type": "string", "description": "Field 1 description"}
+        schema = TableSchema(
+            properties={
+                "field1": StringColumnProperty(
+                    type="string", description="Field 1 description"
+                )
             }
-        }
+        )
 
         result = convert_table_schema_to_ckan(schema)
 
@@ -145,7 +162,9 @@ class TestConvertTableSchemaToCkan:
         assert field["info"]["type_override"] == "text"
 
     def test_handles_columns_without_title_or_description(self):
-        schema = {"properties": {"simple_field": {"type": "string"}}}
+        schema = TableSchema(
+            properties={"simple_field": StringColumnProperty(type="string")}
+        )
 
         result = convert_table_schema_to_ckan(schema)
 
@@ -156,14 +175,16 @@ class TestConvertTableSchemaToCkan:
         assert "info" not in field
 
     def test_handles_empty_properties(self):
-        schema = {"properties": {}}
+        schema = TableSchema(properties={})
 
         result = convert_table_schema_to_ckan(schema)
 
         assert result["fields"] == []
 
     def test_converts_unmapped_types_to_text(self):
-        schema = {"properties": {"null_field": {"type": "null"}}}
+        schema = TableSchema(
+            properties={"null_field": UnknownColumnProperty(type="null")}
+        )
 
         result = convert_table_schema_to_ckan(schema)
 
@@ -176,13 +197,7 @@ class TestConvertTableSchemaToCkan:
         fairspec_schema = convert_table_schema_from_ckan(original)
         assert fairspec_schema.properties is not None
 
-        fairspec_schema_dicts = {
-            "properties": {
-                name: prop.model_dump(exclude_none=True)
-                for name, prop in fairspec_schema.properties.items()
-            }
-        }
-        result = convert_table_schema_to_ckan(fairspec_schema_dicts)
+        result = convert_table_schema_to_ckan(fairspec_schema)
 
         assert len(result["fields"]) == len(original["fields"])
 

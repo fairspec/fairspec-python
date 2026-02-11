@@ -3,13 +3,16 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import convert_resource_to_ckan
+from fairspec_dataset.plugins.ckan.models.tag import CkanTag
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.dataset import Dataset
 
+    from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 
-def convert_dataset_to_ckan(dataset: Dataset) -> dict:
-    ckan_dataset: dict = {"resources": [], "tags": []}
+
+def convert_dataset_to_ckan(dataset: Dataset) -> CkanDataset:
+    ckan_dataset: CkanDataset = {"resources": [], "tags": []}
 
     titles = dataset.titles or []
     if titles and titles[0].title:
@@ -49,19 +52,14 @@ def convert_dataset_to_ckan(dataset: Dataset) -> dict:
     if resources:
         ckan_dataset["resources"] = [
             r
-            for r in (
-                convert_resource_to_ckan(
-                    res.model_dump(by_alias=True, exclude_none=True)
-                )
-                for res in resources
-            )
+            for r in (convert_resource_to_ckan(res) for res in resources)
             if r is not None
         ]
 
     subjects = dataset.subjects or []
     if subjects:
         ckan_dataset["tags"] = [
-            {"name": s.subject, "display_name": s.subject} for s in subjects
+            CkanTag(name=s.subject, display_name=s.subject) for s in subjects
         ]
 
     dates = dataset.dates or []
