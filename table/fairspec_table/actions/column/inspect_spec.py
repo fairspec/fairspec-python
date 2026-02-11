@@ -11,7 +11,7 @@ from fairspec_table.actions.table.inspect import inspect_table
 class TestInspectColumnName:
     def test_should_report_error_when_column_names_dont_match(self):
         table = pl.DataFrame({"actual_id": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+        table_schema = TableSchema(allRequired=True, properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -29,7 +29,7 @@ class TestInspectColumnName:
 
     def test_should_be_case_sensitive_when_comparing_column_names(self):
         table = pl.DataFrame({"ID": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+        table_schema = TableSchema(allRequired=True, properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 

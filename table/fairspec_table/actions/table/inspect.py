@@ -58,9 +58,13 @@ def _inspect_columns(
         )
 
         if not polars_column:
-            errors.append(
-                ColumnMissingError(type="column/missing", columnName=column.name)
+            is_required = mapping.target.allRequired or (
+                mapping.target.required and column.name in mapping.target.required
             )
+            if is_required:
+                errors.append(
+                    ColumnMissingError(type="column/missing", columnName=column.name)
+                )
             continue
 
         column_mapping = ColumnMapping(source=polars_column, target=column)

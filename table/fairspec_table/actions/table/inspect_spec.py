@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import pytest
 import polars as pl
 from fairspec_metadata.models.error.column import ColumnMissingError
 from fairspec_metadata.models.table_schema import TableSchema
@@ -37,10 +36,11 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
+            allRequired=True,
             properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "number"},
-            }
+            },
         )
 
         errors = inspect_table(table, table_schema=table_schema)
@@ -57,10 +57,11 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
+            allRequired=True,
             properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
-            }
+            },
         )
 
         errors = inspect_table(table, table_schema=table_schema)
@@ -109,7 +110,6 @@ class TestInspectTable:
         assert isinstance(errors[0], ColumnMissingError)
         assert errors[0].columnName == "name"
 
-    @pytest.mark.skip(reason="Decide on required")
     def test_should_pass_when_non_required_columns_are_missing(self):
         table = pl.DataFrame(
             {
@@ -188,7 +188,6 @@ class TestInspectTable:
         assert isinstance(errors[0], ColumnMissingError)
         assert errors[0].columnName == "name"
 
-    @pytest.mark.skip(reason="Decide on required")
     def test_should_pass_when_schema_contains_all_data_columns(self):
         table = pl.DataFrame(
             {
@@ -226,7 +225,6 @@ class TestInspectTable:
 
         assert errors == []
 
-    @pytest.mark.skip(reason="Decide on required")
     def test_should_pass_when_at_least_one_column_matches(self):
         table = pl.DataFrame(
             {
@@ -276,10 +274,11 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
+            allRequired=True,
             properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
-            }
+            },
         )
 
         errors = inspect_table(table, table_schema=table_schema)
