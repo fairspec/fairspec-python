@@ -17,14 +17,18 @@ from .models.schema import (
 )
 from .models.table import Table
 from .plugin import TablePlugin
+from .plugins.arrow import ArrowPlugin, load_arrow_table, save_arrow_table
+from .plugins.parquet import ParquetPlugin, load_parquet_table, save_parquet_table
 
 __all__ = [
+    "ArrowPlugin",
     "ColumnMapping",
     "DataRecord",
     "DataRow",
     "DenormalizeColumnOptions",
     "Frame",
     "InferTableSchemaOptions",
+    "ParquetPlugin",
     "PolarsColumn",
     "PolarsSchema",
     "SchemaMapping",
@@ -35,6 +39,10 @@ __all__ = [
     "infer_table_schema_from_sample",
     "infer_table_schema_from_table",
     "inspect_table",
+    "load_arrow_table",
+    "load_parquet_table",
     "normalize_table",
     "query_table",
+    "save_arrow_table",
+    "save_parquet_table",
 ]
