@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class CkanOrganization(TypedDict, total=False):
-    id: str
-    name: str
-    title: str
-    description: str
+class CkanOrganization(BaseModel):
+    id: str | None = None
+    name: str | None = None
+    title: str | None = None
+    description: str | None = None

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import urllib.parse
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING
 
 from fairspec_dataset.actions.dataset.merge import merge_datasets
 
@@ -22,14 +22,14 @@ def load_dataset_from_ckan(
     if not dataset_id:
         raise Exception(f"Failed to extract dataset ID from URL: {dataset_url}")
 
-    ckan_dataset = make_ckan_api_request(
+    ckan_dict = make_ckan_api_request(
         ckan_url=dataset_url,
         action="package_show",
         payload={"id": dataset_id},
         api_key=api_key,
     )
 
-    for resource in ckan_dataset.get("resources", []):
+    for resource in ckan_dict.get("resources", []):
         resource_id = resource.get("id")
         if resource.get("format", "").upper() in ("CSV", "XLS", "XLSX"):
             schema = _load_ckan_schema(
@@ -40,7 +40,8 @@ def load_dataset_from_ckan(
             if schema:
                 resource["schema"] = schema
 
-    system_dataset = convert_dataset_from_ckan(cast(CkanDataset, ckan_dataset))
+    ckan_dataset = CkanDataset(**ckan_dict)
+    system_dataset = convert_dataset_from_ckan(ckan_dataset)
     user_dataset_path: str | None = None
     for resource in system_dataset.resources or []:
         custom = resource.unstable_customMetadata or {}

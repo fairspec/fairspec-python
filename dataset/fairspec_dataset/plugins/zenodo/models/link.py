@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class ZenodoLink(TypedDict, total=False):
-    self: str
-    html: str
-    files: str
-    bucket: str
-    publish: str
-    discard: str
-    edit: str
+class ZenodoLink(BaseModel):
+    self: str | None = None
+    html: str | None = None
+    files: str | None = None
+    bucket: str | None = None
+    publish: str | None = None
+    discard: str | None = None
+    edit: str | None = None

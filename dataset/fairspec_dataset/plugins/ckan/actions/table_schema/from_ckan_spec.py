@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 import os
-from typing import cast
 
+from fairspec_dataset.plugins.ckan.models.field import CkanField
 from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 from .from_ckan import convert_table_schema_from_ckan
 
@@ -11,7 +11,7 @@ from .from_ckan import convert_table_schema_from_ckan
 def _load_fixture() -> CkanSchema:
     path = os.path.join(os.path.dirname(__file__), "fixtures", "ckan-schema.json")
     with open(path) as f:
-        return cast(CkanSchema, json.load(f))
+        return CkanSchema(**json.load(f))
 
 
 class TestConvertTableSchemaFromCkan:
@@ -22,7 +22,8 @@ class TestConvertTableSchemaFromCkan:
 
         assert result.properties is not None
         properties = result.properties
-        assert len(properties) == len(ckan_schema["fields"])
+        assert ckan_schema.fields is not None
+        assert len(properties) == len(ckan_schema.fields)
 
         id_col = properties["id"]
         assert id_col.type == "integer"
@@ -109,16 +110,14 @@ class TestConvertTableSchemaFromCkan:
         assert override_col.description == "Field with type override"
 
     def test_handles_empty_fields_array(self):
-        ckan_schema = cast(CkanSchema, {"fields": []})
+        ckan_schema = CkanSchema(fields=[])
 
         result = convert_table_schema_from_ckan(ckan_schema)
 
         assert result.properties is None or len(result.properties) == 0
 
     def test_handles_fields_without_info_object(self):
-        ckan_schema = cast(
-            CkanSchema, {"fields": [{"id": "simple_field", "type": "text"}]}
-        )
+        ckan_schema = CkanSchema(fields=[CkanField(id="simple_field", type="text")])
 
         result = convert_table_schema_from_ckan(ckan_schema)
         assert result.properties is not None
@@ -131,16 +130,13 @@ class TestConvertTableSchemaFromCkan:
         assert col.description is None
 
     def test_handles_case_insensitive_type_conversion(self):
-        ckan_schema = cast(
-            CkanSchema,
-            {
-                "fields": [
-                    {"id": "field1", "type": "TEXT"},
-                    {"id": "field2", "type": "INT"},
-                    {"id": "field3", "type": "BOOL"},
-                    {"id": "field4", "type": "TIMESTAMP"},
-                ]
-            },
+        ckan_schema = CkanSchema(
+            fields=[
+                CkanField(id="field1", type="TEXT"),
+                CkanField(id="field2", type="INT"),
+                CkanField(id="field3", type="BOOL"),
+                CkanField(id="field4", type="TIMESTAMP"),
+            ],
         )
 
         result = convert_table_schema_from_ckan(ckan_schema)

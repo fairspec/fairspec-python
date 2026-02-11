@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class ZenodoCreator(TypedDict, total=False):
-    name: str
-    affiliation: str
-    identifiers: list[dict]
+class ZenodoCreator(BaseModel):
+    name: str | None = None
+    affiliation: str | None = None
+    identifiers: list[dict] | None = None

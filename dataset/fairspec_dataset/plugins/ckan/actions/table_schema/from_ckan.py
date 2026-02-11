@@ -27,27 +27,27 @@ if TYPE_CHECKING:
 def convert_table_schema_from_ckan(ckan_schema: CkanSchema) -> TableSchema:
     columns: list[Column] = []
 
-    for ckan_field in ckan_schema.get("fields", []):
+    for ckan_field in ckan_schema.fields or []:
         columns.append(_convert_column(ckan_field))
 
     return TableSchema(properties=get_column_properties(columns))
 
 
 def _convert_column(ckan_field: CkanField) -> Column:
-    info = ckan_field.get("info")
+    info = ckan_field.info
 
     base_kwargs: dict = {}
     if info:
-        if info.get("label"):
-            base_kwargs["title"] = info["label"]
-        if info.get("notes"):
-            base_kwargs["description"] = info["notes"]
+        if info.label:
+            base_kwargs["title"] = info.label
+        if info.notes:
+            base_kwargs["description"] = info.notes
 
     column_type = (
-        (info.get("type_override") if info else None) or ckan_field.get("type", "text")
+        (info.type_override if info else None) or ckan_field.type or "text"
     ).lower()
 
-    name = ckan_field.get("id", "")
+    name = ckan_field.id or ""
 
     match column_type:
         case "text" | "string":

@@ -17,20 +17,20 @@ def convert_resource_from_github(
     default_branch: str,
 ) -> Resource:
     path = _convert_path(
-        url=github_file.get("url", ""),
+        url=github_file.url or "",
         ref=default_branch,
-        file_path=github_file.get("path", ""),
+        file_path=github_file.path or "",
     )
 
     return Resource(
         data=path,
-        name=get_file_name_slug(path) or github_file.get("sha", ""),
+        name=get_file_name_slug(path) or github_file.sha or "",
         integrity=Integrity(
             type=IntegrityType.sha1,
-            hash=github_file.get("sha", ""),
+            hash=github_file.sha or "",
         ),
         unstable_customMetadata={
-            "githubKey": github_file.get("path"),
+            "githubKey": github_file.path,
             "githubUrl": path,
         },
     )

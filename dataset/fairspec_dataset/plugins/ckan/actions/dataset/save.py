@@ -36,7 +36,7 @@ def save_dataset_to_ckan(
     ckan_dataset = convert_dataset_to_ckan(dataset)
 
     payload = {
-        **ckan_dataset,
+        **ckan_dataset.model_dump(by_alias=True, exclude_none=True),
         "name": dataset_name,
         "owner_org": owner_org,
         "resources": [],
@@ -63,7 +63,7 @@ def save_dataset_to_ckan(
                 extension = get_file_extension(props.normalized_path)
 
                 upload_payload: dict = {
-                    **ckan_resource,
+                    **ckan_resource.model_dump(by_alias=True, exclude_none=True),
                     "package_id": dataset_name,
                     "name": props.denormalized_path,
                 }

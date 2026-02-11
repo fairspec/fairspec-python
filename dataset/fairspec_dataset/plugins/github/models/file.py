@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class GithubFile(TypedDict, total=False):
-    path: str
-    mode: str
-    type: str
-    size: int
-    sha: str
-    url: str
+class GithubFile(BaseModel):
+    path: str | None = None
+    mode: str | None = None
+    type: str | None = None
+    size: int | None = None
+    sha: str | None = None
+    url: str | None = None

@@ -19,35 +19,34 @@ if TYPE_CHECKING:
 
 
 def convert_dataset_from_github(repository: GithubRepository) -> Dataset:
-    titles = [Title(title=repository["full_name"])] if repository.get("full_name") else None
+    titles = [Title(title=repository.full_name)] if repository.full_name else None
 
-    description = repository.get("description")
     descriptions = (
-        [DataciteDescription(description=description, descriptionType=DescriptionType.Abstract)]
-        if description
+        [DataciteDescription(description=repository.description, descriptionType=DescriptionType.Abstract)]
+        if repository.description
         else None
     )
 
     rights_list = None
-    license_info = repository.get("license")
+    license_info = repository.license
     if license_info:
         rights_list = [
             Rights(
-                rights=license_info["name"],
-                rightsUri=license_info.get("url"),
-                rightsIdentifier=license_info.get("spdx_id") or license_info.get("key"),
+                rights=license_info.name or "",
+                rightsUri=license_info.url,
+                rightsIdentifier=license_info.spdx_id or license_info.key,
                 rightsIdentifierScheme="SPDX",
             )
         ]
 
     creators = None
     contributors = None
-    owner = repository.get("owner")
+    owner = repository.owner
     if owner:
-        if owner.get("type") == "Organization":
+        if owner.type == "Organization":
             contributors = [
                 Contributor(
-                    name=owner["login"],
+                    name=owner.login or "",
                     nameType=CreatorNameType.Organizational,
                     contributorType=ContributorType.HostingInstitution,
                 )
@@ -55,27 +54,27 @@ def convert_dataset_from_github(repository: GithubRepository) -> Dataset:
         else:
             creators = [
                 Creator(
-                    name=owner["login"],
+                    name=owner.login or "",
                     nameType=CreatorNameType.Personal,
                 )
             ]
 
-    files = repository.get("files", [])
+    files = repository.files or []
     resource_list = []
     if files:
-        default_branch = repository.get("default_branch", "main")
+        default_branch = repository.default_branch or "main"
         resource_list = [
             convert_resource_from_github(f, default_branch=default_branch)
             for f in files
-            if not f.get("path", "").startswith(".") and f.get("type") == "blob"
+            if not (f.path or "").startswith(".") and f.type == "blob"
         ]
 
-    topics = repository.get("topics", [])
+    topics = repository.topics or []
     subjects = [Subject(subject=topic) for topic in topics] if topics else None
 
     dates = (
-        [DataciteDate(date=repository["created_at"], dateType=DateType.Created)]
-        if repository.get("created_at")
+        [DataciteDate(date=repository.created_at, dateType=DateType.Created)]
+        if repository.created_at
         else None
     )
 

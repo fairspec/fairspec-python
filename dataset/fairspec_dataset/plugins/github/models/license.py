@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class GithubLicense(TypedDict, total=False):
-    key: str
-    name: str
-    spdx_id: str
-    url: str
+class GithubLicense(BaseModel):
+    key: str | None = None
+    name: str | None = None
+    spdx_id: str | None = None
+    url: str | None = None

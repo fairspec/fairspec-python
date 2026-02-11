@@ -1,20 +1,20 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 from .creator import ZenodoCreator
 
 
-class ZenodoMetadata(TypedDict, total=False):
-    title: str
-    description: str
-    upload_type: str
-    publication_date: str
-    creators: list[ZenodoCreator]
-    access_right: str
-    license: str
-    doi: str
-    keywords: list[str]
-    related_identifiers: list[dict]
-    communities: list[dict]
-    version: str
+class ZenodoMetadata(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    upload_type: str | None = None
+    publication_date: str | None = None
+    creators: list[ZenodoCreator] | None = None
+    access_right: str | None = None
+    license: str | None = None
+    doi: str | None = None
+    keywords: list[str] | None = None
+    related_identifiers: list[dict] | None = None
+    communities: list[dict] | None = None
+    version: str | None = None

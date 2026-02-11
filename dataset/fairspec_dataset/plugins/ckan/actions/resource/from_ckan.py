@@ -17,36 +17,36 @@ if TYPE_CHECKING:
 
 
 def convert_resource_from_ckan(ckan_resource: CkanResource) -> Resource:
-    name = _convert_name(ckan_resource["name"]) if ckan_resource.get("name") else None
+    name = _convert_name(ckan_resource.name) if ckan_resource.name else None
 
     descriptions = (
-        [DataciteDescription(description=ckan_resource["description"], descriptionType=DescriptionType.Abstract)]
-        if ckan_resource.get("description")
+        [DataciteDescription(description=ckan_resource.description, descriptionType=DescriptionType.Abstract)]
+        if ckan_resource.description
         else None
     )
 
-    sizes = [f"{ckan_resource['size']} bytes"] if ckan_resource.get("size") else None
+    sizes = [f"{ckan_resource.size} bytes"] if ckan_resource.size else None
 
     integrity = (
-        Integrity(type=IntegrityType.md5, hash=ckan_resource["hash"])
-        if ckan_resource.get("hash")
+        Integrity(type=IntegrityType.md5, hash=ckan_resource.hash)
+        if ckan_resource.hash
         else None
     )
 
     dates: list[DataciteDate] = []
-    if ckan_resource.get("created"):
-        dates.append(DataciteDate(date=ckan_resource["created"], dateType=DateType.Created))
-    if ckan_resource.get("last_modified"):
-        dates.append(DataciteDate(date=ckan_resource["last_modified"], dateType=DateType.Updated))
+    if ckan_resource.created:
+        dates.append(DataciteDate(date=ckan_resource.created, dateType=DateType.Created))
+    if ckan_resource.last_modified:
+        dates.append(DataciteDate(date=ckan_resource.last_modified, dateType=DateType.Updated))
 
     table_schema = (
-        convert_table_schema_from_ckan(ckan_resource["schema"])
-        if ckan_resource.get("schema")
+        convert_table_schema_from_ckan(ckan_resource.schema_)
+        if ckan_resource.schema_
         else None
     )
 
     return Resource(
-        data=ckan_resource.get("url", ""),
+        data=ckan_resource.url or "",
         name=name,
         descriptions=descriptions,
         sizes=sizes,
@@ -54,9 +54,9 @@ def convert_resource_from_ckan(ckan_resource: CkanResource) -> Resource:
         dates=dates if dates else None,
         tableSchema=table_schema,
         unstable_customMetadata={
-            "ckanKey": get_file_name(ckan_resource.get("url", "")),
-            "ckanUrl": ckan_resource.get("url", ""),
-            "ckanId": ckan_resource.get("id"),
+            "ckanKey": get_file_name(ckan_resource.url or ""),
+            "ckanUrl": ckan_resource.url or "",
+            "ckanId": ckan_resource.id,
         },
     )
 

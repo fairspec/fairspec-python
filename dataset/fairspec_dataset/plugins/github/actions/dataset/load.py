@@ -1,17 +1,16 @@
 from __future__ import annotations
 
 import urllib.parse
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING
 
 from fairspec_dataset.actions.dataset.merge import merge_datasets
+from fairspec_dataset.plugins.github.models.repository import GithubRepository
 
 from fairspec_dataset.plugins.github.services.github import make_github_api_request
 from .from_github import convert_dataset_from_github
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
-
-    from fairspec_dataset.plugins.github.models.repository import GithubRepository
 
 
 def load_dataset_from_github(
@@ -35,7 +34,7 @@ def load_dataset_from_github(
     )
     repository["files"] = tree_response["tree"]
 
-    system_dataset = convert_dataset_from_github(cast("GithubRepository", repository))
+    system_dataset = convert_dataset_from_github(GithubRepository(**repository))
     user_dataset_path: str | None = None
     for resource in system_dataset.resources or []:
         custom = resource.unstable_customMetadata or {}

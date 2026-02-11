@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata import get_columns
 
+from fairspec_dataset.plugins.ckan.models.field import CkanField, CkanFieldInfo
+from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
+
 if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
     from fairspec_metadata.models.table_schema import TableSchema
-
-    from fairspec_dataset.plugins.ckan.models.field import CkanField, CkanFieldInfo
-    from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 
 
 def convert_table_schema_to_ckan(table_schema: TableSchema) -> CkanSchema:
@@ -19,28 +19,26 @@ def convert_table_schema_to_ckan(table_schema: TableSchema) -> CkanSchema:
     for column in columns:
         fields.append(_convert_column(column))
 
-    return {"fields": fields}
+    return CkanSchema(fields=fields)
 
 
 def _convert_column(column: Column) -> CkanField:
     title = column.property.title
     description = column.property.description
 
-    ckan_field: CkanField = {
-        "id": column.name,
-        "type": _convert_type(column),
-    }
-
+    info = None
     if title or description:
-        info: CkanFieldInfo = {}
-        if title:
-            info["label"] = title
-        if description:
-            info["notes"] = description
-        info["type_override"] = _convert_type(column)
-        ckan_field["info"] = info
+        info = CkanFieldInfo(
+            label=title if title else None,
+            notes=description if description else None,
+            type_override=_convert_type(column),
+        )
 
-    return ckan_field
+    return CkanField(
+        id=column.name,
+        type=_convert_type(column),
+        info=info,
+    )
 
 
 def _convert_type(column: Column) -> str:

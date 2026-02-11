@@ -18,49 +18,49 @@ if TYPE_CHECKING:
 
 
 def convert_dataset_from_zenodo(zenodo_record: ZenodoRecord) -> Dataset:
-    metadata = zenodo_record.get("metadata", {})
+    metadata = zenodo_record.metadata
 
-    titles = [Title(title=metadata["title"])] if metadata.get("title") else None
+    titles = [Title(title=metadata.title)] if metadata and metadata.title else None
 
     descriptions = (
-        [DataciteDescription(description=metadata["description"], descriptionType=DescriptionType.Abstract)]
-        if metadata.get("description")
+        [DataciteDescription(description=metadata.description, descriptionType=DescriptionType.Abstract)]
+        if metadata and metadata.description
         else None
     )
 
-    creators_raw = metadata.get("creators", [])
+    creators_raw = metadata.creators or [] if metadata else []
     creators = None
     if creators_raw:
         creators = []
         for creator_data in creators_raw:
             affiliation = (
-                [CreatorAffiliation(name=creator_data["affiliation"])]
-                if creator_data.get("affiliation")
+                [CreatorAffiliation(name=creator_data.affiliation)]
+                if creator_data.affiliation
                 else None
             )
             creators.append(
                 Creator(
-                    name=creator_data["name"],
+                    name=creator_data.name or "",
                     nameType=CreatorNameType.Personal,
                     affiliation=affiliation,
                 )
             )
 
-    keywords = metadata.get("keywords", [])
+    keywords = metadata.keywords or [] if metadata else []
     subjects = [Subject(subject=kw) for kw in keywords] if keywords else None
 
     dates = (
-        [DataciteDate(date=metadata["publication_date"], dateType=DateType.Issued)]
-        if metadata.get("publication_date")
+        [DataciteDate(date=metadata.publication_date, dateType=DateType.Issued)]
+        if metadata and metadata.publication_date
         else None
     )
 
-    rights_list = [Rights(rights=metadata["license"])] if metadata.get("license") else None
+    rights_list = [Rights(rights=metadata.license)] if metadata and metadata.license else None
 
-    doi = metadata.get("doi")
-    version = metadata.get("version")
+    doi = metadata.doi if metadata else None
+    version = metadata.version if metadata else None
 
-    files = zenodo_record.get("files", [])
+    files = zenodo_record.files or []
     resource_list = [convert_resource_from_zenodo(f) for f in files] if files else []
 
     return Dataset(

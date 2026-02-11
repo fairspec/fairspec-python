@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class GithubOwner(TypedDict, total=False):
-    login: str
-    id: int
-    avatar_url: str
-    html_url: str
-    type: str
+class GithubOwner(BaseModel):
+    login: str | None = None
+    id: int | None = None
+    avatar_url: str | None = None
+    html_url: str | None = None
+    type: str | None = None

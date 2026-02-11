@@ -12,18 +12,18 @@ if TYPE_CHECKING:
 
 
 def convert_resource_from_zenodo(zenodo_file: ZenodoFile) -> Resource:
-    links = zenodo_file.get("links", {})
-    path = _convert_path(links.get("self", ""))
+    links = zenodo_file.links
+    path = _convert_path(links.self or "" if links else "")
 
     return Resource(
         data=path,
-        name=get_file_name_slug(zenodo_file.get("key", "")) or zenodo_file.get("id", ""),
+        name=get_file_name_slug(zenodo_file.key or "") or zenodo_file.id or "",
         integrity=Integrity(
             type=IntegrityType.md5,
-            hash=zenodo_file.get("checksum", "").replace("md5:", ""),
+            hash=(zenodo_file.checksum or "").replace("md5:", ""),
         ),
         unstable_customMetadata={
-            "zenodoKey": zenodo_file.get("key"),
+            "zenodoKey": zenodo_file.key,
             "zenodoUrl": path,
         },
     )

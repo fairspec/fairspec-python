@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class CkanTag(TypedDict, total=False):
-    id: str
-    name: str
-    display_name: str
+class CkanTag(BaseModel):
+    id: str | None = None
+    name: str | None = None
+    display_name: str | None = None

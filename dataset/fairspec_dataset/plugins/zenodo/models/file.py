@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class ZenodoFileLinks(TypedDict, total=False):
-    self: str
+class ZenodoFileLinks(BaseModel):
+    self: str | None = None
 
 
-class ZenodoFile(TypedDict, total=False):
-    id: str
-    key: str
-    size: int
-    checksum: str
-    links: ZenodoFileLinks
+class ZenodoFile(BaseModel):
+    id: str | None = None
+    key: str | None = None
+    size: int | None = None
+    checksum: str | None = None
+    links: ZenodoFileLinks | None = None

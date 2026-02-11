@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class CkanFieldInfo(TypedDict, total=False):
-    label: str
-    notes: str
-    type_override: str
+class CkanFieldInfo(BaseModel):
+    label: str | None = None
+    notes: str | None = None
+    type_override: str | None = None
 
 
-class CkanField(TypedDict, total=False):
-    id: str
-    type: str
-    info: CkanFieldInfo
+class CkanField(BaseModel):
+    id: str | None = None
+    type: str | None = None
+    info: CkanFieldInfo | None = None

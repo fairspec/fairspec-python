@@ -90,6 +90,7 @@ def create_column_from_property(name: str, property: Descriptor) -> Column:
             base_type, StringCategoricalColumnProperty
         )
         property_model = cat_property_cls.model_validate(property)
+        # Upcast concrete subclass to Column union (type checker can't infer this)
         return cast(
             "Column",
             CategoricalColumn.model_validate(
@@ -104,6 +105,7 @@ def create_column_from_property(name: str, property: Descriptor) -> Column:
 
     column_cls, property_cls = _COLUMN_CLASS_MAP[column_type]
     property_model = property_cls.model_validate(property)
+    # Upcast concrete subclass to Column union (type checker can't infer this)
     return cast(
         "Column",
         column_cls.model_validate(
