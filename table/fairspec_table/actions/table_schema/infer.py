@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 import re
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING
 
 import polars as pl
 from fairspec_metadata import create_column_from_property, get_column_properties
@@ -48,7 +48,7 @@ def infer_table_schema_from_table(
     options: InferTableSchemaOptions | None = None,
 ) -> TableSchema:
     sample_rows = (options.sampleRows if options else None) or 100
-    sample = cast(pl.DataFrame, table.head(sample_rows).collect())
+    sample: pl.DataFrame = table.head(sample_rows).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
     return infer_table_schema_from_sample(sample, options)
 
 

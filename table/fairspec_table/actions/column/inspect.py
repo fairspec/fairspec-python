@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from typing import cast
 
 import polars as pl
 from fairspec_metadata import ColumnType
@@ -176,7 +175,7 @@ def _inspect_cells_in_polars(
             .alias("error"),
         )
 
-    column_check_frame = (
+    column_check_frame: pl.DataFrame = (  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         column_check_table.filter(pl.col("error").is_not_null())
         .drop("target")
         .head(max_errors)
@@ -184,7 +183,7 @@ def _inspect_cells_in_polars(
     )
 
     _cell_error_adapter = TypeAdapter(CellError)
-    for row in cast(pl.DataFrame, column_check_frame).to_dicts():
+    for row in column_check_frame.to_dicts():
         error_dict = json.loads(row["error"])
         error_dict["rowNumber"] = row[NUMBER_COLUMN_NAME]
         error_dict["cell"] = str(row["source"] if row["source"] is not None else "")
