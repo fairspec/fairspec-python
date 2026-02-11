@@ -36,31 +36,33 @@ def validate_dataset_descriptor(
 
     report = validate_descriptor(descriptor, profile=profile)
 
-    normalized: Descriptor | None = None
+    normalized: Dataset | None = None
     if report.valid:
-        normalized = normalize_dataset(descriptor, basepath=basepath)
+        normalized = normalize_dataset(
+            Dataset(**descriptor), basepath=basepath
+        )
 
     if normalized:
-        for index, resource in enumerate(normalized.get("resources") or []):
+        for index, resource in enumerate(normalized.resources or []):
             root_json_pointer = f"/resources/{index}"
 
-            if isinstance(resource.get("fileDialect"), str):
+            if isinstance(resource.fileDialect, str):
                 file_dialect_result = validate_file_dialect(
-                    resource["fileDialect"],
+                    resource.fileDialect,
                     root_json_pointer=root_json_pointer,
                 )
                 report.errors.extend(file_dialect_result.errors)
 
-            if isinstance(resource.get("dataSchema"), str):
+            if isinstance(resource.dataSchema, str):
                 data_schema_result = validate_data_schema(
-                    resource["dataSchema"],
+                    resource.dataSchema,
                     root_json_pointer=root_json_pointer,
                 )
                 report.errors.extend(data_schema_result.errors)
 
-            if isinstance(resource.get("tableSchema"), str):
+            if isinstance(resource.tableSchema, str):
                 table_schema_result = validate_table_schema(
-                    resource["tableSchema"],
+                    resource.tableSchema,
                     root_json_pointer=root_json_pointer,
                 )
                 report.errors.extend(table_schema_result.errors)
@@ -69,13 +71,8 @@ def validate_dataset_descriptor(
             normalized = None
             report.valid = False
 
-    dataset: Dataset | None = None
-    if normalized:
-        # Valid -> we can parse it
-        dataset = Dataset.model_validate(normalized)
-
     return DatasetValidationResult.model_construct(
         valid=report.valid,
         errors=report.errors,
-        dataset=dataset,
+        dataset=normalized,
     )

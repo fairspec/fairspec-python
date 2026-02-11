@@ -4,7 +4,6 @@ import urllib.parse
 from typing import TYPE_CHECKING
 
 from fairspec_metadata import denormalize_dataset, stringify_descriptor
-from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import (
@@ -18,11 +17,13 @@ from fairspec_dataset.plugins.zenodo.services.zenodo import make_zenodo_api_requ
 from .to_zenodo import convert_dataset_to_zenodo
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.dataset import Dataset
     from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def save_dataset_to_zenodo(
-    dataset: Descriptor,
+    dataset: Dataset,
     *,
     api_key: str,
     sandbox: bool = False,
@@ -41,9 +42,9 @@ def save_dataset_to_zenodo(
     record_id = zenodo_record["id"]
 
     resource_descriptors: list[Descriptor] = []
-    for item in dataset.get("resources", []):
+    for resource in dataset.resources or []:
 
-        def _make_save_file(res: Descriptor) -> SaveFileCallback:
+        def _make_save_file(res: Resource) -> SaveFileCallback:
             def _save_file(props: SaveFileProps) -> str:
                 stream = load_file_stream(props.normalized_path)
                 file_data = stream.read()
@@ -62,16 +63,17 @@ def save_dataset_to_zenodo(
 
         resource_descriptors.append(
             save_resource_files(
-                Resource(**item),
+                resource,
                 basepath=basepath,
                 with_remote=False,
                 without_folders=True,
-                save_file=_make_save_file(item),
+                save_file=_make_save_file(resource),
             )
         )
 
+    denormalized = denormalize_dataset(dataset, basepath=basepath)
     descriptor: Descriptor = {
-        **denormalize_dataset(dataset, basepath=basepath),
+        **denormalized.model_dump(by_alias=True, exclude_none=True),
         "resources": resource_descriptors,
     }
 

@@ -21,49 +21,59 @@ class TestConvertDatasetFromCkan:
 
         result = convert_dataset_from_ckan(ckan_dataset)
 
-        assert len(result["titles"]) == 1
-        assert result["titles"][0]["title"] == ckan_dataset["title"]
+        assert result.titles is not None
+        assert len(result.titles) == 1
+        assert result.titles[0].title == ckan_dataset["title"]
 
-        assert len(result["descriptions"]) == 1
-        assert result["descriptions"][0]["description"] == ckan_dataset["notes"]
-        assert result["descriptions"][0]["descriptionType"] == "Abstract"
+        assert result.descriptions is not None
+        assert len(result.descriptions) == 1
+        assert result.descriptions[0].description == ckan_dataset["notes"]
+        assert result.descriptions[0].descriptionType == "Abstract"
 
-        assert result["version"] == ckan_dataset["version"]
+        assert result.version == ckan_dataset["version"]
 
-        assert len(result["dates"]) == 2
-        created_date = next(d for d in result["dates"] if d["dateType"] == "Created")
-        assert created_date["date"] == ckan_dataset["metadata_created"]
-        updated_date = next(d for d in result["dates"] if d["dateType"] == "Updated")
-        assert updated_date["date"] == ckan_dataset["metadata_modified"]
+        assert result.dates is not None
+        assert len(result.dates) == 2
+        created_date = next(d for d in result.dates if d.dateType == "Created")
+        assert created_date.date == ckan_dataset["metadata_created"]
+        updated_date = next(d for d in result.dates if d.dateType == "Updated")
+        assert updated_date.date == ckan_dataset["metadata_modified"]
 
-        assert len(result["rightsList"]) == 1
-        rights = result["rightsList"][0]
-        assert rights["rights"] == ckan_dataset["license_title"]
-        assert rights["rightsUri"] == ckan_dataset["license_url"]
-        assert rights["rightsIdentifier"] == ckan_dataset["license_id"]
+        assert result.rightsList is not None
+        assert len(result.rightsList) == 1
+        rights = result.rightsList[0]
+        assert rights.rights == ckan_dataset["license_title"]
+        assert rights.rightsUri == ckan_dataset["license_url"]
+        assert rights.rightsIdentifier == ckan_dataset["license_id"]
 
-        assert len(result["creators"]) == 1
-        assert result["creators"][0]["name"] == ckan_dataset["author"]
-        assert result["creators"][0]["nameType"] == "Personal"
+        assert result.creators is not None
+        assert len(result.creators) == 1
+        assert result.creators[0].name == ckan_dataset["author"]
+        assert result.creators[0].nameType == "Personal"
 
-        assert len(result["contributors"]) == 1
-        assert result["contributors"][0]["name"] == ckan_dataset["maintainer"]
-        assert result["contributors"][0]["nameType"] == "Personal"
-        assert result["contributors"][0]["contributorType"] == "ContactPerson"
+        assert result.contributors is not None
+        assert len(result.contributors) == 1
+        assert result.contributors[0].name == ckan_dataset["maintainer"]
+        assert result.contributors[0].nameType == "Personal"
+        assert result.contributors[0].contributorType == "ContactPerson"
 
-        assert len(result["subjects"]) == len(ckan_dataset["tags"])
-        assert [s["subject"] for s in result["subjects"]] == [
+        assert result.subjects is not None
+        assert len(result.subjects) == len(ckan_dataset["tags"])
+        assert [s.subject for s in result.subjects] == [
             tag["name"] for tag in ckan_dataset["tags"]
         ]
 
-        assert len(result["resources"]) == len(ckan_dataset["resources"])
+        assert result.resources is not None
+        assert len(result.resources) == len(ckan_dataset["resources"])
 
         first_ckan_resource = ckan_dataset["resources"][0]
-        first_resource = result["resources"][0]
-        assert first_resource["data"] == first_ckan_resource["url"]
-        assert re.match(r"^sample[-_]linked[-_]csv$", first_resource["name"])
+        first_resource = result.resources[0]
+        assert first_resource.data == first_ckan_resource["url"]
+        assert first_resource.name is not None
+        assert re.match(r"^sample[-_]linked[-_]csv$", first_resource.name)
+        assert first_resource.descriptions is not None
         assert (
-            first_resource["descriptions"][0]["description"]
+            first_resource.descriptions[0].description
             == first_ckan_resource["description"]
         )
 
@@ -72,7 +82,7 @@ class TestConvertDatasetFromCkan:
 
         result = convert_dataset_from_ckan(ckan_dataset)
 
-        assert result["resources"] == []
+        assert result.resources == []
 
     def test_handles_undefined_optional_properties(self):
         ckan_dataset = cast(
@@ -81,12 +91,12 @@ class TestConvertDatasetFromCkan:
 
         result = convert_dataset_from_ckan(ckan_dataset)
 
-        assert "titles" not in result
-        assert "descriptions" not in result
-        assert "version" not in result
-        assert "dates" not in result
-        assert "rightsList" not in result
-        assert "creators" not in result
-        assert "contributors" not in result
-        assert "subjects" not in result
-        assert result["resources"] == []
+        assert result.titles is None
+        assert result.descriptions is None
+        assert result.version is None
+        assert result.dates is None
+        assert result.rightsList is None
+        assert result.creators is None
+        assert result.contributors is None
+        assert result.subjects is None
+        assert result.resources == []

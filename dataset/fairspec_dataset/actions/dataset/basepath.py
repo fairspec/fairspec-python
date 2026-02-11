@@ -3,17 +3,16 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from fairspec_metadata import Resource, get_basepath, get_data_paths, get_is_remote_path
+from fairspec_metadata import get_basepath, get_data_paths, get_is_remote_path
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.dataset import Dataset
 
 
-def get_dataset_basepath(dataset: Descriptor) -> str | None:
+def get_dataset_basepath(dataset: Dataset) -> str | None:
     paths: list[str] = []
 
-    for item in dataset.get("resources", []):
-        resource = Resource(**item)
+    for resource in dataset.resources or []:
         resource_paths = get_data_paths(resource)
         paths.extend(resource_paths)
 

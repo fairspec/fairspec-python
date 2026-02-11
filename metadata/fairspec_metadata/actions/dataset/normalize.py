@@ -1,22 +1,16 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-from fairspec_metadata.actions.descriptor.copy import copy_descriptor
 from fairspec_metadata.actions.resource.normalize import normalize_resource
-from fairspec_metadata.models.resource import Resource
-
-if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+from fairspec_metadata.models.dataset import Dataset
 
 
-def normalize_dataset(dataset: Descriptor, *, basepath: str | None = None) -> Descriptor:
-    dataset = copy_descriptor(dataset)
+def normalize_dataset(dataset: Dataset, *, basepath: str | None = None) -> Dataset:
+    result = dataset.model_dump(by_alias=True, exclude_none=True)
 
-    if "resources" in dataset:
-        dataset["resources"] = [
-            normalize_resource(Resource(**item), basepath=basepath)
-            for item in dataset["resources"]
+    if dataset.resources:
+        result["resources"] = [
+            normalize_resource(resource, basepath=basepath)
+            for resource in dataset.resources
         ]
 
-    return dataset
+    return Dataset(**result)

@@ -5,7 +5,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING
 
 from fairspec_metadata import denormalize_dataset, stringify_descriptor
-from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
@@ -14,11 +13,13 @@ from fairspec_dataset.actions.stream.load import load_file_stream
 from fairspec_dataset.plugins.github.services.github import make_github_api_request
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.dataset import Dataset
     from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def save_dataset_to_github(
-    dataset: Descriptor,
+    dataset: Dataset,
     *,
     api_key: str,
     repo: str,
@@ -37,9 +38,9 @@ def save_dataset_to_github(
     owner_login = github_repository["owner"]["login"]
 
     resource_descriptors: list[Descriptor] = []
-    for item in dataset.get("resources", []):
+    for resource in dataset.resources or []:
 
-        def _make_save_file(res: Descriptor) -> Callable[[SaveFileProps], str]:
+        def _make_save_file(res: Resource) -> Callable[[SaveFileProps], str]:
             def _save_file(props: SaveFileProps) -> str:
                 stream = load_file_stream(props.normalized_path)
                 content = base64.b64encode(stream.read()).decode()
@@ -63,15 +64,16 @@ def save_dataset_to_github(
 
         resource_descriptors.append(
             save_resource_files(
-                Resource(**item),
+                resource,
                 basepath=basepath,
                 with_remote=False,
-                save_file=_make_save_file(item),
+                save_file=_make_save_file(resource),
             )
         )
 
+    denormalized = denormalize_dataset(dataset, basepath=basepath)
     descriptor: Descriptor = {
-        **denormalize_dataset(dataset, basepath=basepath),
+        **denormalized.model_dump(by_alias=True, exclude_none=True),
         "resources": resource_descriptors,
     }
 

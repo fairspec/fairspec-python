@@ -10,6 +10,7 @@ from .actions.dataset.load import load_dataset_from_zip
 from .actions.dataset.save import save_dataset_to_zip
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.dataset import Dataset
     from fairspec_metadata.models.descriptor import Descriptor
 
     from fairspec_dataset.models.dataset import SaveDatasetOptions
@@ -23,7 +24,7 @@ class ZipPlugin(DatasetPlugin):
         return dataset.model_dump(by_alias=True, exclude_none=True)
 
     def save_dataset(
-        self, dataset: Descriptor, options: SaveDatasetOptions
+        self, dataset: Dataset, options: SaveDatasetOptions
     ) -> SaveDatasetResult | None:
         target = options.target
         if not _get_is_zip(target):

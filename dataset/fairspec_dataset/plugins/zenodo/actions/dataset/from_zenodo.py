@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from fairspec_metadata.models.dataset import Dataset
+
 from fairspec_dataset.plugins.zenodo.actions.resource.from_zenodo import convert_resource_from_zenodo
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
 
-def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Descriptor:
+def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Dataset:
     dataset: Descriptor = {"resources": []}
 
     metadata = zenodo_record.get("metadata", {})
@@ -53,4 +55,4 @@ def convert_dataset_from_zenodo(zenodo_record: Descriptor) -> Descriptor:
     if files:
         dataset["resources"] = [convert_resource_from_zenodo(f) for f in files]
 
-    return dataset
+    return Dataset(**dataset)

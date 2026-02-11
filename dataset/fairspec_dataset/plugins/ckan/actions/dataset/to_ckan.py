@@ -5,67 +5,72 @@ from typing import TYPE_CHECKING
 from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import convert_resource_to_ckan
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.dataset import Dataset
 
 
-def convert_dataset_to_ckan(dataset: Descriptor) -> dict:
+def convert_dataset_to_ckan(dataset: Dataset) -> dict:
     ckan_dataset: dict = {"resources": [], "tags": []}
 
-    titles = dataset.get("titles", [])
-    if titles and titles[0].get("title"):
-        ckan_dataset["title"] = titles[0]["title"]
+    titles = dataset.titles or []
+    if titles and titles[0].title:
+        ckan_dataset["title"] = titles[0].title
 
-    descriptions = dataset.get("descriptions", [])
-    if descriptions and descriptions[0].get("description"):
-        ckan_dataset["notes"] = descriptions[0]["description"]
+    descriptions = dataset.descriptions or []
+    if descriptions and descriptions[0].description:
+        ckan_dataset["notes"] = descriptions[0].description
 
-    if dataset.get("version"):
-        ckan_dataset["version"] = dataset["version"]
+    if dataset.version:
+        ckan_dataset["version"] = dataset.version
 
-    rights_list = dataset.get("rightsList", [])
+    rights_list = dataset.rightsList or []
     if rights_list:
         rights = rights_list[0]
-        if rights.get("rightsIdentifier"):
-            ckan_dataset["license_id"] = rights["rightsIdentifier"]
-        if rights.get("rights"):
-            ckan_dataset["license_title"] = rights["rights"]
-        if rights.get("rightsUri"):
-            ckan_dataset["license_url"] = rights["rightsUri"]
+        if rights.rightsIdentifier:
+            ckan_dataset["license_id"] = rights.rightsIdentifier
+        if rights.rights:
+            ckan_dataset["license_title"] = rights.rights
+        if rights.rightsUri:
+            ckan_dataset["license_url"] = rights.rightsUri
 
-    creators = dataset.get("creators", [])
-    if creators and creators[0].get("name"):
-        ckan_dataset["author"] = creators[0]["name"]
+    creators = dataset.creators or []
+    if creators and creators[0].name:
+        ckan_dataset["author"] = creators[0].name
 
-    contributors = dataset.get("contributors", [])
+    contributors = dataset.contributors or []
     if contributors:
         maintainer = next(
-            (c for c in contributors if c.get("contributorType") == "ContactPerson"),
+            (c for c in contributors if c.contributorType == "ContactPerson"),
             None,
         )
-        if maintainer and maintainer.get("name"):
-            ckan_dataset["maintainer"] = maintainer["name"]
+        if maintainer and maintainer.name:
+            ckan_dataset["maintainer"] = maintainer.name
 
-    resources = dataset.get("resources", [])
+    resources = dataset.resources or []
     if resources:
         ckan_dataset["resources"] = [
             r
-            for r in (convert_resource_to_ckan(res) for res in resources)
+            for r in (
+                convert_resource_to_ckan(
+                    res.model_dump(by_alias=True, exclude_none=True)
+                )
+                for res in resources
+            )
             if r is not None
         ]
 
-    subjects = dataset.get("subjects", [])
+    subjects = dataset.subjects or []
     if subjects:
         ckan_dataset["tags"] = [
-            {"name": s["subject"], "display_name": s["subject"]} for s in subjects
+            {"name": s.subject, "display_name": s.subject} for s in subjects
         ]
 
-    dates = dataset.get("dates", [])
-    created_date = next((d for d in dates if d.get("dateType") == "Created"), None)
+    dates = dataset.dates or []
+    created_date = next((d for d in dates if d.dateType == "Created"), None)
     if created_date:
-        ckan_dataset["metadata_created"] = created_date["date"]
+        ckan_dataset["metadata_created"] = created_date.date
 
-    updated_date = next((d for d in dates if d.get("dateType") == "Updated"), None)
+    updated_date = next((d for d in dates if d.dateType == "Updated"), None)
     if updated_date:
-        ckan_dataset["metadata_modified"] = updated_date["date"]
+        ckan_dataset["metadata_modified"] = updated_date.date
 
     return ckan_dataset

@@ -1,18 +1,16 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from fairspec_metadata import load_dataset_descriptor
-
-if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+from fairspec_metadata.models.dataset import Dataset
 
 
 def merge_datasets(
     *,
-    system_dataset: Descriptor,
+    system_dataset: Dataset,
     user_dataset_path: str | None = None,
-) -> Descriptor:
+) -> Dataset:
+    system = system_dataset.model_dump(by_alias=True, exclude_none=True)
+
     user_dataset = (
         load_dataset_descriptor(user_dataset_path).model_dump(
             by_alias=True, exclude_none=True
@@ -21,7 +19,5 @@ def merge_datasets(
         else None
     )
 
-    if user_dataset:
-        return {**system_dataset, **user_dataset}
-
-    return {**system_dataset}
+    merged = {**system, **user_dataset} if user_dataset else {**system}
+    return Dataset(**merged)

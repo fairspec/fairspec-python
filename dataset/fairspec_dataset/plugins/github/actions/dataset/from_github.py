@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from fairspec_metadata.models.dataset import Dataset
+
 from fairspec_dataset.plugins.github.actions.resource.from_github import convert_resource_from_github
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
 
-def convert_dataset_from_github(repository: Descriptor) -> Descriptor:
+def convert_dataset_from_github(repository: Descriptor) -> Dataset:
     dataset: Descriptor = {"resources": []}
 
     if repository.get("full_name"):
@@ -63,4 +65,4 @@ def convert_dataset_from_github(repository: Descriptor) -> Descriptor:
     if repository.get("created_at"):
         dataset["dates"] = [{"date": repository["created_at"], "dateType": "Created"}]
 
-    return dataset
+    return Dataset(**dataset)

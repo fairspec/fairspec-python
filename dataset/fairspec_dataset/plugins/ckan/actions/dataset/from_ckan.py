@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from fairspec_metadata.models.dataset import Dataset
+
 from fairspec_dataset.plugins.ckan.actions.resource.from_ckan import convert_resource_from_ckan
 
 if TYPE_CHECKING:
@@ -10,7 +12,7 @@ if TYPE_CHECKING:
     from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 
 
-def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Descriptor:
+def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Dataset:
     dataset: Descriptor = {"resources": []}
 
     if ckan_dataset.get("title"):
@@ -75,4 +77,4 @@ def convert_dataset_from_ckan(ckan_dataset: CkanDataset) -> Descriptor:
     if dates:
         dataset["dates"] = dates
 
-    return dataset
+    return Dataset(**dataset)

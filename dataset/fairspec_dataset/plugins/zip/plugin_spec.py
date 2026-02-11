@@ -1,5 +1,7 @@
 from unittest.mock import MagicMock, patch
 
+from fairspec_metadata.models.dataset import Dataset
+
 from fairspec_dataset.models.dataset import SaveDatasetOptions
 
 from .plugin import ZipPlugin
@@ -51,7 +53,7 @@ class TestLoadDataset:
 class TestSaveDataset:
     def setup_method(self):
         self.plugin = ZipPlugin()
-        self.dataset: dict = {"resources": [{"name": "test-resource", "data": []}]}
+        self.dataset = Dataset(resources=[{"name": "test_resource", "data": []}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_saves_to_zip_file(self, mock_save: MagicMock):

@@ -58,7 +58,7 @@ def convert_resource_from_ckan(ckan_resource: CkanResource) -> Descriptor:
 
 
 def _convert_name(name: str) -> str:
-    result = re.sub(r"[\s.()/\\,]+", "_", name).lower()
-    result = re.sub(r"[^a-z0-9_-]", "", result)
+    result = re.sub(r"[\s.()/\\,\-]+", "_", name).lower()
+    result = re.sub(r"[^a-z0-9_]", "", result)
     result = re.sub(r"^(\d)", r"_\1", result)
     return result[:100]

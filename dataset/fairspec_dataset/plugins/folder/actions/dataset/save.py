@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
 from fairspec_metadata.actions.descriptor.save import save_descriptor
-from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.file.copy import copy_file
@@ -14,11 +13,12 @@ from fairspec_dataset.actions.folder.create import create_folder
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.dataset import Dataset
     from fairspec_metadata.models.descriptor import Descriptor
 
 
 def save_dataset_to_folder(
-    dataset: Descriptor,
+    dataset: Dataset,
     *,
     folder_path: str,
     with_remote: bool = False,
@@ -29,18 +29,19 @@ def save_dataset_to_folder(
     create_folder(folder_path)
 
     resource_descriptors: list[Descriptor] = []
-    for item in dataset.get("resources", []):
+    for resource in dataset.resources or []:
         resource_descriptors.append(
             save_resource_files(
-                Resource(**item),
+                resource,
                 basepath=basepath,
                 with_remote=with_remote,
                 save_file=_make_save_file(folder_path),
             )
         )
 
+    denormalized = denormalize_dataset(dataset, basepath=basepath)
     descriptor: Descriptor = {
-        **denormalize_dataset(dataset, basepath=basepath),
+        **denormalized.model_dump(by_alias=True, exclude_none=True),
         "resources": resource_descriptors,
     }
 

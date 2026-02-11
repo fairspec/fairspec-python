@@ -9,7 +9,6 @@ from fairspec_metadata import (
     get_file_extension,
     stringify_descriptor,
 )
-from fairspec_metadata.models.resource import Resource
 
 from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
@@ -20,11 +19,13 @@ from fairspec_dataset.plugins.ckan.services.ckan import make_ckan_api_request
 from .to_ckan import convert_dataset_to_ckan
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.dataset import Dataset
     from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_metadata.models.resource import Resource
 
 
 def save_dataset_to_ckan(
-    dataset: Descriptor,
+    dataset: Dataset,
     *,
     api_key: str,
     ckan_url: str,
@@ -52,11 +53,13 @@ def save_dataset_to_ckan(
     dataset_url = f"{parsed.scheme}://{parsed.netloc}/dataset/{result['name']}"
 
     resource_descriptors: list[Descriptor] = []
-    for item in dataset.get("resources", []):
+    for resource in dataset.resources or []:
 
-        def _make_save_file(res: Descriptor) -> Callable[[SaveFileProps], str]:
+        def _make_save_file(res: Resource) -> Callable[[SaveFileProps], str]:
             def _save_file(props: SaveFileProps) -> str:
-                ckan_resource = convert_resource_to_ckan(res)
+                ckan_resource = convert_resource_to_ckan(
+                    res.model_dump(by_alias=True, exclude_none=True)
+                )
                 extension = get_file_extension(props.normalized_path)
 
                 upload_payload: dict = {
@@ -84,16 +87,17 @@ def save_dataset_to_ckan(
 
         resource_descriptors.append(
             save_resource_files(
-                Resource(**item),
+                resource,
                 basepath=basepath,
                 with_remote=True,
                 without_folders=True,
-                save_file=_make_save_file(item),
+                save_file=_make_save_file(resource),
             )
         )
 
+    denormalized = denormalize_dataset(dataset, basepath=basepath)
     descriptor: Descriptor = {
-        **denormalize_dataset(dataset, basepath=basepath),
+        **denormalized.model_dump(by_alias=True, exclude_none=True),
         "resources": resource_descriptors,
     }
 

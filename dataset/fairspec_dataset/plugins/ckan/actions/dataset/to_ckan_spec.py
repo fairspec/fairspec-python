@@ -4,6 +4,8 @@ import json
 import os
 from typing import cast
 
+from fairspec_metadata.models.dataset import Dataset
+
 from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 from .from_ckan import convert_dataset_from_ckan
 from .to_ckan import convert_dataset_to_ckan
@@ -17,42 +19,42 @@ def _load_fixture() -> CkanDataset:
 
 class TestConvertDatasetToCkan:
     def test_converts_fairspec_dataset_to_ckan_dataset(self):
-        dataset = {
-            "titles": [{"title": "Test Package"}],
-            "descriptions": [
+        dataset = Dataset(
+            titles=[{"title": "Test Package"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            descriptions=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "description": "This is a test package",
                     "descriptionType": "Abstract",
                 }
             ],
-            "version": "1.0.0",
-            "rightsList": [
+            version="1.0.0",
+            rightsList=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "rights": "Creative Commons Attribution",
                     "rightsUri": "http://www.opendefinition.org/licenses/cc-by",
                     "rightsIdentifier": "cc-by",
                 }
             ],
-            "creators": [{"name": "Test Author", "nameType": "Personal"}],
-            "contributors": [
+            creators=[{"name": "Test Author", "nameType": "Personal"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            contributors=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "Test Maintainer",
                     "nameType": "Personal",
                     "contributorType": "ContactPerson",
                 }
             ],
-            "subjects": [
+            subjects=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {"subject": "test"},
                 {"subject": "sample"},
                 {"subject": "data"},
             ],
-            "dates": [
+            dates=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {"date": "2023-01-01T00:00:00Z", "dateType": "Created"},
                 {"date": "2023-01-02T00:00:00Z", "dateType": "Updated"},
             ],
-            "resources": [
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
-                    "name": "test-resource",
+                    "name": "test_resource",
                     "data": "https://example.com/data.csv",
                     "fileDialect": {"format": "csv"},
                     "descriptions": [
@@ -64,7 +66,7 @@ class TestConvertDatasetToCkan:
                     "integrity": {"type": "md5", "hash": "1234567890abcdef"},
                 }
             ],
-        }
+        )
 
         result = convert_dataset_to_ckan(dataset)
 
@@ -88,19 +90,19 @@ class TestConvertDatasetToCkan:
         assert result["metadata_modified"] == "2023-01-02T00:00:00Z"
 
         assert len(result["resources"]) == 1
-        assert result["resources"][0]["name"] == "test-resource"
+        assert result["resources"][0]["name"] == "test_resource"
         assert result["resources"][0]["description"] == "Test resource"
         assert result["resources"][0]["hash"] == "1234567890abcdef"
 
     def test_handles_empty_resources_array(self):
-        dataset = {"resources": []}
+        dataset = Dataset(resources=[])
 
         result = convert_dataset_to_ckan(dataset)
 
         assert result["resources"] == []
 
     def test_handles_undefined_optional_properties(self):
-        dataset = {"resources": []}
+        dataset = Dataset(resources=[])
 
         result = convert_dataset_to_ckan(dataset)
 

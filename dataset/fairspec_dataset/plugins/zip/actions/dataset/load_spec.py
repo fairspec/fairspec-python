@@ -1,4 +1,5 @@
 import pytest
+from fairspec_metadata.models.dataset import Dataset
 from fairspec_metadata.models.table_schema import TableSchema
 
 from fairspec_dataset.actions.file.temp import get_temp_file_path, write_temp_file
@@ -9,7 +10,7 @@ from .save import save_dataset_to_zip
 class TestLoadDatasetFromZip:
     def test_loads_basic_dataset_from_zip(self):
         path = get_temp_file_path(format="zip")
-        dataset = {"resources": [{"name": "test_res", "data": [{"id": 1}]}]}
+        dataset = Dataset(resources=[{"name": "test_res", "data": [{"id": 1}]}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)
@@ -19,12 +20,12 @@ class TestLoadDatasetFromZip:
 
     def test_loads_dataset_with_metadata(self):
         path = get_temp_file_path(format="zip")
-        dataset = {
-            "titles": [{"title": "Test Dataset"}],
-            "descriptions": [{"description": "A test", "descriptionType": "Abstract"}],
-            "version": "1.0",
-            "resources": [{"name": "test_res", "data": [{"id": 1}]}],
-        }
+        dataset = Dataset(
+            titles=[{"title": "Test Dataset"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            descriptions=[{"description": "A test", "descriptionType": "Abstract"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            version="1.0",
+            resources=[{"name": "test_res", "data": [{"id": 1}]}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+        )
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)
@@ -38,7 +39,7 @@ class TestLoadDatasetFromZip:
     def test_loads_dataset_with_inline_data_resources(self):
         path = get_temp_file_path(format="zip")
         data = [{"id": 1, "name": "alice"}, {"id": 2, "name": "bob"}]
-        dataset = {"resources": [{"name": "test_res", "data": data}]}
+        dataset = Dataset(resources=[{"name": "test_res", "data": data}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)
@@ -49,15 +50,15 @@ class TestLoadDatasetFromZip:
     def test_loads_dataset_with_file_resources(self):
         csv_path = write_temp_file("id,name\n1,alice\n2,bob\n", format="csv")
         path = get_temp_file_path(format="zip")
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "test_res",
                     "data": csv_path,
                     "fileDialect": {"format": "csv"},
                 }
             ]
-        }
+        )
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)
@@ -67,8 +68,8 @@ class TestLoadDatasetFromZip:
 
     def test_loads_dataset_with_table_schema(self):
         path = get_temp_file_path(format="zip")
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "test_res",
                     "data": [{"id": 1}],
@@ -80,7 +81,7 @@ class TestLoadDatasetFromZip:
                     },
                 }
             ]
-        }
+        )
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)
@@ -93,12 +94,12 @@ class TestLoadDatasetFromZip:
     def test_loads_dataset_with_multiple_resources(self):
         csv_path = write_temp_file("id,name\n1,alice\n", format="csv")
         path = get_temp_file_path(format="zip")
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {"name": "file_res", "data": csv_path},
                 {"name": "inline_res", "data": [{"id": 1}]},
             ]
-        }
+        )
         save_dataset_to_zip(dataset, archive_path=path)
 
         result = load_dataset_from_zip(path)

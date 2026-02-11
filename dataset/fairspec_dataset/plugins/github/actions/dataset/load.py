@@ -35,8 +35,8 @@ def load_dataset_from_github(
 
     system_dataset = convert_dataset_from_github(repository)
     user_dataset_path: str | None = None
-    for resource in system_dataset.get("resources", []):
-        custom = resource.get("unstable_customMetadata", {})
+    for resource in system_dataset.resources or []:
+        custom = resource.unstable_customMetadata or {}
         if custom.get("githubKey") == "dataset.json":
             user_dataset_path = custom.get("githubUrl")
             break
@@ -46,10 +46,10 @@ def load_dataset_from_github(
         user_dataset_path=user_dataset_path,
     )
 
-    for resource in dataset.get("resources", []):
-        resource.pop("unstable_customMetadata", None)
+    for resource in dataset.resources or []:
+        resource.unstable_customMetadata = None
 
-    return dataset
+    return dataset.model_dump(by_alias=True, exclude_none=True)
 
 
 def _extract_repository_info(repo_url: str) -> tuple[str | None, str | None]:

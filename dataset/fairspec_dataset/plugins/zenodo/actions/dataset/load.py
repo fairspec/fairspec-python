@@ -32,8 +32,8 @@ def load_dataset_from_zenodo(
 
     system_dataset = convert_dataset_from_zenodo(zenodo_record)
     user_dataset_path: str | None = None
-    for resource in system_dataset.get("resources", []):
-        custom = resource.get("unstable_customMetadata", {})
+    for resource in system_dataset.resources or []:
+        custom = resource.unstable_customMetadata or {}
         if custom.get("zenodoKey") == "dataset.json":
             user_dataset_path = custom.get("zenodoUrl")
             break
@@ -43,10 +43,10 @@ def load_dataset_from_zenodo(
         user_dataset_path=user_dataset_path,
     )
 
-    for resource in dataset.get("resources", []):
-        resource.pop("unstable_customMetadata", None)
+    for resource in dataset.resources or []:
+        resource.unstable_customMetadata = None
 
-    return dataset
+    return dataset.model_dump(by_alias=True, exclude_none=True)
 
 
 def _extract_record_id(dataset_url: str) -> str | None:

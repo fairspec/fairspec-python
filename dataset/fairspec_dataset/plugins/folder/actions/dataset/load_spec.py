@@ -1,6 +1,7 @@
 import os
 
 import pytest
+from fairspec_metadata.models.dataset import Dataset
 from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
 from fairspec_metadata.models.table_schema import TableSchema
 
@@ -13,7 +14,7 @@ from .save import save_dataset_to_folder
 class TestLoadDatasetFromFolder:
     def test_loads_basic_dataset_from_folder(self):
         folder = get_temp_file_path()
-        dataset = {"resources": [{"name": "test_res", "data": [{"id": 1}]}]}
+        dataset = Dataset(resources=[{"name": "test_res", "data": [{"id": 1}]}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -23,12 +24,12 @@ class TestLoadDatasetFromFolder:
 
     def test_loads_dataset_with_metadata(self):
         folder = get_temp_file_path()
-        dataset = {
-            "titles": [{"title": "Test Dataset"}],
-            "descriptions": [{"description": "A test", "descriptionType": "Abstract"}],
-            "version": "1.0",
-            "resources": [{"name": "test_res", "data": [{"id": 1}]}],
-        }
+        dataset = Dataset(
+            titles=[{"title": "Test Dataset"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            descriptions=[{"description": "A test", "descriptionType": "Abstract"}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+            version="1.0",
+            resources=[{"name": "test_res", "data": [{"id": 1}]}],  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
+        )
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -42,7 +43,7 @@ class TestLoadDatasetFromFolder:
     def test_loads_dataset_with_inline_data_resources(self):
         folder = get_temp_file_path()
         data = [{"id": 1, "name": "alice"}, {"id": 2, "name": "bob"}]
-        dataset = {"resources": [{"name": "test_res", "data": data}]}
+        dataset = Dataset(resources=[{"name": "test_res", "data": data}])  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -53,15 +54,15 @@ class TestLoadDatasetFromFolder:
     def test_loads_dataset_with_file_resources(self):
         csv_path = write_temp_file("id,name\n1,alice\n2,bob\n", format="csv")
         folder = get_temp_file_path()
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "test_res",
                     "data": csv_path,
                     "fileDialect": {"format": "csv"},
                 }
             ]
-        }
+        )
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -71,8 +72,8 @@ class TestLoadDatasetFromFolder:
 
     def test_loads_dataset_with_table_schema(self):
         folder = get_temp_file_path()
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "test_res",
                     "data": [{"id": 1}],
@@ -84,7 +85,7 @@ class TestLoadDatasetFromFolder:
                     },
                 }
             ]
-        }
+        )
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -97,12 +98,12 @@ class TestLoadDatasetFromFolder:
     def test_loads_dataset_with_multiple_resources(self):
         csv_path = write_temp_file("id,name\n1,alice\n", format="csv")
         folder = get_temp_file_path()
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {"name": "file_res", "data": csv_path},
                 {"name": "inline_res", "data": [{"id": 1}]},
             ]
-        }
+        )
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
@@ -115,15 +116,15 @@ class TestLoadDatasetFromFolder:
     def test_loads_dataset_with_delimiter(self):
         csv_path = write_temp_file("id;name\n1;alice\n", format="csv")
         folder = get_temp_file_path()
-        dataset = {
-            "resources": [
+        dataset = Dataset(
+            resources=[  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 {
                     "name": "test_res",
                     "data": csv_path,
                     "fileDialect": {"format": "csv", "delimiter": ";"},
                 }
             ]
-        }
+        )
         save_dataset_to_folder(dataset, folder_path=folder)
 
         result = load_dataset_from_folder(folder)
