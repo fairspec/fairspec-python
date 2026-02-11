@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from fairspec_dataset.actions.dataset.merge import merge_datasets
 
-from ...services.zenodo import make_zenodo_api_request
+from fairspec_dataset.plugins.zenodo.services.zenodo import make_zenodo_api_request
 from .from_zenodo import convert_dataset_from_zenodo
 
 if TYPE_CHECKING:

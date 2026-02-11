@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING, cast
 
 from fairspec_dataset.actions.dataset.merge import merge_datasets
 
-from ...models.dataset import CkanDataset
-from ...services.ckan import make_ckan_api_request
+from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
+from fairspec_dataset.plugins.ckan.services.ckan import make_ckan_api_request
 from .from_ckan import convert_dataset_from_ckan
 
 if TYPE_CHECKING:

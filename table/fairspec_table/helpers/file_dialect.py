@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..models.file_dialect import FileDialectWithHeaderAndCommentRows
+from fairspec_table.models.file_dialect import FileDialectWithHeaderAndCommentRows
 
 
 def get_header_rows(

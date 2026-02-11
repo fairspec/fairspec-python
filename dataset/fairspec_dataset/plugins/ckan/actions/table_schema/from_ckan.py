@@ -20,8 +20,8 @@ if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.field import CkanField
-    from ...models.schema import CkanSchema
+    from fairspec_dataset.plugins.ckan.models.field import CkanField
+    from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 
 
 def convert_table_schema_from_ckan(ckan_schema: CkanSchema) -> Descriptor:

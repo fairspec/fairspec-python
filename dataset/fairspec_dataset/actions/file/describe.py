@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ...models.file import FileDescription
+from fairspec_dataset.models.file import FileDescription
 from .infer import infer_bytes, infer_integrity, infer_textual
 from .prefetch import prefetch_file
 

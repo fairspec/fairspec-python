@@ -14,8 +14,8 @@ from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
 from fairspec_dataset.actions.stream.load import load_file_stream
 
-from ...actions.resource.to_ckan import convert_resource_to_ckan
-from ...services.ckan import make_ckan_api_request
+from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import convert_resource_to_ckan
+from fairspec_dataset.plugins.ckan.services.ckan import make_ckan_api_request
 from .to_ckan import convert_dataset_to_ckan
 
 if TYPE_CHECKING:

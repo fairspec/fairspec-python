@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ...actions.resource.to_ckan import convert_resource_to_ckan
+from fairspec_dataset.plugins.ckan.actions.resource.to_ckan import convert_resource_to_ckan
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

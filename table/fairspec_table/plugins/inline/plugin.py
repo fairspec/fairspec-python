@@ -4,13 +4,14 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata import get_data_records
 
-from ...plugin import TablePlugin
+from fairspec_table.plugin import TablePlugin
+
 from .actions.table.load import load_inline_table
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.table import LoadTableOptions, Table
+    from fairspec_table.models.table import LoadTableOptions, Table
 
 
 class InlinePlugin(TablePlugin):

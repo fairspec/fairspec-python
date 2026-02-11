@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import Field
 
-from ..foreign_key import ForeignKey
+from fairspec_metadata.models.foreign_key import ForeignKey
 from .base import BaseError
 
 

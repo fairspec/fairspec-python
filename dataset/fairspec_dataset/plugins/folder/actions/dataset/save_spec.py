@@ -4,7 +4,7 @@ import os
 import pytest
 from fairspec_metadata.models.table_schema import TableSchema
 
-from .....actions.file.temp import get_temp_file_path, write_temp_file
+from fairspec_dataset.actions.file.temp import get_temp_file_path, write_temp_file
 from .load import load_dataset_from_folder
 from .save import save_dataset_to_folder
 

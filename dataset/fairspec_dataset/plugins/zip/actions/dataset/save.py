@@ -6,10 +6,10 @@ from typing import TYPE_CHECKING
 from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
 from fairspec_metadata.actions.descriptor.stringify import stringify_descriptor
 
-from .....actions.dataset.basepath import get_dataset_basepath
-from .....actions.file.path import assert_local_path_vacant
-from .....actions.resource.save import SaveFileProps, save_resource_files
-from .....actions.stream.load import load_file_stream
+from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
+from fairspec_dataset.actions.file.path import assert_local_path_vacant
+from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
+from fairspec_dataset.actions.stream.load import load_file_stream
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

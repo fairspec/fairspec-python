@@ -8,14 +8,14 @@ import polars as pl
 from fairspec_metadata import create_column_from_property, get_column_properties
 from fairspec_metadata.models.table_schema import TableSchema
 
-from ...helpers.schema import get_polars_schema
-from ...models.schema import InferTableSchemaOptions
+from fairspec_table.helpers.schema import get_polars_schema
+from fairspec_table.models.schema import InferTableSchemaOptions
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.table import Table
+    from fairspec_table.models.table import Table
 
 DEFAULT_MISSING_VALUES = ["", "NA", "N/A", "null", "-"]
 

@@ -4,7 +4,7 @@ import json
 import os
 from typing import cast
 
-from ...models.schema import CkanSchema
+from fairspec_dataset.plugins.ckan.models.schema import CkanSchema
 from .from_ckan import convert_table_schema_from_ckan
 
 

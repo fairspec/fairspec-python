@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ...actions.table_schema.to_ckan import convert_table_schema_to_ckan
+from fairspec_dataset.plugins.ckan.actions.table_schema.to_ckan import convert_table_schema_to_ckan
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

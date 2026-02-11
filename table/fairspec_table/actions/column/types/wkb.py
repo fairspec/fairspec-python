@@ -4,8 +4,8 @@ import shapely
 
 from fairspec_metadata import CellTypeError, ColumnType, WkbColumn
 
-from ....models.table import Table
-from ....settings import NUMBER_COLUMN_NAME
+from fairspec_table.models.table import Table
+from fairspec_table.settings import NUMBER_COLUMN_NAME
 
 
 def inspect_wkb_column(column: WkbColumn, table: Table) -> list[CellTypeError]:

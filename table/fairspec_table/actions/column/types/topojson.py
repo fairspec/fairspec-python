@@ -5,8 +5,8 @@ from importlib.resources import files
 
 from fairspec_metadata import CellTypeError, ColumnType, TopojsonColumn, inspect_json
 
-from ....models.table import Table
-from ....settings import NUMBER_COLUMN_NAME
+from fairspec_table.models.table import Table
+from fairspec_table.settings import NUMBER_COLUMN_NAME
 
 
 def inspect_topojson_column(column: TopojsonColumn, table: Table) -> list[CellTypeError]:

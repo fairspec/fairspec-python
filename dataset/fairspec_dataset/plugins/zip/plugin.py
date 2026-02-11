@@ -4,15 +4,15 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata.actions.path.general import get_file_extension
 
-from ...models.dataset import SaveDatasetResult
-from ...plugin import DatasetPlugin
+from fairspec_dataset.models.dataset import SaveDatasetResult
+from fairspec_dataset.plugin import DatasetPlugin
 from .actions.dataset.load import load_dataset_from_zip
 from .actions.dataset.save import save_dataset_to_zip
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.dataset import SaveDatasetOptions
+    from fairspec_dataset.models.dataset import SaveDatasetOptions
 
 
 class ZipPlugin(DatasetPlugin):

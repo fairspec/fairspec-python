@@ -4,8 +4,8 @@ import pytest
 from fairspec_metadata.models.file_dialect.csv import CsvFileDialect
 from fairspec_metadata.models.table_schema import TableSchema
 
-from .....actions.file.temp import get_temp_file_path, write_temp_file
-from .....actions.folder.temp import get_temp_folder_path
+from fairspec_dataset.actions.file.temp import get_temp_file_path, write_temp_file
+from fairspec_dataset.actions.folder.temp import get_temp_folder_path
 from .load import load_dataset_from_folder
 from .save import save_dataset_to_folder
 

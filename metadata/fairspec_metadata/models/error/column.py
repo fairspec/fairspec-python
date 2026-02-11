@@ -4,7 +4,7 @@ from typing import Annotated, Literal, Union
 
 from pydantic import Field
 
-from ..column.column import ColumnType
+from fairspec_metadata.models.column.column import ColumnType
 from .base import BaseError
 
 

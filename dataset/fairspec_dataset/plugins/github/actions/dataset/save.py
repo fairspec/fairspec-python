@@ -10,7 +10,7 @@ from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
 from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
 from fairspec_dataset.actions.stream.load import load_file_stream
 
-from ...services.github import make_github_api_request
+from fairspec_dataset.plugins.github.services.github import make_github_api_request
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

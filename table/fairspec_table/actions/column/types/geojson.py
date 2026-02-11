@@ -5,8 +5,8 @@ from importlib.resources import files
 
 from fairspec_metadata import CellTypeError, ColumnType, GeojsonColumn, inspect_json
 
-from ....models.table import Table
-from ....settings import NUMBER_COLUMN_NAME
+from fairspec_table.models.table import Table
+from fairspec_table.settings import NUMBER_COLUMN_NAME
 
 
 def inspect_geojson_column(column: GeojsonColumn, table: Table) -> list[CellTypeError]:

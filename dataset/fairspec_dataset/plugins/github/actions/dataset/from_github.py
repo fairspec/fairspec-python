@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ...actions.resource.from_github import convert_resource_from_github
+from fairspec_dataset.plugins.github.actions.resource.from_github import convert_resource_from_github
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

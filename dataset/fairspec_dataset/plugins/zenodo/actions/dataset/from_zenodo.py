@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ...actions.resource.from_zenodo import convert_resource_from_zenodo
+from fairspec_dataset.plugins.zenodo.actions.resource.from_zenodo import convert_resource_from_zenodo
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

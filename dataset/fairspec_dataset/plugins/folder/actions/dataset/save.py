@@ -6,11 +6,11 @@ from typing import TYPE_CHECKING
 from fairspec_metadata.actions.dataset.denormalize import denormalize_dataset
 from fairspec_metadata.actions.descriptor.save import save_descriptor
 
-from .....actions.dataset.basepath import get_dataset_basepath
-from .....actions.file.copy import copy_file
-from .....actions.file.path import assert_local_path_vacant
-from .....actions.folder.create import create_folder
-from .....actions.resource.save import SaveFileProps, save_resource_files
+from fairspec_dataset.actions.dataset.basepath import get_dataset_basepath
+from fairspec_dataset.actions.file.copy import copy_file
+from fairspec_dataset.actions.file.path import assert_local_path_vacant
+from fairspec_dataset.actions.folder.create import create_folder
+from fairspec_dataset.actions.resource.save import SaveFileProps, save_resource_files
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor

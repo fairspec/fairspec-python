@@ -6,13 +6,13 @@ from fairspec_metadata.actions.dataset.load import load_dataset_descriptor
 from fairspec_metadata.actions.dataset.save import save_dataset_descriptor
 from fairspec_metadata.actions.path.general import get_file_extension, get_is_remote_path
 
-from ...models.dataset import SaveDatasetResult
-from ...plugin import DatasetPlugin
+from fairspec_dataset.models.dataset import SaveDatasetResult
+from fairspec_dataset.plugin import DatasetPlugin
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.dataset import SaveDatasetOptions
+    from fairspec_dataset.models.dataset import SaveDatasetOptions
 
 
 class DescriptorPlugin(DatasetPlugin):

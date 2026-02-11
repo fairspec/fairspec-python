@@ -13,7 +13,7 @@ from fairspec_dataset.actions.resource.save import (
 )
 from fairspec_dataset.actions.stream.load import load_file_stream
 
-from ...services.zenodo import make_zenodo_api_request
+from fairspec_dataset.plugins.zenodo.services.zenodo import make_zenodo_api_request
 from .to_zenodo import convert_dataset_to_zenodo
 
 if TYPE_CHECKING:

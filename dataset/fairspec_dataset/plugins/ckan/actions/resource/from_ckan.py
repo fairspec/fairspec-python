@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING
 
 from fairspec_metadata.actions.path.general import get_file_name
 
-from ...actions.table_schema.from_ckan import convert_table_schema_from_ckan
+from fairspec_dataset.plugins.ckan.actions.table_schema.from_ckan import convert_table_schema_from_ckan
 
 if TYPE_CHECKING:
     from fairspec_metadata.models.descriptor import Descriptor
 
-    from ...models.resource import CkanResource
+    from fairspec_dataset.plugins.ckan.models.resource import CkanResource
 
 
 def convert_resource_from_ckan(ckan_resource: CkanResource) -> Descriptor:

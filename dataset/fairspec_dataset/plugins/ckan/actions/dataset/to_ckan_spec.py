@@ -4,7 +4,7 @@ import json
 import os
 from typing import cast
 
-from ...models.dataset import CkanDataset
+from fairspec_dataset.plugins.ckan.models.dataset import CkanDataset
 from .from_ckan import convert_dataset_from_ckan
 from .to_ckan import convert_dataset_to_ckan
 
