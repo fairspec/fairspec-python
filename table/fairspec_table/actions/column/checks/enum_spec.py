@@ -51,7 +51,7 @@ class TestCheckCellEnum:
         result = check_cell_enum(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_not_in_enum(self):
@@ -74,7 +74,7 @@ class TestCheckCellEnum:
 
         assert result is not None
         assert result.error_template.type == "cell/enum"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_null_values_not_flagged(self):
@@ -96,7 +96,7 @@ class TestCheckCellEnum:
         result = check_cell_enum(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_case_sensitivity(self):
@@ -118,7 +118,7 @@ class TestCheckCellEnum:
         result = check_cell_enum(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_integer_enum(self):
@@ -134,7 +134,7 @@ class TestCheckCellEnum:
 
         assert result is not None
         assert result.error_template.enum == ["1", "2", "3"]
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_number_enum(self):
@@ -152,5 +152,5 @@ class TestCheckCellEnum:
 
         assert result is not None
         assert result.error_template.enum == ["1.5", "2.5", "3.5"]
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1

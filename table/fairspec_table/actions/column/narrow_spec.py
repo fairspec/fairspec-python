@@ -30,7 +30,8 @@ class TestNarrowToInteger:
 
         result = table.select(narrow_column(mapping, pl.col("id")))
 
-        assert result.collect().to_dicts() == [
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [
             {"id": 1},
             {"id": 2},
             {"id": 3},
@@ -49,7 +50,8 @@ class TestNarrowToInteger:
 
         result = table.select(narrow_column(mapping, pl.col("id")))
 
-        assert result.collect().to_dicts() == [
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [
             {"id": 1},
             {"id": 2},
             {"id": None},
@@ -82,7 +84,8 @@ class TestNarrowToCategorical:
 
         result = table.select(narrow_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -112,4 +115,5 @@ class TestNarrowToCategorical:
 
         result = table.select(narrow_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]

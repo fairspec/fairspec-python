@@ -58,7 +58,7 @@ class TestCheckCellMultipleOf:
         result = check_cell_multiple_of(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_invalid_integer_values(self):
@@ -75,7 +75,7 @@ class TestCheckCellMultipleOf:
         assert result is not None
         assert result.error_template.type == "cell/multipleOf"
         assert result.error_template.multipleOf == 10
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_valid_number_multiples(self):
@@ -92,7 +92,7 @@ class TestCheckCellMultipleOf:
         result = check_cell_multiple_of(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_invalid_number_values(self):
@@ -109,7 +109,7 @@ class TestCheckCellMultipleOf:
         result = check_cell_multiple_of(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_multiple_of_one(self):
@@ -124,5 +124,5 @@ class TestCheckCellMultipleOf:
         result = check_cell_multiple_of(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0

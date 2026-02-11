@@ -29,4 +29,5 @@ class TestStringifyUnknownColumn:
     def test_stringify(self, value: object, expected: str):
         table = pl.DataFrame({"name": [value]}).lazy()
         result = table.select(stringify_unknown_column(COLUMN, pl.col("name")))
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]

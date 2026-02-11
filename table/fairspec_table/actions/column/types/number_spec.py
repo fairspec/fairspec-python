@@ -34,7 +34,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -55,7 +56,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -74,7 +76,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -93,7 +96,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -114,7 +118,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -133,7 +138,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -155,7 +161,8 @@ class TestParseNumberColumn:
 
         result = table.select(parse_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
 
 class TestStringifyNumberColumn:
@@ -187,4 +194,5 @@ class TestStringifyNumberColumn:
 
         result = table.select(stringify_number_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]

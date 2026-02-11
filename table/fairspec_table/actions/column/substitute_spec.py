@@ -35,7 +35,8 @@ class TestSubstituteColumnString:
 
         result = table.select(substitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -59,7 +60,8 @@ class TestSubstituteColumnString:
 
         result = table.select(substitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -83,7 +85,8 @@ class TestSubstituteColumnString:
 
         result = table.select(substitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -107,7 +110,8 @@ class TestSubstituteColumnString:
 
         result = table.select(substitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -131,7 +135,8 @@ class TestSubstituteColumnString:
 
         result = table.select(substitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
 
 class TestSubstituteColumnInteger:
@@ -157,7 +162,8 @@ class TestSubstituteColumnInteger:
 
         result = table.select(substitute_column(mapping, pl.col("value")))
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -181,7 +187,8 @@ class TestSubstituteColumnInteger:
 
         result = table.select(substitute_column(mapping, pl.col("value")))
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -205,7 +212,8 @@ class TestSubstituteColumnInteger:
 
         result = table.select(substitute_column(mapping, pl.col("value")))
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -228,7 +236,8 @@ class TestSubstituteColumnInteger:
         )
 
         result = table.select(substitute_column(mapping, pl.col("value")))
-        row = result.collect().to_dicts()[0]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        row = frame.to_dicts()[0]
 
         if expected is None:
             assert row["value"] is None
@@ -256,7 +265,8 @@ class TestSubstituteColumnInteger:
         )
 
         result = table.select(substitute_column(mapping, pl.col("value")))
-        row = result.collect().to_dicts()[0]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        row = frame.to_dicts()[0]
 
         if expected is None:
             assert row["value"] is None

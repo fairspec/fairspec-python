@@ -54,7 +54,7 @@ class TestCheckCellConst:
 
         assert result is not None
         assert result.error_template.type == "cell/const"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_string_const_mismatch(self):
@@ -74,7 +74,7 @@ class TestCheckCellConst:
         result = check_cell_const(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_null_values_not_flagged(self):
@@ -94,7 +94,7 @@ class TestCheckCellConst:
         result = check_cell_const(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_case_sensitivity(self):
@@ -114,7 +114,7 @@ class TestCheckCellConst:
         result = check_cell_const(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_integer_const(self):
@@ -130,7 +130,7 @@ class TestCheckCellConst:
 
         assert result is not None
         assert result.error_template.model_dump()["const"] == "1"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_number_const(self):
@@ -148,7 +148,7 @@ class TestCheckCellConst:
 
         assert result is not None
         assert result.error_template.model_dump()["const"] == "1.5"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_boolean_const(self):
@@ -166,5 +166,5 @@ class TestCheckCellConst:
 
         assert result is not None
         assert result.error_template.model_dump()["const"] == "True"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1

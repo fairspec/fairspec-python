@@ -61,7 +61,7 @@ class TestCheckCellMaximum:
         result = check(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_exceeding_maximum(self):
@@ -81,7 +81,7 @@ class TestCheckCellMaximum:
         assert result is not None
         assert result.error_template.type == "cell/maximum"
         assert result.error_template.maximum == "40.0"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_exclusive_maximum(self):
@@ -101,7 +101,7 @@ class TestCheckCellMaximum:
         assert result is not None
         assert result.error_template.type == "cell/exclusiveMaximum"
         assert result.error_template.maximum == "40.0"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_integer_maximum(self):
@@ -120,7 +120,7 @@ class TestCheckCellMaximum:
 
         assert result is not None
         assert result.error_template.maximum == "2022"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_integer_exclusive_maximum(self):
@@ -138,5 +138,5 @@ class TestCheckCellMaximum:
         result = check(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2

@@ -37,7 +37,8 @@ class TestParseIntegerColumn:
 
         result = table.select(parse_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -58,7 +59,8 @@ class TestParseIntegerColumn:
 
         result = table.select(parse_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, group_char, expected",
@@ -78,7 +80,8 @@ class TestParseIntegerColumn:
 
         result = table.select(parse_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -104,7 +107,8 @@ class TestParseIntegerColumn:
 
         result = table.select(parse_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -123,7 +127,8 @@ class TestParseIntegerColumn:
 
         result = table.select(parse_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
 
 class TestStringifyIntegerColumn:
@@ -151,4 +156,5 @@ class TestStringifyIntegerColumn:
 
         result = table.select(stringify_integer_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]

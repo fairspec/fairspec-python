@@ -30,7 +30,8 @@ class TestParseDateColumn:
 
         result = table.select(parse_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -50,7 +51,8 @@ class TestParseDateColumn:
 
         result = table.select(parse_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -68,7 +70,8 @@ class TestParseDateColumn:
 
         result = table.select(parse_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "cell, expected",
@@ -86,7 +89,8 @@ class TestParseDateColumn:
 
         result = table.select(parse_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
 
 class TestStringifyDateColumn:
@@ -107,7 +111,8 @@ class TestStringifyDateColumn:
 
         result = table.select(stringify_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -125,7 +130,8 @@ class TestStringifyDateColumn:
 
         result = table.select(stringify_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -143,4 +149,5 @@ class TestStringifyDateColumn:
 
         result = table.select(stringify_date_column(column, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]

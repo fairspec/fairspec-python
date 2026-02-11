@@ -54,7 +54,7 @@ class TestCheckCellMinLength:
         result = check_cell_min_length(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_below_min_length(self):
@@ -76,7 +76,7 @@ class TestCheckCellMinLength:
         assert result is not None
         assert result.error_template.type == "cell/minLength"
         assert result.error_template.minLength == 3
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_null_values_not_flagged(self):
@@ -93,5 +93,5 @@ class TestCheckCellMinLength:
         result = check_cell_min_length(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1

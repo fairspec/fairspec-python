@@ -28,7 +28,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_with_less_fields_in_data(self):
@@ -53,7 +53,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_with_more_fields_in_data(self):
@@ -78,7 +78,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_not_work_based_on_fields_order(self):
@@ -101,7 +101,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_based_on_field_names_equal(self):
@@ -125,7 +125,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_based_on_field_names_subset(self):
@@ -149,7 +149,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_based_on_field_names_superset(self):
@@ -173,7 +173,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_work_based_on_field_names_partial(self):
@@ -197,7 +197,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_parse_string_columns(self):
@@ -221,7 +221,7 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records
 
     def test_should_read_type_errors_as_nulls(self):
@@ -245,5 +245,5 @@ class TestNormalizeTable:
         ]
 
         result = normalize_table(table, table_schema)
-        frame = result.collect()
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert frame.to_dicts() == records

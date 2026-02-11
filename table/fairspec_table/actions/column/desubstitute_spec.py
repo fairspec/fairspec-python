@@ -35,7 +35,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -58,7 +59,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -81,7 +83,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -104,7 +107,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -127,7 +131,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -152,7 +157,8 @@ class TestDesubstituteColumnString:
 
         result = table.select(desubstitute_column(mapping, pl.col("name")))
 
-        assert result.collect().to_dicts() == [{"name": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": expected}]
 
 
 class TestDesubstituteColumnInteger:
@@ -184,7 +190,8 @@ class TestDesubstituteColumnInteger:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -214,7 +221,8 @@ class TestDesubstituteColumnInteger:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -245,7 +253,8 @@ class TestDesubstituteColumnInteger:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
 
 class TestDesubstituteColumnNumber:
@@ -277,7 +286,8 @@ class TestDesubstituteColumnNumber:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -307,7 +317,8 @@ class TestDesubstituteColumnNumber:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]
 
     @pytest.mark.parametrize(
         "value, expected",
@@ -340,4 +351,5 @@ class TestDesubstituteColumnNumber:
             )
         )
 
-        assert result.collect().to_dicts() == [{"value": expected}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"value": expected}]

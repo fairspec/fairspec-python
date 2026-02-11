@@ -5,6 +5,7 @@ import pytest
 
 from fairspec_metadata import ListColumn, ListColumnProperty
 
+
 from .list import parse_list_column, stringify_list_column
 
 
@@ -30,7 +31,8 @@ class TestParseListColumn:
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -56,7 +58,8 @@ class TestParseListColumn:
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -81,7 +84,8 @@ class TestParseListColumn:
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -103,7 +107,8 @@ class TestParseListColumn:
         )
 
         result = table.select(parse_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -133,7 +138,8 @@ class TestStringifyListColumn:
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -158,7 +164,8 @@ class TestStringifyListColumn:
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -183,7 +190,8 @@ class TestStringifyListColumn:
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected
 
@@ -207,6 +215,7 @@ class TestStringifyListColumn:
         )
 
         result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
-        actual = result.collect().to_dicts()[0]["name"]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        actual = frame.to_dicts()[0]["name"]
 
         assert actual == expected

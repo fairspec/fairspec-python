@@ -11,7 +11,8 @@ class TestQueryTable:
 
         result = query_table(table, "SELECT * FROM self")
 
-        assert result.collect().to_dicts() == [
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [
             {"name": "Alice", "age": 30},
             {"name": "Bob", "age": 25},
         ]
@@ -21,7 +22,8 @@ class TestQueryTable:
 
         result = query_table(table, "SELECT name FROM self WHERE age > 26")
 
-        assert result.collect().to_dicts() == [{"name": "Alice"}]
+        frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        assert frame.to_dicts() == [{"name": "Alice"}]
 
     def test_returns_lazy_frame(self):
         table = pl.DataFrame({"x": [1]}).lazy()

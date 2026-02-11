@@ -58,7 +58,7 @@ class TestCheckCellPattern:
         result = check_cell_pattern(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_not_matching_pattern(self):
@@ -91,5 +91,5 @@ class TestCheckCellPattern:
         assert result is not None
         assert result.error_template.type == "cell/pattern"
         assert result.error_template.pattern == email_pattern
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2

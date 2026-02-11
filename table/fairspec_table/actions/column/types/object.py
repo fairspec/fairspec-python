@@ -21,7 +21,7 @@ def inspect_object_column(
 
     import polars as pl
 
-    frame = (
+    frame: pl.DataFrame = (  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         table.with_row_index(NUMBER_COLUMN_NAME, 1)
         .select(pl.col(NUMBER_COLUMN_NAME), pl.col(column.name).alias("source"))
         .collect()

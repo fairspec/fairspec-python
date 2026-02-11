@@ -27,7 +27,7 @@ class TestCheckCellMissing:
 
         assert result is not None
         assert result.error_template.type == "cell/missing"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_nullable_column_returns_none(self):
@@ -57,7 +57,7 @@ class TestCheckCellMissing:
         result = check_cell_missing(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_error_template_fields(self):

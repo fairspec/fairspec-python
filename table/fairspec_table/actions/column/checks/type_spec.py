@@ -38,7 +38,7 @@ class TestCheckCellType:
         result = check_cell_type(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_errors_for_invalid_integer_values(self):
@@ -57,7 +57,7 @@ class TestCheckCellType:
         assert result is not None
         assert result.error_template.type == "cell/type"
         assert result.error_template.columnType == "integer"
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_errors_for_invalid_number_values(self):
@@ -77,7 +77,7 @@ class TestCheckCellType:
         result = check_cell_type(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_errors_for_invalid_boolean_values(self):
@@ -97,7 +97,7 @@ class TestCheckCellType:
         result = check_cell_type(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_null_source_not_flagged(self):
@@ -112,7 +112,7 @@ class TestCheckCellType:
         result = check_cell_type(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_error_template_fields(self):

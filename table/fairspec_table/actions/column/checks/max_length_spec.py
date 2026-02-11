@@ -54,7 +54,7 @@ class TestCheckCellMaxLength:
         result = check_cell_max_length(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_exceeding_max_length(self):
@@ -76,6 +76,6 @@ class TestCheckCellMaxLength:
         assert result is not None
         assert result.error_template.type == "cell/maxLength"
         assert result.error_template.maxLength == 8
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
         assert errors["source"][0] == "christopher"

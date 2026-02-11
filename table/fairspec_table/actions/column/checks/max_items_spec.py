@@ -54,7 +54,7 @@ class TestCheckCellMaxItems:
         result = check_cell_max_items(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 0
 
     def test_values_exceeding_max_items(self):
@@ -81,7 +81,7 @@ class TestCheckCellMaxItems:
         assert result is not None
         assert result.error_template.type == "cell/maxItems"
         assert result.error_template.maxItems == 3
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 2
 
     def test_null_values_not_flagged(self):
@@ -101,7 +101,7 @@ class TestCheckCellMaxItems:
         result = check_cell_max_items(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
 
     def test_max_items_of_one(self):
@@ -121,5 +121,5 @@ class TestCheckCellMaxItems:
         result = check_cell_max_items(column, mapping)
 
         assert result is not None
-        errors = table.filter(result.is_error_expr).collect()
+        errors: pl.DataFrame = table.filter(result.is_error_expr).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         assert len(errors) == 1
