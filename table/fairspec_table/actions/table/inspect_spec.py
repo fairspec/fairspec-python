@@ -17,7 +17,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -36,7 +36,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "number"},
             }
@@ -59,7 +59,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -79,7 +79,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -98,7 +98,7 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             required=["name"],
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             },
@@ -118,7 +118,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -138,7 +138,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -157,7 +157,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -176,7 +176,7 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             required=["name"],
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             },
@@ -195,7 +195,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -214,7 +214,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -234,7 +234,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }
@@ -253,7 +253,7 @@ class TestInspectTable:
 
         table_schema = TableSchema(
             allRequired=True,
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             },
@@ -272,7 +272,7 @@ class TestInspectTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "number"},
                 "name": {"type": "string"},
             }

@@ -16,7 +16,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             },
@@ -36,7 +36,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             },
@@ -70,7 +70,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "email": {"type": "string"},
             },
@@ -96,7 +96,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "email": {"type": "string"},
             },
@@ -130,7 +130,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "category": {"type": "string"},
                 "subcategory": {"type": "string"},
                 "value": {"type": "integer"},
@@ -165,7 +165,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "email": {"type": "string"},
             },
@@ -192,7 +192,7 @@ class TestInspectTableRowUnique:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": ["integer", "null"]},
                 "name": {"type": "string"},
             },

@@ -16,7 +16,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -40,7 +40,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
                 "other": {"type": "boolean"},
@@ -66,7 +66,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -90,7 +90,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -113,7 +113,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -137,7 +137,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -161,7 +161,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -185,7 +185,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -209,7 +209,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "string"},
             }
@@ -233,7 +233,7 @@ class TestNormalizeTable:
         ).lazy()
 
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "id": {"type": "integer"},
                 "name": {"type": "integer"},
             }

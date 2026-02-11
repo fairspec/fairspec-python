@@ -9,7 +9,7 @@ from fairspec_table.actions.table.inspect import inspect_table
 class TestInspectColumnName:
     def test_should_report_error_when_column_names_dont_match(self):
         table = pl.DataFrame({"actual_id": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})
+        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -17,7 +17,7 @@ class TestInspectColumnName:
 
     def test_should_not_error_when_column_names_match(self):
         table = pl.DataFrame({"id": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})
+        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -25,7 +25,7 @@ class TestInspectColumnName:
 
     def test_should_be_case_sensitive_when_comparing_column_names(self):
         table = pl.DataFrame({"ID": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})
+        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -36,7 +36,7 @@ class TestInspectColumnName:
 class TestInspectColumnType:
     def test_should_report_error_when_column_types_dont_match(self):
         table = pl.DataFrame({"id": [True, False, True]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "integer"}})
+        table_schema = TableSchema(properties={"id": {"type": "integer"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -50,7 +50,7 @@ class TestInspectColumnType:
 
     def test_should_not_error_when_column_types_match(self):
         table = pl.DataFrame({"id": [1, 2, 3]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "number"}})
+        table_schema = TableSchema(properties={"id": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -63,7 +63,7 @@ class TestInspectColumnNamedNumber:
             {"name": ["Alice", "Bob", "Charlie"], "number": [1, 2, 3]}
         ).lazy()
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "name": {"type": "string"},
                 "number": {"type": "integer"},
             }
@@ -80,7 +80,7 @@ class TestInspectColumnNamedNumber:
             {"name": ["Alice", "Bob", "Charlie"], "number": ["1", "bad", "3"]}
         ).lazy()
         table_schema = TableSchema(
-            properties={
+            properties={  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
                 "name": {"type": "string"},
                 "number": {"type": "integer"},
             }
@@ -101,7 +101,7 @@ class TestInspectColumnNamedNumber:
 class TestInspectCellTypes:
     def test_should_validate_string_to_integer_conversion_errors(self):
         table = pl.DataFrame({"id": ["1", "bad", "3", "4x"]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "integer"}})
+        table_schema = TableSchema(properties={"id": {"type": "integer"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -125,7 +125,7 @@ class TestInspectCellTypes:
 
     def test_should_validate_string_to_number_conversion_errors(self):
         table = pl.DataFrame({"price": ["10.5", "twenty", "30.75", "$40"]}).lazy()
-        table_schema = TableSchema(properties={"price": {"type": "number"}})
+        table_schema = TableSchema(properties={"price": {"type": "number"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -149,7 +149,7 @@ class TestInspectCellTypes:
 
     def test_should_validate_string_to_boolean_conversion_errors(self):
         table = pl.DataFrame({"active": ["true", "yes", "false", "0", "1"]}).lazy()
-        table_schema = TableSchema(properties={"active": {"type": "boolean"}})
+        table_schema = TableSchema(properties={"active": {"type": "boolean"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -168,7 +168,7 @@ class TestInspectCellTypes:
             {"created": ["2023-01-15", "Jan 15, 2023", "20230115", "not-a-date"]}
         ).lazy()
         table_schema = TableSchema(
-            properties={"created": {"type": "string", "format": "date"}}
+            properties={"created": {"type": "string", "format": "date"}}  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         errors = inspect_table(table, table_schema=table_schema)
@@ -202,7 +202,7 @@ class TestInspectCellTypes:
     def test_should_validate_string_to_time_conversion_errors(self):
         table = pl.DataFrame({"time": ["14:30:00", "2:30pm", "invalid", "14h30"]}).lazy()
         table_schema = TableSchema(
-            properties={"time": {"type": "string", "format": "time"}}
+            properties={"time": {"type": "string", "format": "time"}}  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         errors = inspect_table(table, table_schema=table_schema)
@@ -245,7 +245,7 @@ class TestInspectCellTypes:
             }
         ).lazy()
         table_schema = TableSchema(
-            properties={"timestamp": {"type": "string", "format": "date-time"}}
+            properties={"timestamp": {"type": "string", "format": "date-time"}}  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
         errors = inspect_table(table, table_schema=table_schema)
@@ -270,7 +270,7 @@ class TestInspectCellTypes:
 
     def test_should_pass_validation_when_all_cells_are_valid(self):
         table = pl.DataFrame({"id": ["1", "2", "3", "4"]}).lazy()
-        table_schema = TableSchema(properties={"id": {"type": "integer"}})
+        table_schema = TableSchema(properties={"id": {"type": "integer"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
@@ -278,7 +278,7 @@ class TestInspectCellTypes:
 
     def test_should_validate_with_non_string_source_data(self):
         table = pl.DataFrame({"is_active": [True, False, True, False]}).lazy()
-        table_schema = TableSchema(properties={"is_active": {"type": "boolean"}})
+        table_schema = TableSchema(properties={"is_active": {"type": "boolean"}})  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
 
         errors = inspect_table(table, table_schema=table_schema)
 
