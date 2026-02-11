@@ -8,11 +8,11 @@ from fairspec_metadata.models.integrity import Integrity, IntegrityType
 from fairspec_metadata.models.resource import Resource
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_dataset.plugins.github.models.file import GithubFile
 
 
 def convert_resource_from_github(
-    github_file: Descriptor,
+    github_file: GithubFile,
     *,
     default_branch: str,
 ) -> Resource:

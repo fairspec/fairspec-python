@@ -15,15 +15,16 @@ from fairspec_metadata.models.dataset import Dataset
 from fairspec_dataset.plugins.github.actions.resource.from_github import convert_resource_from_github
 
 if TYPE_CHECKING:
-    from fairspec_metadata.models.descriptor import Descriptor
+    from fairspec_dataset.plugins.github.models.repository import GithubRepository
 
 
-def convert_dataset_from_github(repository: Descriptor) -> Dataset:
+def convert_dataset_from_github(repository: GithubRepository) -> Dataset:
     titles = [Title(title=repository["full_name"])] if repository.get("full_name") else None
 
+    description = repository.get("description")
     descriptions = (
-        [DataciteDescription(description=repository["description"], descriptionType=DescriptionType.Abstract)]
-        if repository.get("description")
+        [DataciteDescription(description=description, descriptionType=DescriptionType.Abstract)]
+        if description
         else None
     )
 
