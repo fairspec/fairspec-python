@@ -113,7 +113,7 @@ def describe(
 
     def _load() -> pl.LazyFrame:
         table = load_table(res)
-        if not table:
+        if table is None:
             raise ValueError("Could not load table")
         return table
 

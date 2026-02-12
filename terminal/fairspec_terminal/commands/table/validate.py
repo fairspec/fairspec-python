@@ -114,7 +114,7 @@ def validate(
 
     def _load() -> pl.LazyFrame:
         table = load_table(res, denormalized=True)
-        if not table:
+        if table is None:
             raise ValueError("Could not load table")
         return table
 
