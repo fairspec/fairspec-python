@@ -31,6 +31,7 @@ from .plugins.json import (
     save_json_table,
 )
 from .plugins.parquet import ParquetPlugin, load_parquet_table, save_parquet_table
+from .plugins.sqlite import SqlitePlugin, load_sqlite_table, save_sqlite_table
 from .plugins.xlsx import (
     XlsxPlugin,
     infer_xlsx_file_dialect,
@@ -52,6 +53,7 @@ __all__ = [
     "PolarsColumn",
     "PolarsSchema",
     "SchemaMapping",
+    "SqlitePlugin",
     "Table",
     "TablePlugin",
     "TableSchemaOptions",
@@ -65,12 +67,14 @@ __all__ = [
     "load_csv_table",
     "load_json_table",
     "load_parquet_table",
+    "load_sqlite_table",
     "normalize_table",
     "query_table",
     "save_arrow_table",
     "save_csv_table",
     "save_json_table",
     "save_parquet_table",
+    "save_sqlite_table",
     "XlsxPlugin",
     "infer_xlsx_file_dialect",
     "load_xlsx_table",
