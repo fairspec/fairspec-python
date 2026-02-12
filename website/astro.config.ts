@@ -60,12 +60,11 @@ export default defineConfig({
 				{ label: "Python", autogenerate: { directory: "python" } },
 				{
 					label: "Changelog",
-					collapsed: true,
 					items: makeChangelogsSidebarLinks([
 						{
 							type: "recent",
 							base: "changelog",
-							count: 10,
+							count: 1,
 						},
 					]),
 				},
