@@ -105,8 +105,8 @@ jobs:
           changelog: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Packages
-        if: steps.release.outputs.released
+        if: steps.release.outputs.released == 'true'
         run: uv run task build
       - name: Publish Packages
-        if: steps.release.outputs.released
+        if: steps.release.outputs.released == 'true'
         run: uv run task publish
