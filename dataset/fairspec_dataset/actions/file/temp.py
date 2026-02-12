@@ -15,7 +15,8 @@ def write_temp_file(
     path = get_temp_file_path(persist=persist, filename=filename, format=format)
     mode = "wb" if isinstance(content, bytes) else "w"
     encoding = None if isinstance(content, bytes) else "utf-8"
-    with open(path, mode, encoding=encoding) as f:
+    newline = None if isinstance(content, bytes) else ""
+    with open(path, mode, encoding=encoding, newline=newline) as f:
         f.write(content)
     return path
 
