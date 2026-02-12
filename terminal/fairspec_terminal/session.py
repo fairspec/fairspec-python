@@ -6,6 +6,7 @@ import sys
 from typing import TYPE_CHECKING, Callable, TypeVar
 
 import typer
+from rich.syntax import Syntax
 from rich.console import Console
 from rich.status import Status
 
@@ -68,7 +69,8 @@ class Session:
             sys.stdout.write("\n")
             return
 
-        self._console.print_json(data=data, default=_json_default)
+        text = json.dumps(data, indent=2, default=_json_default)
+        self._console.print(Syntax(text, "json", theme="monokai"))
 
     def render_frame_result(self, frame: object) -> None:
         if self.silent:
