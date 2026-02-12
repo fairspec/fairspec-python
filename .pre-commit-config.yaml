@@ -8,4 +8,3 @@ repos:
         always_run: true
         pass_filenames: false
         stages: [pre-push]
-        verbose: true
