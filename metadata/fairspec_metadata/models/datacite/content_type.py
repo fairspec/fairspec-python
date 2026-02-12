@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import ContentTypeGeneral
 
 
-class ContentTypes(BaseModel):
+class ContentTypes(FairspecModel):
     resourceType: str | None = Field(
         default=None,
         description="A description of the resource (free text)",

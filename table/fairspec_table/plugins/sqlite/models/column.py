@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class SqliteColumn(BaseModel):
+class SqliteColumn(FairspecModel):
     name: str
     dataType: str
     isNullable: bool = True

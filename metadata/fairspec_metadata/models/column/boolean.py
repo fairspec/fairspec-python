@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
+from ..base import FairspecModel
 from .base import BaseColumn, BaseColumnProperty
 
 BooleanNullablePropertyType = (
@@ -13,7 +14,7 @@ BooleanNullablePropertyType = (
 )
 
 
-class StringIntMissingValue(BaseModel):
+class StringIntMissingValue(FairspecModel):
     value: str | int
     label: str
 

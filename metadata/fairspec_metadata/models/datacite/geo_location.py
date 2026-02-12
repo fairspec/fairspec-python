@@ -2,17 +2,19 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import Latitude, Longitude
 
 
-class GeoLocationPoint(BaseModel):
+class GeoLocationPoint(FairspecModel):
     pointLongitude: Longitude = Field(description="Longitudinal dimension of point")
     pointLatitude: Latitude = Field(description="Latitudinal dimension of point")
 
 
-class GeoLocationBox(BaseModel):
+class GeoLocationBox(FairspecModel):
     westBoundLongitude: Longitude = Field(
         description="Western longitudinal dimension of box"
     )
@@ -27,7 +29,7 @@ class GeoLocationBox(BaseModel):
     )
 
 
-class GeoLocationPolygonItem(BaseModel):
+class GeoLocationPolygonItem(FairspecModel):
     polygonPoint: GeoLocationPoint | None = Field(
         default=None,
         description="A point location in a polygon",
@@ -38,7 +40,7 @@ class GeoLocationPolygonItem(BaseModel):
     )
 
 
-class GeoLocation(BaseModel):
+class GeoLocation(FairspecModel):
     geoLocationPlace: str | None = Field(
         default=None,
         description="Spatial region or named place where the data was gathered or about which the data is focused",

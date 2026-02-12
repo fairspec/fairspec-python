@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
-class Subject(BaseModel):
+class Subject(FairspecModel):
     subject: str = Field(
         description="Subject, keyword, classification code, or key phrase describing the resource"
     )

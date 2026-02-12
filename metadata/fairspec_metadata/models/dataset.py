@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import ConfigDict, Field
+
+from .base import FairspecModel
 
 from .datacite.datacite import Datacite
 from .resource import Resource
@@ -20,13 +22,13 @@ class Dataset(Datacite):
     )
 
 
-class RenderDatasetOptions(BaseModel):
+class RenderDatasetOptions(FairspecModel):
     format: str
 
 
-class ConvertDatasetToOptions(BaseModel):
+class ConvertDatasetToOptions(FairspecModel):
     format: str
 
 
-class ConvertDatasetFromOptions(BaseModel):
+class ConvertDatasetFromOptions(FairspecModel):
     format: str

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from fairspec_metadata import Integrity
 
 
-class FileDescription(BaseModel):
+class FileDescription(FairspecModel):
     bytes: int
     textual: bool
     integrity: Integrity | None

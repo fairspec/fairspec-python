@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import DateType
 
@@ -14,7 +16,7 @@ DateValue = Annotated[
 ]
 
 
-class DataciteDate(BaseModel):
+class DataciteDate(FairspecModel):
     date: DateValue = Field(
         description="The date associated with an event in the lifecycle of the resource"
     )

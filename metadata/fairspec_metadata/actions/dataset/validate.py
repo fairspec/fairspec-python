@@ -70,7 +70,7 @@ def validate_dataset_descriptor(
             normalized = None
             report.valid = False
 
-    return DatasetValidationResult.model_construct(
+    return DatasetValidationResult(
         valid=report.valid,
         errors=report.errors,
         dataset=normalized,

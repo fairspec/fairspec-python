@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import ConfigDict, Field
+
+from fairspec_metadata.models.base import FairspecModel
 
 from .schema import CkanSchema
 
 
-class CkanResource(BaseModel):
+class CkanResource(FairspecModel):
     model_config = ConfigDict(populate_by_name=True)
 
     id: str | None = None

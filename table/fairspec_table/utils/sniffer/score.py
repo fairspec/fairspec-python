@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .metadata import Quote
 from .potential_dialects import PotentialDialect
@@ -8,7 +8,7 @@ from .table import Table
 from .uniformity import calculate_tau0, calculate_tau1
 
 
-class DialectScore(BaseModel):
+class DialectScore(FairspecModel):
     dialect: PotentialDialect
     gamma: float
     tau0: float
@@ -17,12 +17,12 @@ class DialectScore(BaseModel):
     is_uniform: bool
 
 
-class FindBestDialectPreferences(BaseModel):
+class FindBestDialectPreferences(FairspecModel):
     prefer_common_delimiters: bool
     prefer_double_quote: bool
 
 
-class _QuoteEvidence(BaseModel):
+class _QuoteEvidence(FairspecModel):
     quote_density: float
     boundary_matches: int
     internal_matches: int

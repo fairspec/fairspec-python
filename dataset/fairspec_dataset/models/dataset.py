@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Required, TypedDict
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
 class SaveDatasetOptions(TypedDict, total=False):
@@ -10,5 +10,5 @@ class SaveDatasetOptions(TypedDict, total=False):
     with_remote: bool
 
 
-class SaveDatasetResult(BaseModel):
+class SaveDatasetResult(FairspecModel):
     path: str | None = None

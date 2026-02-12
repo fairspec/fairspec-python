@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class ZenodoCreator(BaseModel):
+class ZenodoCreator(FairspecModel):
     name: str | None = None
     affiliation: str | None = None
     identifiers: list[dict] | None = None

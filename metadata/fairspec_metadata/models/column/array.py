@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
+from ..base import FairspecModel
 from .base import BaseColumn, BaseColumnProperty
 
 ArrayNullablePropertyType = (
@@ -13,7 +14,7 @@ ArrayNullablePropertyType = (
 )
 
 
-class ArrayMissingValueItem(BaseModel):
+class ArrayMissingValueItem(FairspecModel):
     value: str
     label: str
 

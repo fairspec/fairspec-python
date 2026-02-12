@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel
+from .base import FairspecModel
 
 
 class IntegrityType(StrEnum):
@@ -12,6 +12,6 @@ class IntegrityType(StrEnum):
     sha512 = "sha512"
 
 
-class Integrity(BaseModel):
+class Integrity(FairspecModel):
     type: IntegrityType
     hash: str

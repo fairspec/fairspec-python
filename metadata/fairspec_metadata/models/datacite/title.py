@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import TitleType
 
 
-class Title(BaseModel):
+class Title(FairspecModel):
     title: str = Field(description="A name or title by which a resource is known")
     titleType: TitleType | None = Field(
         default=None,

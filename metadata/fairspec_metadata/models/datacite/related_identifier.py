@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated, Self
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import Field, model_validator
+
+from ..base import FairspecModel
 
 from .common import ContentTypeGeneral, RelatedIdentifierType, RelationType
 
 
-class RelatedObject(BaseModel):
+class RelatedObject(FairspecModel):
     relationType: RelationType = Field(
         description="Description of the relationship of the resource being registered and the related resource"
     )

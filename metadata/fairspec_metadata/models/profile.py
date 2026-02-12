@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel
+from .base import FairspecModel
 
 from .json_schema import JsonSchema
 
@@ -17,7 +17,7 @@ class ProfileType(StrEnum):
     table_schema = "table-schema"
 
 
-class ProfileRegistryItem(BaseModel):
+class ProfileRegistryItem(FairspecModel):
     type: ProfileType
     path: str
     version: str

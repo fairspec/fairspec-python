@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Annotated, Self
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import Field, model_validator
+
+from ..base import FairspecModel
 
 from .common import (
     ContentTypeGeneral,
@@ -16,7 +18,7 @@ from .related_identifier import RelatedObject
 from .title import Titles
 
 
-class RelatedItemIdentifier(BaseModel):
+class RelatedItemIdentifier(FairspecModel):
     relatedItemIdentifier: str = Field(description="Identifier for the related item")
     relatedItemIdentifierType: RelatedIdentifierType = Field(
         description="The type of the RelatedItemIdentifier"

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
-class BaseError(BaseModel):
+class BaseError(FairspecModel):
     type: str = Field(description="Error type identifier")
     resourceName: str | None = Field(
         default=None,

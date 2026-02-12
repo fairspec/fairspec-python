@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from .base import FairspecModel
 
 from .json_schema import JsonSchema
 
 DataSchema = JsonSchema
 
 
-class RenderDataSchemaOptions(BaseModel):
+class RenderDataSchemaOptions(FairspecModel):
     format: str

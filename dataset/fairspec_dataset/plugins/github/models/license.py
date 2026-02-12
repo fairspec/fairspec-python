@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class GithubLicense(BaseModel):
+class GithubLicense(FairspecModel):
     key: str | None = None
     name: str | None = None
     spdx_id: str | None = None

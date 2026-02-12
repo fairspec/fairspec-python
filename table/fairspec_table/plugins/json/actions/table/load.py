@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Unpack, cast
 
 import polars as pl
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from fairspec_dataset import load_file, prefetch_files
 from fairspec_metadata import Resource, get_supported_file_dialect, resolve_table_schema
@@ -70,10 +70,10 @@ def load_json_table(
     return result
 
 
-def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
+def _dialect_has_only_format(dialect: dict[str, object] | FairspecModel) -> bool:
     if isinstance(dialect, dict):
         keys = set(dialect.keys())
-    elif isinstance(dialect, BaseModel):
+    elif isinstance(dialect, FairspecModel):
         keys = {
             k
             for k in type(dialect).model_fields
@@ -89,11 +89,11 @@ def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
     return len(meaningful) == 0
 
 
-def _is_default_dialect(dialect: dict[str, object] | BaseModel) -> bool:
+def _is_default_dialect(dialect: dict[str, object] | FairspecModel) -> bool:
     if isinstance(dialect, dict):
         keys = set(dialect.keys()) - {"format", "type", "title", "description"}
         return len(keys) == 0
-    if isinstance(dialect, BaseModel):
+    if isinstance(dialect, FairspecModel):
         for key in type(dialect).model_fields:
             if key in ("format", "type", "title", "description"):
                 continue
@@ -105,7 +105,7 @@ def _is_default_dialect(dialect: dict[str, object] | BaseModel) -> bool:
 
 def _process_data(
     data: object,
-    dialect: JsonFileDialect | JsonlFileDialect | dict[str, object] | BaseModel,
+    dialect: JsonFileDialect | JsonlFileDialect | dict[str, object] | FairspecModel,
 ) -> list[dict[str, object]]:
     if getattr(dialect, "format", None) == "json" and getattr(
         dialect, "jsonPointer", None

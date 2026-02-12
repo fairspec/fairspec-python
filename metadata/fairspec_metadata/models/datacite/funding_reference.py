@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import FunderIdentifierType
 
 
-class FundingReference(BaseModel):
+class FundingReference(FairspecModel):
     funderName: str = Field(description="Name of the funding provider")
     funderIdentifier: str | None = Field(
         default=None,

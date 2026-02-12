@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from fairspec_dataset import load_file, prefetch_files
 from fairspec_metadata import Resource, get_supported_file_dialect, resolve_table_schema
@@ -67,10 +67,10 @@ def load_xlsx_table(
     return result
 
 
-def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
+def _dialect_has_only_format(dialect: dict[str, object] | FairspecModel) -> bool:
     if isinstance(dialect, dict):
         keys = set(dialect.keys())
-    elif isinstance(dialect, BaseModel):
+    elif isinstance(dialect, FairspecModel):
         keys = {
             k
             for k in type(dialect).model_fields

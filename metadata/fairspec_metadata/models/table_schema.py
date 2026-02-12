@@ -2,19 +2,21 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import ConfigDict, Field
+
+from .base import FairspecModel
 
 from .column.column import ColumnProperty
 from .foreign_key import ForeignKey
 from .unique_key import UniqueKey
 
 
-class TableSchemaMissingValueItem(BaseModel):
+class TableSchemaMissingValueItem(FairspecModel):
     value: str | int | float
     label: str
 
 
-class TableSchema(BaseModel):
+class TableSchema(FairspecModel):
     model_config = ConfigDict(populate_by_name=True)
 
     profile: str | None = Field(
@@ -65,13 +67,13 @@ class TableSchema(BaseModel):
     )
 
 
-class RenderTableSchemaOptions(BaseModel):
+class RenderTableSchemaOptions(FairspecModel):
     format: str
 
 
-class ConvertTableSchemaToOptions(BaseModel):
+class ConvertTableSchemaToOptions(FairspecModel):
     format: str
 
 
-class ConvertTableSchemaFromOptions(BaseModel):
+class ConvertTableSchemaFromOptions(FairspecModel):
     format: str

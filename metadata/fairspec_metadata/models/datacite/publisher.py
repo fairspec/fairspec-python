@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
-class Publisher(BaseModel):
+class Publisher(FairspecModel):
     name: str = Field(
         description="The name of the entity that holds, archives, publishes, prints, distributes, releases, issues, or produces the resource"
     )

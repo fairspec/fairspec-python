@@ -2,14 +2,15 @@ from __future__ import annotations
 
 from typing import Literal, Union
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
+from ..base import FairspecModel
 from .base import BaseColumn
 from .integer import BaseIntegerColumnProperty
 from .string import BaseStringColumnProperty
 
 
-class IntegerCategoryItem(BaseModel):
+class IntegerCategoryItem(FairspecModel):
     value: int
     label: str
 
@@ -26,7 +27,7 @@ class IntegerCategoricalColumnProperty(BaseIntegerColumnProperty):
     )
 
 
-class StringCategoryItem(BaseModel):
+class StringCategoryItem(FairspecModel):
     value: str
     label: str
 

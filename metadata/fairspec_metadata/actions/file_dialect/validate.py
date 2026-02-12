@@ -42,7 +42,7 @@ def validate_file_dialect(
         # Valid -> we can cast
         file_dialect = TypeAdapter(FileDialect).validate_python(descriptor)
 
-    return FileDialectValidationResult.model_construct(
+    return FileDialectValidationResult(
         valid=report.valid,
         errors=report.errors,
         file_dialect=file_dialect,

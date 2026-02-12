@@ -39,7 +39,7 @@ def validate_data_schema(
     if report.valid:
         data_schema = descriptor
 
-    return DataSchemaValidationResult.model_construct(
+    return DataSchemaValidationResult(
         valid=report.valid,
         errors=report.errors,
         data_schema=data_schema,

@@ -40,7 +40,7 @@ def validate_table_schema(
         # Valid -> we can cast
         table_schema = TableSchema(**descriptor)
 
-    return TableSchemaValidationResult.model_construct(
+    return TableSchemaValidationResult(
         valid=report.valid,
         errors=report.errors,
         table_schema=table_schema,

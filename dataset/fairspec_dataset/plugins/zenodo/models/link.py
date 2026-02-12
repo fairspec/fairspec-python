@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class ZenodoLink(BaseModel):
+class ZenodoLink(FairspecModel):
     self: str | None = None
     html: str | None = None
     files: str | None = None

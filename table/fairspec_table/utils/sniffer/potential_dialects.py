@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .metadata import LineTerminator, Quote
 
@@ -24,7 +24,7 @@ QUOTE_CHARS: list[Quote] = [
 ]
 
 
-class PotentialDialect(BaseModel):
+class PotentialDialect(FairspecModel):
     delimiter: int
     quote: Quote
     line_terminator: LineTerminator

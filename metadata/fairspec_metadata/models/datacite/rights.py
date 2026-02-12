@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
-class Rights(BaseModel):
+class Rights(FairspecModel):
     rights: str | None = Field(
         default=None,
         description="Any rights information for this resource",

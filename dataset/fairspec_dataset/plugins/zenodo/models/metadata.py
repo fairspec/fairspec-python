@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .creator import ZenodoCreator
 
 
-class ZenodoMetadata(BaseModel):
+class ZenodoMetadata(FairspecModel):
     title: str | None = None
     description: str | None = None
     upload_type: str | None = None

@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
-class AlternateIdentifier(BaseModel):
+class AlternateIdentifier(FairspecModel):
     alternateIdentifier: str = Field(
         description="An identifier or identifiers other than the primary Identifier applied to the resource being registered"
     )

@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import CreatorNameType
 
 
-class CreatorNameIdentifier(BaseModel):
+class CreatorNameIdentifier(FairspecModel):
     nameIdentifier: str = Field(
         description="Uniquely identifies an individual or legal entity, according to various schemas"
     )
@@ -20,7 +22,7 @@ class CreatorNameIdentifier(BaseModel):
     )
 
 
-class CreatorAffiliation(BaseModel):
+class CreatorAffiliation(FairspecModel):
     name: str = Field(
         description="The organizational or institutional affiliation of the creator"
     )
@@ -38,7 +40,7 @@ class CreatorAffiliation(BaseModel):
     )
 
 
-class Creator(BaseModel):
+class Creator(FairspecModel):
     name: str = Field(
         description="The main researchers involved in producing the data, or the authors of the publication in priority order"
     )

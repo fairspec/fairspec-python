@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from fairspec_metadata.actions.resource.data import get_data_path
 
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 def get_supported_file_dialect(
     resource: Resource, supported_formats: list[str]
-) -> Descriptor | BaseModel | None:
+) -> Descriptor | FairspecModel | None:
     data_path = get_data_path(resource)
     if not data_path:
         return None

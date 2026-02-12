@@ -3,7 +3,9 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 
 class BasePropertyType(StrEnum):
@@ -15,7 +17,7 @@ class BasePropertyType(StrEnum):
     object = "object"
 
 
-class BaseColumnProperty(BaseModel):
+class BaseColumnProperty(FairspecModel):
     title: str | None = Field(
         default=None,
         description="An optional human-readable title for the column",
@@ -31,7 +33,7 @@ class BaseColumnProperty(BaseModel):
     default: Any | None = None
 
 
-class BaseColumn(BaseModel):
+class BaseColumn(FairspecModel):
     name: str
     type: str
     required: bool | None = None

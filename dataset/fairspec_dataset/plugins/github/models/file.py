@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class GithubFile(BaseModel):
+class GithubFile(FairspecModel):
     path: str | None = None
     mode: str | None = None
     type: str | None = None

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
 class LineTerminator(StrEnum):
@@ -11,16 +11,16 @@ class LineTerminator(StrEnum):
     CR = "CR"
 
 
-class Quote(BaseModel):
+class Quote(FairspecModel):
     char: int | None = None
 
 
-class Header(BaseModel):
+class Header(FairspecModel):
     has_header_row: bool
     num_preamble_rows: int
 
 
-class Dialect(BaseModel):
+class Dialect(FairspecModel):
     delimiter: int
     header: Header
     quote: Quote
@@ -29,7 +29,7 @@ class Dialect(BaseModel):
     line_terminator: LineTerminator
 
 
-class Metadata(BaseModel):
+class Metadata(FairspecModel):
     dialect: Dialect
     avg_record_len: float
     num_fields: int

@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class CkanFieldInfo(BaseModel):
+class CkanFieldInfo(FairspecModel):
     label: str | None = None
     notes: str | None = None
     type_override: str | None = None
 
 
-class CkanField(BaseModel):
+class CkanField(FairspecModel):
     id: str | None = None
     type: str | None = None
     info: CkanFieldInfo | None = None

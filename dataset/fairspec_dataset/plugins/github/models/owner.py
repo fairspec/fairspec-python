@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class GithubOwner(BaseModel):
+class GithubOwner(FairspecModel):
     login: str | None = None
     id: int | None = None
     avatar_url: str | None = None

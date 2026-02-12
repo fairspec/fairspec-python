@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from .base import FairspecModel
 
 
-class ForeignKeyReference(BaseModel):
+class ForeignKeyReference(FairspecModel):
     resource: str | None = Field(
         default=None,
         description="Target resource name (optional, omit for self-reference)",
@@ -13,7 +15,7 @@ class ForeignKeyReference(BaseModel):
     )
 
 
-class ForeignKey(BaseModel):
+class ForeignKey(FairspecModel):
     columns: list[str] = Field(description="Source column(s) in this table")
     reference: ForeignKeyReference = Field(
         description="Reference to columns in another resource"

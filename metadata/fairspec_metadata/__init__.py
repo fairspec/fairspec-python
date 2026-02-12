@@ -79,6 +79,7 @@ from .actions.table_schema.validate import (
     TableSchemaValidationResult,
     validate_table_schema,
 )
+from .models.base import FairspecModel
 from .models.catalog import Catalog, CatalogDataset
 from .models.datacite.alternate_identifier import (
     AlternateIdentifier,
@@ -392,6 +393,7 @@ __all__ = [
     "ExternalPath",
     "FAIRSPEC_VERSION",
     "FairspecError",
+    "FairspecModel",
     "FairspecException",
     "FileDialect",
     "FileError",

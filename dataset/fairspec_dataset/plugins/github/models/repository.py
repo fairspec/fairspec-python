@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .file import GithubFile
 from .license import GithubLicense
 from .owner import GithubOwner
 
 
-class GithubRepository(BaseModel):
+class GithubRepository(FairspecModel):
     id: int | None = None
     name: str | None = None
     full_name: str | None = None

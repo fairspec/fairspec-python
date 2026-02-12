@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .alternate_identifier import AlternateIdentifiers
 from .content_type import ContentTypes
@@ -24,7 +26,7 @@ from .title import Titles
 from .version import Version
 
 
-class Datacite(BaseModel):
+class Datacite(FairspecModel):
     doi: Doi | None = Field(
         default=None,
         description="The Digital Object Identifier (DOI) for the resource",

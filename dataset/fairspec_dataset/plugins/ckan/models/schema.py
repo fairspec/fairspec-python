@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .field import CkanField
 
 
-class CkanSchema(BaseModel):
+class CkanSchema(FairspecModel):
     fields: list[CkanField] | None = None

@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 from .organization import CkanOrganization
 from .resource import CkanResource
 from .tag import CkanTag
 
 
-class CkanDataset(BaseModel):
+class CkanDataset(FairspecModel):
     resources: list[CkanResource] | None = None
     organization: CkanOrganization | None = None
     tags: list[CkanTag] | None = None

@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
+from ..base import FairspecModel
 from .base import BaseColumn, BaseColumnProperty
 
 IntegerNullablePropertyType = (
@@ -13,7 +14,7 @@ IntegerNullablePropertyType = (
 )
 
 
-class IntegerMissingValueItem(BaseModel):
+class IntegerMissingValueItem(FairspecModel):
     value: str | int
     label: str
 

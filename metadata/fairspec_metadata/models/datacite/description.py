@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ..base import FairspecModel
 
 from .common import DescriptionType
 
 
-class DataciteDescription(BaseModel):
+class DataciteDescription(FairspecModel):
     description: str = Field(
         description="All additional information that does not fit in any of the other categories"
     )

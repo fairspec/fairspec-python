@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from fairspec_metadata.models.base import FairspecModel
 
 
-class ZenodoFileLinks(BaseModel):
+class ZenodoFileLinks(FairspecModel):
     self: str | None = None
 
 
-class ZenodoFile(BaseModel):
+class ZenodoFile(FairspecModel):
     id: str | None = None
     key: str | None = None
     size: int | None = None

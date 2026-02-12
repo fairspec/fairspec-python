@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import ConfigDict, Field
+
+from ..base import FairspecModel
 
 
-class BaseFileDialect(BaseModel):
+class BaseFileDialect(FairspecModel):
     model_config = ConfigDict(populate_by_name=True)
 
     profile: str | None = Field(
