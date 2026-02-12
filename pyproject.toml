@@ -19,11 +19,17 @@ extend-exclude = [
 commit_parser = "conventional"
 version_toml = [
   "pyproject.toml:project.version",
+  "dataset/pyproject.toml:project.version",
+  "fairspec/pyproject.toml:project.version",
+  "library/pyproject.toml:project.version",
   "metadata/pyproject.toml:project.version",
+  "table/pyproject.toml:project.version",
+  "terminal/pyproject.toml:project.version",
 ]
 
 [tool.taskipy.tasks]
 format = "ruff format"
+install = "uv sync --all-packages"
 lint = "ruff check"
 spec = "pytest"
 start = "pnpm --dir website install && pnpm --dir website start"
@@ -49,10 +55,12 @@ dev-dependencies = [
 ]
 
 [tool.uv.workspace]
-members = ["metadata", "dataset", "table", "library", "terminal"]
+members = ["dataset", "fairspec", "library", "metadata", "table", "terminal"]
 
 [tool.uv.sources]
-fairspec-metadata = { workspace = true }
+fairspec = { workspace = true }
 fairspec-dataset = { workspace = true }
-fairspec-table = { workspace = true }
 fairspec-library = { workspace = true }
+fairspec-metadata = { workspace = true }
+fairspec-table = { workspace = true }
+fairspec-terminal = { workspace = true }
