@@ -13,13 +13,12 @@ from fairspec_table.models.column import DenormalizeColumnOptions
 from fairspec_table.models.schema import InferTableSchemaOptions
 from fairspec_table.plugins.json.actions.buffer.decode import decode_json_buffer
 from fairspec_table.plugins.json.actions.buffer.encode import encode_json_buffer
+from fairspec_table.plugins.json.settings import NATIVE_TYPES
 
 if TYPE_CHECKING:
     from fairspec_metadata import JsonFileDialect, JsonlFileDialect
 
     from fairspec_table.models.table import SaveTableOptions, Table
-
-NATIVE_TYPES = ["boolean", "integer", "list", "number", "string"]
 
 
 def save_json_table(table: Table, options: SaveTableOptions) -> str:

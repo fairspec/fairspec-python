@@ -1,1 +1,1 @@
-SQLITE_NATIVE_TYPES = ["integer", "number", "string"]
+NATIVE_TYPES = ["integer", "number", "string"]

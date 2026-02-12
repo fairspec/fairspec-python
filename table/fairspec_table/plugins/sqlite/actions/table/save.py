@@ -16,7 +16,7 @@ from fairspec_table.plugins.sqlite.actions.table_schema.to_database import (
     convert_table_schema_to_database,
 )
 from fairspec_table.plugins.sqlite.models.schema import SqliteSchema
-from fairspec_table.plugins.sqlite.settings import SQLITE_NATIVE_TYPES
+from fairspec_table.plugins.sqlite.settings import NATIVE_TYPES
 
 if TYPE_CHECKING:
     from fairspec_table.models.table import SaveTableOptions, Table
@@ -45,7 +45,7 @@ def save_sqlite_table(table: Table, options: SaveTableOptions) -> str:
     table = denormalize_table(
         table,
         table_schema,
-        DenormalizeColumnOptions(nativeTypes=SQLITE_NATIVE_TYPES),
+        DenormalizeColumnOptions(nativeTypes=NATIVE_TYPES),
     )
 
     conn = connect_database(path, create=True)
