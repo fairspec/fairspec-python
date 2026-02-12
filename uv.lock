@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 [manifest]
 members = [
     "fairspec-dataset",
+    "fairspec-library",
     "fairspec-metadata",
     "fairspec-python",
     "fairspec-table",
@@ -179,6 +180,23 @@ dependencies = [
 requires-dist = [
     { name = "charset-normalizer", specifier = ">=3.0" },
     { name = "fairspec-metadata", editable = "metadata" },
+]
+
+[[package]]
+name = "fairspec-library"
+version = "0.0.0.dev0"
+source = { editable = "library" }
+dependencies = [
+    { name = "fairspec-dataset" },
+    { name = "fairspec-metadata" },
+    { name = "fairspec-table" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fairspec-dataset", editable = "dataset" },
+    { name = "fairspec-metadata", editable = "metadata" },
+    { name = "fairspec-table", editable = "table" },
 ]
 
 [[package]]
