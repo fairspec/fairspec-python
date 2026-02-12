@@ -4,7 +4,7 @@ import os
 import posixpath
 import urllib.parse
 
-from .general import get_is_remote_path
+from .general import get_is_remote_path, safe_relpath
 
 
 def normalize_path(path: str, *, basepath: str | None = None) -> str:
@@ -47,7 +47,7 @@ def normalize_path(path: str, *, basepath: str | None = None) -> str:
     if relative_path.startswith(".."):
         raise Error(path, basepath)
 
-    return os.path.relpath(os.path.abspath(normalized_path))
+    return safe_relpath(os.path.abspath(normalized_path))
 
 
 class Error(Exception):

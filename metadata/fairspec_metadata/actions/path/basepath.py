@@ -4,7 +4,7 @@ import os
 import urllib.parse
 import urllib.request
 
-from .general import get_is_remote_path
+from .general import get_is_remote_path, safe_relpath
 
 
 def get_basepath(path: str) -> str:
@@ -25,7 +25,7 @@ def get_basepath(path: str) -> str:
 
     resolved = os.path.abspath(path)
     parent = os.path.dirname(resolved)
-    rel = os.path.relpath(parent)
+    rel = safe_relpath(parent)
     return "" if rel == "." else rel
 
 

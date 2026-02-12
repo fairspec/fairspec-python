@@ -4,6 +4,7 @@ import os
 from typing import TYPE_CHECKING
 
 from fairspec_metadata import get_basepath, get_data_paths, get_is_remote_path
+from fairspec_metadata.actions.path.general import safe_relpath
 
 if TYPE_CHECKING:
     from fairspec_metadata import Dataset
@@ -54,5 +55,8 @@ def get_common_local_basepath(paths: list[str]) -> str | None:
     if not segments:
         raise ValueError("Cannot find common basepath")
 
-    basepath = os.path.relpath(os.path.join(*segments))
+    if segments[0].endswith(":"):
+        segments[0] += os.sep
+
+    basepath = safe_relpath(os.path.join(*segments))
     return "" if basepath == "." else basepath

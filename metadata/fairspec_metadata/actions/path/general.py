@@ -5,6 +5,13 @@ import re
 import urllib.parse
 
 
+def safe_relpath(path: str, start: str | None = None) -> str:
+    try:
+        return os.path.relpath(path) if start is None else os.path.relpath(path, start)
+    except ValueError:
+        return os.path.abspath(path)
+
+
 def get_file_protocol(path: str) -> str:
     try:
         parsed = urllib.parse.urlparse(path)
