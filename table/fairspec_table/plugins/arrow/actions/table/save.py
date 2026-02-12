@@ -26,7 +26,7 @@ def save_arrow_table(table: Table, options: SaveTableOptions) -> str:
         table_schema = infer_table_schema_from_table(
             table,
             InferTableSchemaOptions(
-                **options.model_dump(include=set(InferTableSchemaOptions.model_fields)),
+                **options.model_dump(),
                 keepStrings=True,
             ),
         )
