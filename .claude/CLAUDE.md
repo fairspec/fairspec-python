@@ -12,6 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+- Run `uv run task install` to install all dependencies
 - Run `uv run task lint` to lint the code using Ruff
 - Run `uv run task format` to auto-fix formatting issues with Ruff
 - Run `uv run task type` to run type checking
