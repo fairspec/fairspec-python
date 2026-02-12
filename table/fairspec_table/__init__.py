@@ -18,6 +18,12 @@ from .models.schema import (
 from .models.table import Table
 from .plugin import TablePlugin
 from .plugins.arrow import ArrowPlugin, load_arrow_table, save_arrow_table
+from .plugins.csv import (
+    CsvPlugin,
+    infer_csv_file_dialect,
+    load_csv_table,
+    save_csv_table,
+)
 from .plugins.json import (
     JsonPlugin,
     infer_json_file_dialect,
@@ -34,6 +40,7 @@ from .plugins.xlsx import (
 
 __all__ = [
     "ArrowPlugin",
+    "CsvPlugin",
     "ColumnMapping",
     "DataRecord",
     "DataRow",
@@ -49,16 +56,19 @@ __all__ = [
     "TablePlugin",
     "TableSchemaOptions",
     "denormalize_table",
+    "infer_csv_file_dialect",
     "infer_table_schema_from_sample",
     "infer_table_schema_from_table",
     "infer_json_file_dialect",
     "inspect_table",
     "load_arrow_table",
+    "load_csv_table",
     "load_json_table",
     "load_parquet_table",
     "normalize_table",
     "query_table",
     "save_arrow_table",
+    "save_csv_table",
     "save_json_table",
     "save_parquet_table",
     "XlsxPlugin",
