@@ -28,6 +28,7 @@ dependencies = [
   "fairspec-dataset",
   "fairspec-metadata",
   "fairspec-table",
+  "genson>=1.3",
 ]
 
 [[project.authors]]

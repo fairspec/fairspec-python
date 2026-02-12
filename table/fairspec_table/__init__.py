@@ -18,6 +18,7 @@ from .models.schema import (
 from .models.table import Table
 from .plugin import TablePlugin
 from .plugins.arrow import ArrowPlugin, load_arrow_table, save_arrow_table
+from .plugins.inline import InlinePlugin, load_inline_table
 from .plugins.csv import (
     CsvPlugin,
     infer_csv_file_dialect,
@@ -48,6 +49,7 @@ __all__ = [
     "DenormalizeColumnOptions",
     "Frame",
     "InferTableSchemaOptions",
+    "InlinePlugin",
     "JsonPlugin",
     "ParquetPlugin",
     "PolarsColumn",
@@ -65,6 +67,7 @@ __all__ = [
     "inspect_table",
     "load_arrow_table",
     "load_csv_table",
+    "load_inline_table",
     "load_json_table",
     "load_parquet_table",
     "load_sqlite_table",
