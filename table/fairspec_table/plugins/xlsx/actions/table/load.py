@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
-from fairspec_metadata.models.base import FairspecModel
 
 from fairspec_dataset import load_file, prefetch_files
 from fairspec_metadata import Resource, get_supported_file_dialect, resolve_table_schema
@@ -17,6 +16,8 @@ from fairspec_table.plugins.xlsx.actions.file_dialect.infer import (
 )
 
 if TYPE_CHECKING:
+    from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
+
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
@@ -67,20 +68,11 @@ def load_xlsx_table(
     return result
 
 
-def _dialect_has_only_format(dialect: dict[str, object] | FairspecModel) -> bool:
-    if isinstance(dialect, dict):
-        keys = set(dialect.keys())
-    elif isinstance(dialect, FairspecModel):
-        keys = {
-            k
-            for k in type(dialect).model_fields
-            if getattr(dialect, k, None) is not None
-        }
-    else:
-        keys = {
-            k
-            for k, v in dialect.__dict__.items()
-            if v is not None and not k.startswith("_")
-        }
+def _dialect_has_only_format(dialect: FileDialect) -> bool:
+    keys = {
+        k
+        for k in type(dialect).model_fields
+        if getattr(dialect, k, None) is not None
+    }
     meaningful = keys - {"format", "type", "title", "description"}
     return len(meaningful) == 0
