@@ -17,6 +17,7 @@ extend-exclude = [
 
 [tool.semantic_release]
 commit_parser = "conventional"
+allow_zero_version = true
 version_toml = [
   "pyproject.toml:project.version",
   "dataset/pyproject.toml:project.version",
@@ -28,9 +29,11 @@ version_toml = [
 ]
 
 [tool.taskipy.tasks]
+build = "uv build --all-packages --out-dir build"
 format = "ruff format"
 install = "uv sync --all-packages"
 lint = "ruff check"
+publish = "uv publish build/*"
 spec = "pytest"
 start = "pnpm --dir website install && pnpm --dir website start"
 test = "task lint && task type && task spec"

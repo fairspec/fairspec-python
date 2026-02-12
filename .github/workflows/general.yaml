@@ -100,4 +100,11 @@ jobs:
         uses: python-semantic-release/python-semantic-release@v9
         id: release
         with:
+          build: false
+          commit: false
+          changelog: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Packages
+        run: uv run task build
+      - name: Publish Packages
+        run: uv run task publish
