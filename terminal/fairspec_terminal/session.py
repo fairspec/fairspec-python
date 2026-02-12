@@ -68,7 +68,7 @@ class Session:
             sys.stdout.write("\n")
             return
 
-        self._console.print_json(json.dumps(data, default=_json_default))
+        self._console.print_json(data=data, default=_json_default)
 
     def render_frame_result(self, frame: object) -> None:
         if self.silent:
