@@ -74,8 +74,8 @@ jobs:
     if: github.event_name == 'push' && !contains(github.ref, 'refs/tags/')
 
     outputs:
-      created: ${{ steps.release.outputs.new_release_published }}
-      version: ${{ steps.release.outputs.new_release_version }}
+      created: ${{ steps.release.outputs.released }}
+      version: ${{ steps.release.outputs.version }}
 
     permissions:
       id-token: write
@@ -105,6 +105,8 @@ jobs:
           changelog: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Packages
+        if: steps.release.outputs.released
         run: uv run task build
       - name: Publish Packages
+        if: steps.release.outputs.released
         run: uv run task publish
