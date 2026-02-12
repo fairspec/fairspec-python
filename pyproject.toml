@@ -30,11 +30,12 @@ version_toml = [
 
 [tool.taskipy.tasks]
 build = "uv build --all-packages --out-dir build"
+coverage = "sensible-browser htmlcov/index.html"
 format = "ruff format"
 install = "uv sync --all-packages"
 lint = "ruff check"
 publish = "uv publish build/*"
-spec = "pytest"
+spec = "pytest --cov --cov-report html"
 start = "pnpm --dir website install && pnpm --dir website start"
 test = "task lint && task type && task spec"
 type = "ty check"
@@ -42,6 +43,15 @@ type = "ty check"
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
 python_files = "*_spec.py"
+
+[tool.coverage.run]
+source = [
+  "fairspec_metadata",
+  "fairspec_dataset",
+  "fairspec_table",
+  "fairspec_library",
+  "fairspec_terminal",
+]
 
 [tool.ty.rules]
 index-out-of-bounds = "ignore"
@@ -56,6 +66,7 @@ dev-dependencies = [
   "taskipy==1.14.1",
   "ty==0.0.15",
   "pytest-recording==0.13.4",
+  "pytest-cov>=7.0.0",
 ]
 
 [tool.uv.workspace]
