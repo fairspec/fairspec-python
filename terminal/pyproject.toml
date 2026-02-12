@@ -32,7 +32,11 @@ classifiers = [
 ]
 dependencies = [
   "fairspec-library",
+  "typer>=0.15",
 ]
+
+[project.scripts]
+fairspec = "fairspec_terminal.main:main"
 
 [[project.authors]]
 name = "Evgeny Karev"
