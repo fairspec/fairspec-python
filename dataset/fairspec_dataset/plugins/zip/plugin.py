@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata import get_file_extension
 
@@ -24,13 +24,13 @@ class ZipPlugin(DatasetPlugin):
         return dataset.model_dump(by_alias=True, exclude_none=True)
 
     def save_dataset(
-        self, dataset: Dataset, options: SaveDatasetOptions
+        self, dataset: Dataset, **options: Unpack[SaveDatasetOptions]
     ) -> SaveDatasetResult | None:
-        target = options.target
+        target = options["target"]
         if not _get_is_zip(target):
             return None
         save_dataset_to_zip(
-            dataset, archive_path=target, with_remote=bool(options.with_remote)
+            dataset, archive_path=target, with_remote=bool(options.get("with_remote"))
         )
         return SaveDatasetResult(path=None)
 

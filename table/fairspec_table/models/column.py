@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TypedDict
 
 import polars as pl
 from fairspec_metadata import Column
-from pydantic import BaseModel
 
 
 @dataclass
@@ -19,5 +19,5 @@ class ColumnMapping:
     target: Column
 
 
-class DenormalizeColumnOptions(BaseModel):
-    nativeTypes: list[str] | None = None
+class DenormalizeColumnOptions(TypedDict, total=False):
+    nativeTypes: list[str]

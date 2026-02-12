@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Unpack, cast
 
 import polars as pl
 from pydantic import BaseModel
@@ -25,13 +25,13 @@ if TYPE_CHECKING:
 
 
 def load_csv_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["csv", "tsv"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
 
-    max_bytes = options.previewBytes if options else None
+    max_bytes = options.get("previewBytes")
     paths = prefetch_files(resource, max_bytes=max_bytes)
     if not paths:
         raise Exception("Resource path is not defined")
@@ -68,10 +68,10 @@ def load_csv_table(
     if getattr(file_dialect, "commentRows", None):
         result = skip_comment_rows(result, file_dialect)  # type: ignore[arg-type]
 
-    if not (options and options.denormalized):
+    if not options.get("denormalized"):
         table_schema = resolve_table_schema(resource.tableSchema)
         if not table_schema:
-            table_schema = infer_table_schema_from_table(result, options)
+            table_schema = infer_table_schema_from_table(result, **options)
         result = normalize_table(result, table_schema)
 
     return result

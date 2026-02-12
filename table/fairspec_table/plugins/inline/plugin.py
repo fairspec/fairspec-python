@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata import get_data_records
 
@@ -18,9 +18,9 @@ class InlinePlugin(TablePlugin):
     def load_table(
         self,
         resource: Resource,
-        options: LoadTableOptions | None = None,
+        **options: Unpack[LoadTableOptions],
     ) -> Table | None:
         records = get_data_records(resource)
         if not records:
             return None
-        return load_inline_table(resource, options)
+        return load_inline_table(resource, **options)

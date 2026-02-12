@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
 from pydantic import BaseModel
@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 
 def load_xlsx_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["xlsx", "ods"])
     if not file_dialect:
@@ -58,10 +58,10 @@ def load_xlsx_table(
 
     result = pl.concat(tables)
 
-    if not (options and options.denormalized):
+    if not options.get("denormalized"):
         table_schema = resolve_table_schema(resource.tableSchema)
         if not table_schema:
-            table_schema = infer_table_schema_from_table(result, options)
+            table_schema = infer_table_schema_from_table(result, **options)
         result = normalize_table(result, table_schema)
 
     return result

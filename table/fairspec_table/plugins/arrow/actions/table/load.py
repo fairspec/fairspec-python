@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
 from fairspec_dataset import prefetch_files
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 def load_arrow_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     paths = prefetch_files(resource)
     if not paths:
@@ -27,10 +27,10 @@ def load_arrow_table(
     if rest_paths:
         table = pl.concat([table, *(pl.scan_ipc(path) for path in rest_paths)])
 
-    if not (options and options.denormalized):
+    if not options.get("denormalized"):
         table_schema = resolve_table_schema(resource.tableSchema)
         if not table_schema:
-            table_schema = infer_table_schema_from_table(table, options)
+            table_schema = infer_table_schema_from_table(table, **options)
         table = normalize_table(table, table_schema)
 
     return table

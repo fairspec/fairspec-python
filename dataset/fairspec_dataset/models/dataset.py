@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from typing import Required, TypedDict
+
 from pydantic import BaseModel
 
 
-class SaveDatasetOptions(BaseModel):
-    target: str
-    with_remote: bool | None = None
+class SaveDatasetOptions(TypedDict, total=False):
+    target: Required[str]
+    with_remote: bool
 
 
 class SaveDatasetResult(BaseModel):

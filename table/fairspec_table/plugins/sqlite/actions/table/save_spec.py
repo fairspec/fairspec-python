@@ -3,7 +3,6 @@ from __future__ import annotations
 import polars as pl
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import Resource, SqliteFileDialect
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .load import load_sqlite_table
 from .save import save_sqlite_table
@@ -19,7 +18,7 @@ class TestSaveSqliteTable:
             [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
         ).lazy()
         save_sqlite_table(
-            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+            source, path=path, fileDialect=DIALECT, overwrite=True
         )
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
@@ -37,7 +36,7 @@ class TestSaveSqliteTable:
             [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
         ).lazy()
         save_sqlite_table(
-            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+            source, path=path, fileDialect=DIALECT, overwrite=True
         )
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
@@ -63,12 +62,12 @@ class TestSaveSqliteTable:
         ).lazy()
 
         save_sqlite_table(
-            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+            source, path=path, fileDialect=DIALECT, overwrite=True
         )
 
         target = load_sqlite_table(
             Resource(data=path, fileDialect=DIALECT),
-            LoadTableOptions(denormalized=True),
+            denormalized=True,
         )
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 

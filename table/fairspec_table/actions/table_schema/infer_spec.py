@@ -66,11 +66,7 @@ class TestInferTableSchemaFromTable:
             }
         ).lazy()
 
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(commaDecimal=True)
-        )
+        result = infer_table_schema_from_table(table, commaDecimal=True)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "name1": {"type": "integer", "groupChar": "."},
@@ -212,8 +208,6 @@ class TestInferTableSchemaFromTable:
             }
         ).lazy()
 
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         result = infer_table_schema_from_table(table)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -236,7 +230,7 @@ class TestInferTableSchemaFromTable:
         }
 
         month_first_result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(monthFirst=True)
+            table, monthFirst=True
         )
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -265,8 +259,6 @@ class TestInferTableSchemaFromTable:
             }
         ).lazy()
 
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         result = infer_table_schema_from_table(table)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -279,7 +271,7 @@ class TestInferTableSchemaFromTable:
         }
 
         month_first_result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(monthFirst=True)
+            table, monthFirst=True
         )
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -415,8 +407,6 @@ class TestInferTableSchemaFromTable:
             }
         ).lazy()
 
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         result = infer_table_schema_from_table(table)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -444,7 +434,7 @@ class TestInferTableSchemaFromTable:
         }
 
         month_first_result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(monthFirst=True)
+            table, monthFirst=True
         )
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -634,11 +624,9 @@ class TestInferTableSchemaFromTableNullable:
         assert len(result.missingValues) == 3
 
     def test_should_use_explicit_missing_values_option(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"name": ["Alice", "MISSING"]}).lazy()
         result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(missingValues=["MISSING"])
+            table, missingValues=["MISSING"]
         )
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {"name": {"type": ("string", "null")}},
@@ -662,12 +650,11 @@ class TestInferTableSchemaFromTableNullable:
 
 class TestInferTableSchemaFromTableOptionsSteerDetection:
     def test_should_steer_boolean_detection_from_true_values_false_values(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["yes", "no", "yes"]}).lazy()
         result = infer_table_schema_from_table(
             table,
-            InferTableSchemaOptions(trueValues=["yes"], falseValues=["no"]),
+            trueValues=["yes"],
+            falseValues=["no"],
         )
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
@@ -680,23 +667,15 @@ class TestInferTableSchemaFromTableOptionsSteerDetection:
         }
 
     def test_should_steer_number_detection_from_group_char(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["1.000", "2.000", "3.000"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(groupChar=".")
-        )
+        result = infer_table_schema_from_table(table, groupChar=".")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {"value": {"type": "integer", "groupChar": "."}},
         }
 
     def test_should_steer_number_detection_from_decimal_char(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["1.000,5", "2.000,5"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(decimalChar=",")
-        )
+        result = infer_table_schema_from_table(table, decimalChar=",")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "value": {"type": "number", "decimalChar": ",", "groupChar": "."},
@@ -704,12 +683,8 @@ class TestInferTableSchemaFromTableOptionsSteerDetection:
         }
 
     def test_should_steer_list_detection_from_list_delimiter(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["1;2", "3;4", "5;6"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(listDelimiter=";")
-        )
+        result = infer_table_schema_from_table(table, listDelimiter=";")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "value": {
@@ -722,12 +697,8 @@ class TestInferTableSchemaFromTableOptionsSteerDetection:
         }
 
     def test_should_steer_date_detection_from_date_format(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["15/01/2023", "20/02/2023"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(dateFormat="%d/%m/%Y")
-        )
+        result = infer_table_schema_from_table(table, dateFormat="%d/%m/%Y")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "value": {
@@ -739,12 +710,8 @@ class TestInferTableSchemaFromTableOptionsSteerDetection:
         }
 
     def test_should_derive_month_first_from_date_format(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["01/15/2023", "02/20/2023"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(dateFormat="%m/%d/%Y")
-        )
+        result = infer_table_schema_from_table(table, dateFormat="%m/%d/%Y")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "value": {
@@ -756,12 +723,8 @@ class TestInferTableSchemaFromTableOptionsSteerDetection:
         }
 
     def test_should_filter_time_patterns_from_time_format(self):
-        from fairspec_table.models.schema import InferTableSchemaOptions
-
         table = pl.DataFrame({"value": ["14:30", "08:15"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, InferTableSchemaOptions(timeFormat="%H:%M")
-        )
+        result = infer_table_schema_from_table(table, timeFormat="%H:%M")
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "value": {

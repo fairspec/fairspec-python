@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata import get_is_remote_path
 
@@ -25,13 +25,13 @@ class FolderPlugin(DatasetPlugin):
         return dataset.model_dump(by_alias=True, exclude_none=True)
 
     def save_dataset(
-        self, dataset: Dataset, options: SaveDatasetOptions
+        self, dataset: Dataset, **options: Unpack[SaveDatasetOptions]
     ) -> SaveDatasetResult | None:
-        target = options.target
+        target = options["target"]
         if not _get_is_folder(target):
             return None
         save_dataset_to_folder(
-            dataset, folder_path=target, with_remote=bool(options.with_remote)
+            dataset, folder_path=target, with_remote=bool(options.get("with_remote"))
         )
         return SaveDatasetResult(path=target)
 

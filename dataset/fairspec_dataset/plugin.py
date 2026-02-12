@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata.plugin import MetadataPlugin
 
@@ -19,13 +19,13 @@ class DatasetPlugin(MetadataPlugin):
         return None
 
     def save_dataset(
-        self, dataset: Dataset, options: SaveDatasetOptions
+        self, dataset: Dataset, **options: Unpack[SaveDatasetOptions]
     ) -> SaveDatasetResult | None:
         return None
 
     def infer_file_dialect(
         self,
         resource: Resource,
-        options: InferFileDialectOptions | None = None,
+        **options: Unpack[InferFileDialectOptions],
     ) -> FileDialect | None:
         return None

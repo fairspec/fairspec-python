@@ -4,7 +4,6 @@ from unittest.mock import MagicMock, patch
 
 import polars as pl
 from fairspec_metadata import JsonFileDialect, JsonlFileDialect, Resource
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .plugin import JsonPlugin
 
@@ -84,11 +83,10 @@ class TestJsonPluginLoadTable:
         self, mock_load: MagicMock, mock_infer: MagicMock
     ):
         resource = Resource(data="test.json")
-        options = LoadTableOptions(denormalized=True)
         mock_load.return_value = pl.DataFrame().lazy()
         mock_infer.return_value = JsonFileDialect()
 
-        self.plugin.load_table(resource, options)
+        self.plugin.load_table(resource, denormalized=True)
 
         mock_load.assert_called_once()
 
@@ -122,42 +120,38 @@ class TestJsonPluginSaveTable:
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_save_table_to_json_file(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.json")
         mock_save.return_value = "output.json"
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.json")
 
-        mock_save.assert_called_once_with(table, options)
+        mock_save.assert_called_once_with(table, path="output.json")
         assert result == "output.json"
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_save_table_to_jsonl_file(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.jsonl")
         mock_save.return_value = "output.jsonl"
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.jsonl")
 
-        mock_save.assert_called_once_with(table, options)
+        mock_save.assert_called_once_with(table, path="output.jsonl")
         assert result == "output.jsonl"
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_save_table_to_ndjson_file(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.ndjson")
         mock_save.return_value = "output.ndjson"
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.ndjson")
 
-        mock_save.assert_called_once_with(table, options)
+        mock_save.assert_called_once_with(table, path="output.ndjson")
         assert result == "output.ndjson"
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_return_none_for_non_json_files(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.csv")
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.csv")
 
         mock_save.assert_not_called()
         assert result is None
@@ -165,30 +159,27 @@ class TestJsonPluginSaveTable:
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_handle_explicit_json_format(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.txt", fileDialect=JsonFileDialect())
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.txt", fileDialect=JsonFileDialect())
 
-        mock_save.assert_called_once_with(table, options)
+        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=JsonFileDialect())
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_handle_paths_with_directories(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="/path/to/output.json")
         mock_save.return_value = "/path/to/output.json"
 
-        self.plugin.save_table(table, options)
+        self.plugin.save_table(table, path="/path/to/output.json")
 
-        mock_save.assert_called_once_with(table, options)
+        mock_save.assert_called_once_with(table, path="/path/to/output.json")
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_return_none_for_files_without_extension(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output")
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output")
 
         mock_save.assert_not_called()
         assert result is None
@@ -196,9 +187,8 @@ class TestJsonPluginSaveTable:
     @patch("fairspec_table.plugins.json.plugin.save_json_table")
     def test_should_return_none_for_parquet_files(self, mock_save: MagicMock):
         table = pl.DataFrame().lazy()
-        options = SaveTableOptions(path="output.parquet")
 
-        result = self.plugin.save_table(table, options)
+        result = self.plugin.save_table(table, path="output.parquet")
 
         mock_save.assert_not_called()
         assert result is None

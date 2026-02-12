@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
 from fairspec_metadata import get_data_records, resolve_table_schema
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 def load_inline_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     data_records = get_data_records(resource)
     if not data_records:
@@ -22,10 +22,10 @@ def load_inline_table(
 
     table = pl.DataFrame(data_records).lazy()
 
-    if not (options and options.denormalized):
+    if not options.get("denormalized"):
         table_schema = resolve_table_schema(resource.tableSchema)
         if not table_schema:
-            table_schema = infer_table_schema_from_table(table, options)
+            table_schema = infer_table_schema_from_table(table, **options)
         table = normalize_table(table, table_schema)
 
     return table

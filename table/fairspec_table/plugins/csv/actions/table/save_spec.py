@@ -3,7 +3,6 @@ from __future__ import annotations
 import polars as pl
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import CsvFileDialect, Resource, TsvFileDialect
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .load import load_csv_table
 from .save import save_csv_table
@@ -18,7 +17,7 @@ class TestSaveCsvTable:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_csv_table(TABLE, SaveTableOptions(path=path, fileDialect=CsvFileDialect()))
+        save_csv_table(TABLE, path=path, fileDialect=CsvFileDialect())
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -29,7 +28,8 @@ class TestSaveCsvTable:
 
         save_csv_table(
             TABLE,
-            SaveTableOptions(path=path, fileDialect=CsvFileDialect(delimiter=";")),
+            path=path,
+            fileDialect=CsvFileDialect(delimiter=";"),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -41,7 +41,8 @@ class TestSaveCsvTable:
 
         save_csv_table(
             TABLE,
-            SaveTableOptions(path=path, fileDialect=CsvFileDialect(headerRows=False)),
+            path=path,
+            fileDialect=CsvFileDialect(headerRows=False),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -60,7 +61,8 @@ class TestSaveCsvTable:
 
         save_csv_table(
             table,
-            SaveTableOptions(path=path, fileDialect=CsvFileDialect(quoteChar="'")),
+            path=path,
+            fileDialect=CsvFileDialect(quoteChar="'"),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -83,11 +85,9 @@ class TestSaveCsvTable:
             ]
         ).lazy()
 
-        save_csv_table(source, SaveTableOptions(path=path))
+        save_csv_table(source, path=path)
 
-        target = load_csv_table(
-            Resource(data=path), LoadTableOptions(denormalized=True)
-        )
+        target = load_csv_table(Resource(data=path), denormalized=True)
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -106,7 +106,7 @@ class TestSaveCsvTableTsv:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_csv_table(TABLE, SaveTableOptions(path=path, fileDialect=TsvFileDialect()))
+        save_csv_table(TABLE, path=path, fileDialect=TsvFileDialect())
 
         with open(path, encoding="utf-8") as f:
             content = f.read()

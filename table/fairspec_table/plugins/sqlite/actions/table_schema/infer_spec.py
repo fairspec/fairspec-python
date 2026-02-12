@@ -4,7 +4,6 @@ import polars as pl
 import pytest
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import Resource, SqliteFileDialect
-from fairspec_table.models.table import SaveTableOptions
 
 from fairspec_table.plugins.sqlite.actions.table.save import save_sqlite_table
 
@@ -26,7 +25,7 @@ class TestInferTableSchemaFromSqlite:
         ).lazy()
 
         save_sqlite_table(
-            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+            source, path=path, fileDialect=DIALECT, overwrite=True
         )
 
         schema = infer_table_schema_from_sqlite(

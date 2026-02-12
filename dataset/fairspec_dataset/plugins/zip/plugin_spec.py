@@ -3,8 +3,6 @@ from unittest.mock import MagicMock, patch
 from fairspec_metadata import Dataset
 from fairspec_metadata import Resource
 
-from fairspec_dataset.models.dataset import SaveDatasetOptions
-
 from .plugin import ZipPlugin
 
 
@@ -58,9 +56,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_saves_to_zip_file(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output.zip")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="output.zip")
 
         mock_save.assert_called_once_with(
             self.dataset, archive_path="output.zip", with_remote=False
@@ -70,18 +66,16 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_returns_none_for_non_zip(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output.json")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="output.json")
 
         mock_save.assert_not_called()
         assert result is None
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_passes_with_remote_option(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output.zip", with_remote=True)
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(
+            self.dataset, target="output.zip", with_remote=True
+        )
 
         mock_save.assert_called_once_with(
             self.dataset, archive_path="output.zip", with_remote=True
@@ -90,9 +84,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_with_remote_defaults_to_false(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output.zip")
-
-        self.plugin.save_dataset(self.dataset, options)
+        self.plugin.save_dataset(self.dataset, target="output.zip")
 
         mock_save.assert_called_once_with(
             self.dataset, archive_path="output.zip", with_remote=False
@@ -100,9 +92,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_handles_paths_with_directories(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="/path/to/output.zip")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="/path/to/output.zip")
 
         mock_save.assert_called_once_with(
             self.dataset, archive_path="/path/to/output.zip", with_remote=False
@@ -111,18 +101,14 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_returns_none_for_no_extension(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="output")
 
         mock_save.assert_not_called()
         assert result is None
 
     @patch("fairspec_dataset.plugins.zip.plugin.save_dataset_to_zip")
     def test_result_has_path_none(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="output.zip")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="output.zip")
 
         assert result is not None
         assert result.path is None

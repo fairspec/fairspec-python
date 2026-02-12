@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata import load_dataset_descriptor
 from fairspec_metadata import save_dataset_descriptor
@@ -24,9 +24,9 @@ class DescriptorPlugin(DatasetPlugin):
         return dataset.model_dump(by_alias=True, exclude_none=True)
 
     def save_dataset(
-        self, dataset: Dataset, options: SaveDatasetOptions
+        self, dataset: Dataset, **options: Unpack[SaveDatasetOptions]
     ) -> SaveDatasetResult | None:
-        target = options.target
+        target = options["target"]
         if not _get_is_local_json(target):
             return None
         if not target.endswith("datapackage.json"):

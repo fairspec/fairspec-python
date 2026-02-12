@@ -3,7 +3,6 @@ from __future__ import annotations
 import polars as pl
 from fairspec_dataset import write_temp_file
 from fairspec_metadata import CsvFileDialect, Resource, TsvFileDialect
-from fairspec_table.models.table import LoadTableOptions
 
 from .load import load_csv_table
 
@@ -40,7 +39,7 @@ class TestLoadCsvTable:
             Resource(
                 data="https://raw.githubusercontent.com/fairspec/fairspec-typescript/refs/heads/main/table/plugins/csv/actions/table/fixtures/table.csv",
             ),
-            LoadTableOptions(previewBytes=18),
+            previewBytes=18,
         )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 

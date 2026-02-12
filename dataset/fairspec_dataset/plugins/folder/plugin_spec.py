@@ -3,8 +3,6 @@ from unittest.mock import MagicMock, patch
 from fairspec_metadata import Dataset
 from fairspec_metadata import Resource
 
-from fairspec_dataset.models.dataset import SaveDatasetOptions
-
 from .plugin import FolderPlugin
 
 
@@ -74,9 +72,7 @@ class TestSaveDataset:
     def test_saves_to_local_directory(
         self, mock_save: MagicMock, _mock_isdir: MagicMock
     ):
-        options = SaveDatasetOptions(target="/tmp/test")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(self.dataset, target="/tmp/test")
 
         mock_save.assert_called_once_with(
             self.dataset, folder_path="/tmp/test", with_remote=False
@@ -89,9 +85,9 @@ class TestSaveDataset:
     def test_saves_with_remote_option(
         self, mock_save: MagicMock, _mock_isdir: MagicMock
     ):
-        options = SaveDatasetOptions(target="/tmp/test", with_remote=True)
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(
+            self.dataset, target="/tmp/test", with_remote=True
+        )
 
         mock_save.assert_called_once_with(
             self.dataset, folder_path="/tmp/test", with_remote=True
@@ -101,18 +97,18 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
     def test_returns_none_for_http(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="http://example.com/data")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(
+            self.dataset, target="http://example.com/data"
+        )
 
         mock_save.assert_not_called()
         assert result is None
 
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
     def test_returns_none_for_https(self, mock_save: MagicMock):
-        options = SaveDatasetOptions(target="https://example.com/data")
-
-        result = self.plugin.save_dataset(self.dataset, options)
+        result = self.plugin.save_dataset(
+            self.dataset, target="https://example.com/data"
+        )
 
         mock_save.assert_not_called()
         assert result is None

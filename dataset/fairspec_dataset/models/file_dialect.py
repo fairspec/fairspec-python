@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import TypedDict
 
 
-class InferFileDialectOptions(BaseModel):
-    sample_bytes: int | None = None
+class InferFileDialectOptions(TypedDict, total=False):
+    sample_bytes: int

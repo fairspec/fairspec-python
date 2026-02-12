@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Unpack
+
 import polars as pl
 
 from fairspec_metadata import get_base_property_type
@@ -11,9 +13,9 @@ from fairspec_table.models import ColumnMapping, DenormalizeColumnOptions
 def desubstitute_column(
     mapping: ColumnMapping,
     column_expr: pl.Expr,
-    options: DenormalizeColumnOptions | None = None,
+    **options: Unpack[DenormalizeColumnOptions],
 ) -> pl.Expr:
-    missing_value_type = _get_missing_value_type(mapping.target, options)
+    missing_value_type = _get_missing_value_type(mapping.target, **options)
     if not missing_value_type:
         return column_expr
 
@@ -45,7 +47,7 @@ def desubstitute_column(
 
 def _get_missing_value_type(
     column: Column,
-    options: DenormalizeColumnOptions | None = None,
+    **options: Unpack[DenormalizeColumnOptions],
 ) -> str | None:
     base_type = get_base_property_type(column.property.type)
 
@@ -53,7 +55,7 @@ def _get_missing_value_type(
         return "string"
 
     if base_type in ("integer", "number"):
-        native_types = options.nativeTypes if options else None
+        native_types = options.get("nativeTypes")
         return "number" if native_types and base_type in native_types else "string"
 
     return None

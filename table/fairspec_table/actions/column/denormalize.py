@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Unpack
+
 import polars as pl
 
 from fairspec_table.models import ColumnMapping, DenormalizeColumnOptions
@@ -11,14 +13,14 @@ from .stringify import stringify_column
 
 def denormalize_column(
     mapping: ColumnMapping,
-    options: DenormalizeColumnOptions | None = None,
+    **options: Unpack[DenormalizeColumnOptions],
 ) -> pl.Expr:
     column_expr = pl.col(mapping.source.name)
 
-    native_types = options.nativeTypes if options else None
+    native_types = options.get("nativeTypes")
     if not native_types or mapping.target.type not in native_types:
         column_expr = denarrow_column(mapping, column_expr)
         column_expr = stringify_column(mapping, column_expr)
 
-    column_expr = desubstitute_column(mapping, column_expr, options)
+    column_expr = desubstitute_column(mapping, column_expr, **options)
     return column_expr

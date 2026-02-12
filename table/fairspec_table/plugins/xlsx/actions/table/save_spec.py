@@ -3,7 +3,6 @@ from __future__ import annotations
 import polars as pl
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import OdsFileDialect, Resource, XlsxFileDialect
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .load import load_xlsx_table
 from .save import save_xlsx_table
@@ -18,9 +17,7 @@ class TestSaveXlsxTableXlsx:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_xlsx_table(
-            TABLE, SaveTableOptions(path=path, fileDialect=XlsxFileDialect())
-        )
+        save_xlsx_table(TABLE, path=path, fileDialect=XlsxFileDialect())
 
         data = read_test_data(path)
         assert data == [ROW1, ROW2]
@@ -39,13 +36,11 @@ class TestSaveXlsxTableXlsx:
             ]
         ).lazy()
 
-        save_xlsx_table(
-            source, SaveTableOptions(path=path, fileDialect=XlsxFileDialect())
-        )
+        save_xlsx_table(source, path=path, fileDialect=XlsxFileDialect())
 
         target = load_xlsx_table(
             Resource(data=path, fileDialect=XlsxFileDialect()),
-            LoadTableOptions(denormalized=True),
+            denormalized=True,
         )
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
@@ -65,9 +60,7 @@ class TestSaveXlsxTableOds:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_xlsx_table(
-            TABLE, SaveTableOptions(path=path, fileDialect=OdsFileDialect())
-        )
+        save_xlsx_table(TABLE, path=path, fileDialect=OdsFileDialect())
 
         data = read_test_data(path)
         assert data == [ROW1, ROW2]
@@ -86,13 +79,11 @@ class TestSaveXlsxTableOds:
             ]
         ).lazy()
 
-        save_xlsx_table(
-            source, SaveTableOptions(path=path, fileDialect=OdsFileDialect())
-        )
+        save_xlsx_table(source, path=path, fileDialect=OdsFileDialect())
 
         target = load_xlsx_table(
             Resource(data=path, fileDialect=OdsFileDialect()),
-            LoadTableOptions(denormalized=True),
+            denormalized=True,
         )
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 

@@ -6,7 +6,6 @@ from zoneinfo import ZoneInfo
 import polars as pl
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import Resource
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .load import load_arrow_table
 from .save import save_arrow_table
@@ -19,7 +18,7 @@ class TestSaveArrowTable:
             {"id": [1.0, 2.0, 3.0], "name": ["Alice", "Bob", "Charlie"]}
         ).lazy()
 
-        save_arrow_table(source, SaveTableOptions(path=path))
+        save_arrow_table(source, path=path)
 
         table = load_arrow_table(Resource(data=path))
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
@@ -47,11 +46,9 @@ class TestSaveArrowTable:
             ]
         ).lazy()
 
-        save_arrow_table(source, SaveTableOptions(path=path))
+        save_arrow_table(source, path=path)
 
-        target = load_arrow_table(
-            Resource(data=path), LoadTableOptions(denormalized=True)
-        )
+        target = load_arrow_table(Resource(data=path), denormalized=True)
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [

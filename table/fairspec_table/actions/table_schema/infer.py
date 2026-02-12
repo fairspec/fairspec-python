@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Unpack
 
 import polars as pl
 from fairspec_metadata import create_column_from_property, get_column_properties
@@ -45,31 +45,31 @@ TYPE_MAPPING: dict[type[pl.DataType], str] = {
 
 def infer_table_schema_from_table(
     table: Table,
-    options: InferTableSchemaOptions | None = None,
+    **options: Unpack[InferTableSchemaOptions],
 ) -> TableSchema:
-    sample_rows = (options.sampleRows if options else None) or 100
+    sample_rows = options.get("sampleRows") or 100
     sample: pl.DataFrame = table.head(sample_rows).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
-    return infer_table_schema_from_sample(sample, options)
+    return infer_table_schema_from_sample(sample, **options)
 
 
 def infer_table_schema_from_sample(
     sample: pl.DataFrame,
-    options: InferTableSchemaOptions | None = None,
+    **options: Unpack[InferTableSchemaOptions],
 ) -> TableSchema:
-    confidence = (options.confidence if options else None) or 0.9
-    column_types = options.columnTypes if options else None
-    keep_strings = options.keepStrings if options else None
+    confidence = options.get("confidence") or 0.9
+    column_types = options.get("columnTypes")
+    keep_strings = options.get("keepStrings")
     effective_missing_values = (
-        options.missingValues
-        if options and options.missingValues is not None
+        options["missingValues"]
+        if options.get("missingValues") is not None
         else DEFAULT_MISSING_VALUES
     )
     detected_missing_values: set[str] = set()
 
-    regex_mapping = _create_regex_mapping(options)
+    regex_mapping = _create_regex_mapping(**options)
 
     polars_schema = get_polars_schema(sample.schema)
-    column_names = (options.columnNames if options else None) or [
+    column_names = options.get("columnNames") or [
         c.name for c in polars_schema.columns
     ]
 
@@ -93,7 +93,7 @@ def infer_table_schema_from_sample(
 
         if not (column_types and name in column_types):
             if col_type == "array":
-                if options and options.arrayType == "list":
+                if options.get("arrayType") == "list":
                     effective_col_type = "list"
                     property_dict = {"type": "string", "format": "list"}
                 else:
@@ -151,17 +151,17 @@ def infer_table_schema_from_sample(
 
         if is_nullable:
             _make_property_nullable(column)
-        _enhance_column(column, options)
+        _enhance_column(column, **options)
         columns.append(column)
 
     table_schema = TableSchema(properties=get_column_properties(columns))
 
-    if (options is None or options.missingValues is None) and len(
+    if options.get("missingValues") is None and len(
         detected_missing_values
     ) > 0:
         table_schema.missingValues = list(detected_missing_values)
 
-    _enhance_schema(table_schema, options)
+    _enhance_schema(table_schema, **options)
     return table_schema
 
 
@@ -208,18 +208,18 @@ def _derive_month_first(format: str | None) -> bool | None:
 
 
 def _create_regex_mapping(
-    options: InferTableSchemaOptions | None = None,
+    **options: Unpack[InferTableSchemaOptions],
 ) -> dict[str, Descriptor]:
-    comma_decimal = options.commaDecimal if options else None
-    month_first = options.monthFirst if options else None
-    true_values = options.trueValues if options else None
-    false_values = options.falseValues if options else None
-    decimal_char = options.decimalChar if options else None
-    group_char = options.groupChar if options else None
-    list_delimiter = options.listDelimiter if options else None
-    date_format = options.dateFormat if options else None
-    time_format = options.timeFormat if options else None
-    datetime_format = options.datetimeFormat if options else None
+    comma_decimal = options.get("commaDecimal")
+    month_first = options.get("monthFirst")
+    true_values = options.get("trueValues")
+    false_values = options.get("falseValues")
+    decimal_char = options.get("decimalChar")
+    group_char = options.get("groupChar")
+    list_delimiter = options.get("listDelimiter")
+    date_format = options.get("dateFormat")
+    time_format = options.get("timeFormat")
+    datetime_format = options.get("datetimeFormat")
 
     effective_comma_decimal = (
         comma_decimal
@@ -518,36 +518,36 @@ def _create_regex_mapping(
     return mapping
 
 
-def _enhance_column(column: Column, options: InferTableSchemaOptions | None) -> None:
+def _enhance_column(column: Column, **options: Unpack[InferTableSchemaOptions]) -> None:
     if not options:
         return
     if column.type == "boolean":
-        if options.trueValues is not None:
-            column.property.trueValues = options.trueValues  # type: ignore[union-attr]
-        if options.falseValues is not None:
-            column.property.falseValues = options.falseValues  # type: ignore[union-attr]
+        if options.get("trueValues") is not None:
+            column.property.trueValues = options["trueValues"]  # type: ignore[union-attr]
+        if options.get("falseValues") is not None:
+            column.property.falseValues = options["falseValues"]  # type: ignore[union-attr]
     elif column.type == "integer":
-        if options.groupChar is not None:
-            column.property.groupChar = options.groupChar  # type: ignore[union-attr]
+        if options.get("groupChar") is not None:
+            column.property.groupChar = options["groupChar"]  # type: ignore[union-attr]
     elif column.type == "number":
-        if options.decimalChar is not None:
-            column.property.decimalChar = options.decimalChar  # type: ignore[union-attr]
-        if options.groupChar is not None:
-            column.property.groupChar = options.groupChar  # type: ignore[union-attr]
+        if options.get("decimalChar") is not None:
+            column.property.decimalChar = options["decimalChar"]  # type: ignore[union-attr]
+        if options.get("groupChar") is not None:
+            column.property.groupChar = options["groupChar"]  # type: ignore[union-attr]
     elif column.type == "date-time":
-        if options.datetimeFormat is not None:
-            column.property.temporalFormat = options.datetimeFormat  # type: ignore[union-attr]
+        if options.get("datetimeFormat") is not None:
+            column.property.temporalFormat = options["datetimeFormat"]  # type: ignore[union-attr]
     elif column.type == "date":
-        if options.dateFormat is not None:
-            column.property.temporalFormat = options.dateFormat  # type: ignore[union-attr]
+        if options.get("dateFormat") is not None:
+            column.property.temporalFormat = options["dateFormat"]  # type: ignore[union-attr]
     elif column.type == "time":
-        if options.timeFormat is not None:
-            column.property.temporalFormat = options.timeFormat  # type: ignore[union-attr]
+        if options.get("timeFormat") is not None:
+            column.property.temporalFormat = options["timeFormat"]  # type: ignore[union-attr]
     elif column.type == "list":
-        if options.listDelimiter is not None:
-            column.property.delimiter = options.listDelimiter  # type: ignore[union-attr]
-        if options.listItemType is not None:
-            column.property.itemType = options.listItemType  # type: ignore[union-attr]
+        if options.get("listDelimiter") is not None:
+            column.property.delimiter = options["listDelimiter"]  # type: ignore[union-attr]
+        if options.get("listItemType") is not None:
+            column.property.itemType = options["listItemType"]  # type: ignore[union-attr]
 
 
 def _make_property_nullable(column: Column) -> None:
@@ -558,7 +558,7 @@ def _make_property_nullable(column: Column) -> None:
 
 def _enhance_schema(
     table_schema: TableSchema,
-    options: InferTableSchemaOptions | None,
+    **options: Unpack[InferTableSchemaOptions],
 ) -> None:
-    if options and options.missingValues is not None:
-        table_schema.missingValues = list(options.missingValues)
+    if options.get("missingValues") is not None:
+        table_schema.missingValues = list(options["missingValues"])

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Unpack, cast
 
 import polars as pl
 
@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 
 def load_sqlite_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     first_path = get_data_first_path(resource)
     if not first_path:
@@ -52,7 +52,7 @@ def load_sqlite_table(
         records = [dict(row) for row in rows]
         table: Table = pl.DataFrame(records).lazy()
 
-        if not (options and options.denormalized):
+        if not options.get("denormalized"):
             table_schema = resolve_table_schema(resource.tableSchema)
             if not table_schema:
                 descriptor = infer_table_schema_from_sqlite(

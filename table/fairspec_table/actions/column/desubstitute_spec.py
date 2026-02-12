@@ -8,7 +8,7 @@ from fairspec_metadata import IntegerColumnProperty
 from fairspec_metadata import NumberColumnProperty
 from fairspec_metadata import StringColumnProperty
 
-from fairspec_table.models import ColumnMapping, DenormalizeColumnOptions, PolarsColumn
+from fairspec_table.models import ColumnMapping, PolarsColumn
 
 from .desubstitute import desubstitute_column
 
@@ -186,7 +186,7 @@ class TestDesubstituteColumnInteger:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["integer"]),
+                nativeTypes=["integer"],
             )
         )
 
@@ -217,7 +217,7 @@ class TestDesubstituteColumnInteger:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["integer"]),
+                nativeTypes=["integer"],
             )
         )
 
@@ -249,7 +249,7 @@ class TestDesubstituteColumnInteger:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["integer"]),
+                nativeTypes=["integer"],
             )
         )
 
@@ -282,7 +282,7 @@ class TestDesubstituteColumnNumber:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["number"]),
+                nativeTypes=["number"],
             )
         )
 
@@ -313,7 +313,7 @@ class TestDesubstituteColumnNumber:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["number"]),
+                nativeTypes=["number"],
             )
         )
 
@@ -347,7 +347,7 @@ class TestDesubstituteColumnNumber:
             desubstitute_column(
                 mapping,
                 pl.col("value"),
-                DenormalizeColumnOptions(nativeTypes=["number"]),
+                nativeTypes=["number"],
             )
         )
 

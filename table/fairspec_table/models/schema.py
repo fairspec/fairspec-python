@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, TypedDict
 
 from fairspec_metadata import TableSchema
-from pydantic import BaseModel
 
 from .column import PolarsColumn
 
@@ -20,36 +19,33 @@ class SchemaMapping:
     target: TableSchema
 
 
-class TableSchemaOptions(BaseModel):
-    columnNames: list[str] | None = None
-    columnTypes: dict[str, str] | None = None
-    missingValues: list[str] | None = None
-    decimalChar: str | None = None
-    groupChar: str | None = None
-    trueValues: list[str] | None = None
-    falseValues: list[str] | None = None
-    datetimeFormat: str | None = None
-    dateFormat: str | None = None
-    timeFormat: str | None = None
-    arrayType: Literal["array", "list"] | None = None
-    listDelimiter: str | None = None
-    listItemType: (
-        Literal[
-            "string",
-            "number",
-            "boolean",
-            "date",
-            "date-time",
-            "integer",
-            "time",
-        ]
-        | None
-    ) = None
+class TableSchemaOptions(TypedDict, total=False):
+    columnNames: list[str]
+    columnTypes: dict[str, str]
+    missingValues: list[str]
+    decimalChar: str
+    groupChar: str
+    trueValues: list[str]
+    falseValues: list[str]
+    datetimeFormat: str
+    dateFormat: str
+    timeFormat: str
+    arrayType: Literal["array", "list"]
+    listDelimiter: str
+    listItemType: Literal[
+        "string",
+        "number",
+        "boolean",
+        "date",
+        "date-time",
+        "integer",
+        "time",
+    ]
 
 
-class InferTableSchemaOptions(TableSchemaOptions):
-    sampleRows: int | None = None
-    confidence: float | None = None
-    commaDecimal: bool | None = None
-    monthFirst: bool | None = None
-    keepStrings: bool | None = None
+class InferTableSchemaOptions(TableSchemaOptions, total=False):
+    sampleRows: int
+    confidence: float
+    commaDecimal: bool
+    monthFirst: bool
+    keepStrings: bool

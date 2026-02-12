@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Unpack, cast
 
 import polars as pl
 
@@ -9,21 +9,19 @@ from fairspec_metadata import Resource, TableSchema, get_supported_file_dialect
 
 from fairspec_table.actions.table.denormalize import denormalize_table
 from fairspec_table.actions.table_schema.infer import infer_table_schema_from_table
-from fairspec_table.models.column import DenormalizeColumnOptions
-from fairspec_table.models.schema import InferTableSchemaOptions
 from fairspec_table.plugins.csv.settings import NATIVE_TYPES
 
 if TYPE_CHECKING:
     from fairspec_table.models.table import SaveTableOptions, Table
 
 
-def save_csv_table(table: Table, options: SaveTableOptions) -> str:
-    path = options.path
+def save_csv_table(table: Table, **options: Unpack[SaveTableOptions]) -> str:
+    path = options["path"]
 
-    if not options.overwrite:
+    if not options.get("overwrite"):
         assert_local_path_vacant(path)
 
-    resource = Resource(data=path, fileDialect=options.fileDialect)  # type: ignore[arg-type]
+    resource = Resource(data=path, fileDialect=options.get("fileDialect"))
     file_dialect = get_supported_file_dialect(resource, ["csv", "tsv"])
     if not file_dialect:
         raise Exception("Saving options is not compatible")
@@ -38,21 +36,13 @@ def save_csv_table(table: Table, options: SaveTableOptions) -> str:
     else:
         header_rows = header_rows_value
 
-    table_schema = options.tableSchema
+    table_schema = options.get("tableSchema")
     if not isinstance(table_schema, TableSchema):
         table_schema = infer_table_schema_from_table(
-            table,
-            InferTableSchemaOptions(
-                **options.model_dump(),
-                keepStrings=True,
-            ),
+            table, **options, keepStrings=True
         )
 
-    table = denormalize_table(
-        table,
-        table_schema,
-        DenormalizeColumnOptions(nativeTypes=NATIVE_TYPES),
-    )
+    table = denormalize_table(table, table_schema, nativeTypes=NATIVE_TYPES)
 
     is_csv = getattr(file_dialect, "format", "csv") == "csv"
 

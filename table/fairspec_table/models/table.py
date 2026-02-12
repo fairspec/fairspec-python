@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Required
+
 import polars as pl
 from fairspec_dataset import InferFileDialectOptions
 
@@ -8,13 +10,13 @@ from .schema import InferTableSchemaOptions, TableSchemaOptions
 Table = pl.LazyFrame
 
 
-class LoadTableOptions(InferFileDialectOptions, InferTableSchemaOptions):
-    previewBytes: int | None = None
-    denormalized: bool | None = None
+class LoadTableOptions(InferFileDialectOptions, InferTableSchemaOptions, total=False):
+    previewBytes: int
+    denormalized: bool
 
 
-class SaveTableOptions(TableSchemaOptions):
-    path: str
-    fileDialect: object | None = None
-    tableSchema: object | None = None
-    overwrite: bool | None = None
+class SaveTableOptions(TableSchemaOptions, total=False):
+    path: Required[str]
+    fileDialect: object
+    tableSchema: object
+    overwrite: bool

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Unpack, cast
 
 import polars as pl
 from pydantic import BaseModel
@@ -23,14 +23,14 @@ if TYPE_CHECKING:
 
 
 def load_json_table(
-    resource: Resource, options: LoadTableOptions | None = None
+    resource: Resource, **options: Unpack[LoadTableOptions]
 ) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["json", "jsonl"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
 
     is_lines = getattr(file_dialect, "format", None) == "jsonl"
-    max_bytes = options.previewBytes if options and is_lines else None
+    max_bytes = options.get("previewBytes") if is_lines else None
     paths = prefetch_files(resource, max_bytes=max_bytes)
     if not paths:
         raise Exception("Resource data is not defined")
@@ -61,10 +61,10 @@ def load_json_table(
 
     result = pl.concat(tables)
 
-    if not (options and options.denormalized):
+    if not options.get("denormalized"):
         table_schema = resolve_table_schema(resource.tableSchema)
         if not table_schema:
-            table_schema = infer_table_schema_from_table(result, options)
+            table_schema = infer_table_schema_from_table(result, **options)
         result = normalize_table(result, table_schema)
 
     return result

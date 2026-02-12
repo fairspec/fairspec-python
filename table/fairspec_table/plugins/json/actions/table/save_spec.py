@@ -6,7 +6,6 @@ import polars as pl
 from fairspec_dataset import get_temp_file_path
 from fairspec_metadata import JsonFileDialect, JsonlFileDialect
 from fairspec_metadata.models.file_dialect.common import RowType
-from fairspec_table.models.table import LoadTableOptions, SaveTableOptions
 
 from .load import load_json_table
 from .save import save_json_table
@@ -20,9 +19,7 @@ class TestSaveJsonTable:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_json_table(
-            TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect())
-        )
+        save_json_table(TABLE, path=path, fileDialect=JsonFileDialect())
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -33,7 +30,8 @@ class TestSaveJsonTable:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(path=path, fileDialect=JsonFileDialect(jsonPointer="key")),
+            path=path,
+            fileDialect=JsonFileDialect(jsonPointer="key"),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -47,9 +45,8 @@ class TestSaveJsonTable:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=JsonFileDialect(columnNames=["name"])
-            ),
+            path=path,
+            fileDialect=JsonFileDialect(columnNames=["name"]),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -65,9 +62,8 @@ class TestSaveJsonTable:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=JsonFileDialect(rowType=RowType.array)
-            ),
+            path=path,
+            fileDialect=JsonFileDialect(rowType=RowType.array),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -94,11 +90,9 @@ class TestSaveJsonTable:
             ]
         ).lazy()
 
-        save_json_table(source, SaveTableOptions(path=path))
+        save_json_table(source, path=path)
 
-        target = load_json_table(
-            Resource(data=path), LoadTableOptions(denormalized=True)
-        )
+        target = load_json_table(Resource(data=path), denormalized=True)
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -117,9 +111,7 @@ class TestSaveJsonTableJsonl:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_json_table(
-            TABLE, SaveTableOptions(path=path, fileDialect=JsonlFileDialect())
-        )
+        save_json_table(TABLE, path=path, fileDialect=JsonlFileDialect())
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -135,9 +127,8 @@ class TestSaveJsonTableJsonl:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=JsonlFileDialect(columnNames=["name"])
-            ),
+            path=path,
+            fileDialect=JsonlFileDialect(columnNames=["name"]),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -154,9 +145,8 @@ class TestSaveJsonTableJsonl:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=JsonlFileDialect(rowType=RowType.array)
-            ),
+            path=path,
+            fileDialect=JsonlFileDialect(rowType=RowType.array),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -174,9 +164,8 @@ class TestSaveJsonTableJsonl:
 
         save_json_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=JsonlFileDialect(rowType=RowType.object)
-            ),
+            path=path,
+            fileDialect=JsonlFileDialect(rowType=RowType.object),
         )
 
         with open(path, encoding="utf-8") as f:
