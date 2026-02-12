@@ -130,7 +130,9 @@ class TestGetFileNameSlug:
         assert get_file_name_slug("/data/users.csv") == "users"
 
     def test_returns_slugified_basename_from_url_path(self):
-        assert get_file_name_slug("https://example.com/data/products.json") == "products"
+        assert (
+            get_file_name_slug("https://example.com/data/products.json") == "products"
+        )
 
     def test_returns_none_when_path_has_no_filename(self):
         assert get_file_name_slug("/data/folder/") is None

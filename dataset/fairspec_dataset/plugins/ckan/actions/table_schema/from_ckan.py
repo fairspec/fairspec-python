@@ -78,13 +78,17 @@ def _convert_column(ckan_field: CkanField) -> Column:
             return DateColumn(
                 name=name,
                 type="date",
-                property=DateColumnProperty(type="string", format="date", **base_kwargs),
+                property=DateColumnProperty(
+                    type="string", format="date", **base_kwargs
+                ),
             )
         case "time":
             return TimeColumn(
                 name=name,
                 type="time",
-                property=TimeColumnProperty(type="string", format="time", **base_kwargs),
+                property=TimeColumnProperty(
+                    type="string", format="time", **base_kwargs
+                ),
             )
         case "timestamp" | "datetime":
             return DateTimeColumn(

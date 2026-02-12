@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from fairspec_metadata import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata import (
+    ContributorType,
+    CreatorNameType,
+    DateType,
+    DescriptionType,
+)
 from fairspec_metadata import Contributor
 from fairspec_metadata import Creator
 from fairspec_metadata import DataciteDate

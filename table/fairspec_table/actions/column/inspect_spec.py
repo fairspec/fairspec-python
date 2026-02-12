@@ -173,7 +173,9 @@ class TestInspectCellTypes:
         assert cell_errors[2].rowNumber == 4
 
     def test_should_validate_string_to_time_conversion_errors(self):
-        table = pl.DataFrame({"time": ["14:30:00", "2:30pm", "invalid", "14h30"]}).lazy()
+        table = pl.DataFrame(
+            {"time": ["14:30:00", "2:30pm", "invalid", "14h30"]}
+        ).lazy()
         table_schema = TableSchema(properties={"time": TimeColumnProperty()})
 
         errors = inspect_table(table, table_schema=table_schema)

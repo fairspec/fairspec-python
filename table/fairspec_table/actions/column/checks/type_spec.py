@@ -107,7 +107,9 @@ class TestCheckCellType:
             property=IntegerColumnProperty(),
         )
         mapping = CellMapping(source=pl.col("source"), target=pl.col("target"))
-        table = pl.DataFrame({"source": ["1", None, "3"], "target": [1, None, 3]}).lazy()
+        table = pl.DataFrame(
+            {"source": ["1", None, "3"], "target": [1, None, 3]}
+        ).lazy()
 
         result = check_cell_type(column, mapping)
 

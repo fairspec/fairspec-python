@@ -73,7 +73,9 @@ def inspect_json_column(
     errors: list[CellError] = []
 
     column_type = ColumnType(column.type)
-    constraint_json_schema = column.property.model_dump(exclude_none=True, by_alias=True)
+    constraint_json_schema = column.property.model_dump(
+        exclude_none=True, by_alias=True
+    )
 
     frame = cast(
         pl.DataFrame,

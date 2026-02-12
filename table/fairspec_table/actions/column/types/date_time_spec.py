@@ -69,7 +69,9 @@ class TestParseDateTimeColumn:
             ("21/11/06 16:30", None),
         ],
     )
-    def test_invalid_temporal_format(self, cell: str, expected: datetime.datetime | None):
+    def test_invalid_temporal_format(
+        self, cell: str, expected: datetime.datetime | None
+    ):
         table = pl.DataFrame({"name": [cell]}).lazy()
         column = DateTimeColumn(
             name="name",

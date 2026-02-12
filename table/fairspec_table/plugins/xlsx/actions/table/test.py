@@ -19,7 +19,9 @@ def write_test_data(
     format: str = "xlsx",
 ) -> None:
     if format == "ods":
-        _write_ods_test_data(path, rows, sheet_number=sheet_number, sheet_name=sheet_name)
+        _write_ods_test_data(
+            path, rows, sheet_number=sheet_number, sheet_name=sheet_name
+        )
     else:
         _write_xlsx_test_data(
             path, rows, sheet_number=sheet_number, sheet_name=sheet_name

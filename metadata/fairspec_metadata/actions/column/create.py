@@ -49,7 +49,9 @@ if TYPE_CHECKING:
     from fairspec_metadata.models.column.column import Column
     from fairspec_metadata.models.descriptor import Descriptor
 
-_COLUMN_CLASS_MAP: dict[ColumnType, tuple[type[BaseColumn], type[BaseColumnProperty]]] = {
+_COLUMN_CLASS_MAP: dict[
+    ColumnType, tuple[type[BaseColumn], type[BaseColumnProperty]]
+] = {
     ColumnType.array: (ArrayColumn, ArrayColumnProperty),
     ColumnType.base64: (Base64Column, Base64ColumnProperty),
     ColumnType.boolean: (BooleanColumn, BooleanColumnProperty),

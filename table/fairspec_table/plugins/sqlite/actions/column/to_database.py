@@ -8,7 +8,9 @@ if TYPE_CHECKING:
     from fairspec_metadata import Column
 
 
-def convert_column_to_database(column: Column, is_nullable: bool = True) -> SqliteColumn:
+def convert_column_to_database(
+    column: Column, is_nullable: bool = True
+) -> SqliteColumn:
     return SqliteColumn(
         name=column.name,
         dataType=_convert_type(column.type),

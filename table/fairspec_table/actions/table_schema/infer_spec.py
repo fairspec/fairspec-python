@@ -103,7 +103,11 @@ class TestInferTableSchemaFromTable:
                     "groupChar": ",",
                     "withText": True,
                 },
-                "numberGroupChar": {"type": "number", "groupChar": ",", "withText": True},
+                "numberGroupChar": {
+                    "type": "number",
+                    "groupChar": ",",
+                    "withText": True,
+                },
                 "european": {
                     "type": "number",
                     "groupChar": ".",
@@ -570,7 +574,11 @@ class TestInferTableSchemaFromTable:
         dumped = result.model_dump(by_alias=True, exclude_none=True)
         assert dumped == {
             "properties": {
-                "numericList": {"type": "string", "format": "list", "itemType": "number"},
+                "numericList": {
+                    "type": "string",
+                    "format": "list",
+                    "itemType": "number",
+                },
                 "integerList": {
                     "type": "string",
                     "format": "list",
@@ -590,7 +598,9 @@ class TestInferTableSchemaFromTableNullable:
         assert dumped["missingValues"] == ["NA"]
 
     def test_should_infer_nullable_integer_from_polars_nulls(self):
-        table = pl.DataFrame({"value": pl.Series("value", [1, 2, None], pl.Int32)}).lazy()
+        table = pl.DataFrame(
+            {"value": pl.Series("value", [1, 2, None], pl.Int32)}
+        ).lazy()
         result = infer_table_schema_from_table(table)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {"value": {"type": ("integer", "null")}},

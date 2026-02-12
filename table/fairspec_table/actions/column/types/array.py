@@ -27,7 +27,9 @@ def inspect_array_column(
         .collect()
     )
 
-    constraint_json_schema = column.property.model_dump(exclude_none=True, by_alias=True)
+    constraint_json_schema = column.property.model_dump(
+        exclude_none=True, by_alias=True
+    )
 
     for row in frame.to_dicts():
         if row["source"] is None:

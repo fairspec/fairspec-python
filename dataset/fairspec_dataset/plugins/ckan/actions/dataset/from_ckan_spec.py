@@ -74,7 +74,8 @@ class TestConvertDatasetFromCkan:
         assert re.match(r"^sample[-_]linked[-_]csv$", first_resource.name)
         assert first_resource.descriptions is not None
         assert (
-            first_resource.descriptions[0].description == first_ckan_resource.description
+            first_resource.descriptions[0].description
+            == first_ckan_resource.description
         )
 
     def test_handles_empty_resources_array(self):

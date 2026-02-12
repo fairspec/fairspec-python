@@ -68,7 +68,9 @@ def _inspect_columns(
             continue
 
         column_mapping = ColumnMapping(source=polars_column, target=column)
-        field_errors = inspect_column(column_mapping, table, max_errors=max_column_errors)
+        field_errors = inspect_column(
+            column_mapping, table, max_errors=max_column_errors
+        )
         errors.extend(field_errors)
 
         if len(errors) >= max_errors:

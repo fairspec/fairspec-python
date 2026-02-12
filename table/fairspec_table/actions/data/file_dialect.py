@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 from fairspec_table.helpers import get_header_rows
-from fairspec_table.models import DataRecord, DataRow, FileDialectWithHeaderAndCommentRows
+from fairspec_table.models import (
+    DataRecord,
+    DataRow,
+    FileDialectWithHeaderAndCommentRows,
+)
 
 
 def get_records_from_rows(

@@ -88,5 +88,7 @@ class RelatedItem(RelatedObject):
 
 RelatedItems = Annotated[
     list[RelatedItem],
-    Field(description="Information about a resource related to the one being registered"),
+    Field(
+        description="Information about a resource related to the one being registered"
+    ),
 ]

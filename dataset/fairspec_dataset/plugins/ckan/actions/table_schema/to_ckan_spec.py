@@ -134,7 +134,9 @@ class TestConvertTableSchemaToCkan:
         assert tags_field.info.type_override == "array"
 
     def test_handles_columns_with_only_title(self):
-        schema = TableSchema(properties={"field1": StringColumnProperty(title="Field 1")})
+        schema = TableSchema(
+            properties={"field1": StringColumnProperty(title="Field 1")}
+        )
 
         result = convert_table_schema_to_ckan(schema)
 

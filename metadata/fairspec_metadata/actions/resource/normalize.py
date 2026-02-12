@@ -9,7 +9,9 @@ if TYPE_CHECKING:
     from fairspec_metadata.models.resource import Resource
 
 
-def normalize_resource(resource: Resource, *, basepath: str | None = None) -> Descriptor:
+def normalize_resource(
+    resource: Resource, *, basepath: str | None = None
+) -> Descriptor:
     resource = resource.model_copy(deep=True)
 
     if isinstance(resource.data, str):

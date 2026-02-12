@@ -10,7 +10,9 @@ if TYPE_CHECKING:
     from fairspec_metadata.models.resource import Resource
 
 
-def infer_resource_name(resource: Resource, *, resource_number: int | None = None) -> str:
+def infer_resource_name(
+    resource: Resource, *, resource_number: int | None = None
+) -> str:
     first_path = get_data_first_path(resource)
 
     if first_path:

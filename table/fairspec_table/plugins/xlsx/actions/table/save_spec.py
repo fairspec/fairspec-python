@@ -18,7 +18,9 @@ class TestSaveXlsxTableXlsx:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_xlsx_table(TABLE, SaveTableOptions(path=path, fileDialect=XlsxFileDialect()))
+        save_xlsx_table(
+            TABLE, SaveTableOptions(path=path, fileDialect=XlsxFileDialect())
+        )
 
         data = read_test_data(path)
         assert data == [ROW1, ROW2]
@@ -63,7 +65,9 @@ class TestSaveXlsxTableOds:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_xlsx_table(TABLE, SaveTableOptions(path=path, fileDialect=OdsFileDialect()))
+        save_xlsx_table(
+            TABLE, SaveTableOptions(path=path, fileDialect=OdsFileDialect())
+        )
 
         data = read_test_data(path)
         assert data == [ROW1, ROW2]
@@ -82,7 +86,9 @@ class TestSaveXlsxTableOds:
             ]
         ).lazy()
 
-        save_xlsx_table(source, SaveTableOptions(path=path, fileDialect=OdsFileDialect()))
+        save_xlsx_table(
+            source, SaveTableOptions(path=path, fileDialect=OdsFileDialect())
+        )
 
         target = load_xlsx_table(
             Resource(data=path, fileDialect=OdsFileDialect()),

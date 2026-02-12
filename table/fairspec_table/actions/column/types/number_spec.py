@@ -156,7 +156,9 @@ class TestParseNumberColumn:
         column = NumberColumn(
             name="name",
             type="number",
-            property=NumberColumnProperty(withText=True, groupChar=".", decimalChar=","),
+            property=NumberColumnProperty(
+                withText=True, groupChar=".", decimalChar=","
+            ),
         )
 
         result = table.select(parse_number_column(column, pl.col("name")))

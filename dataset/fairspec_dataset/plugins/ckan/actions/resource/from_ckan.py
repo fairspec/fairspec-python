@@ -42,7 +42,9 @@ def convert_resource_from_ckan(ckan_resource: CkanResource) -> Resource:
 
     dates: list[DataciteDate] = []
     if ckan_resource.created:
-        dates.append(DataciteDate(date=ckan_resource.created, dateType=DateType.Created))
+        dates.append(
+            DataciteDate(date=ckan_resource.created, dateType=DateType.Created)
+        )
     if ckan_resource.last_modified:
         dates.append(
             DataciteDate(date=ckan_resource.last_modified, dateType=DateType.Updated)

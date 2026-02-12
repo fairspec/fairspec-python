@@ -137,7 +137,9 @@ class TestStringifyListColumn:
             property=ListColumnProperty(),
         )
 
-        result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
+        result = table.select(
+            stringify_list_column(column, pl.col("name")).alias("name")
+        )
         frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         actual = frame.to_dicts()[0]["name"]
 
@@ -163,7 +165,9 @@ class TestStringifyListColumn:
             property=ListColumnProperty(itemType="integer"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
-        result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
+        result = table.select(
+            stringify_list_column(column, pl.col("name")).alias("name")
+        )
         frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         actual = frame.to_dicts()[0]["name"]
 
@@ -189,7 +193,9 @@ class TestStringifyListColumn:
             property=ListColumnProperty(itemType="number"),  # ty: ignore[invalid-argument-type] https://github.com/astral-sh/ty/issues/2403
         )
 
-        result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
+        result = table.select(
+            stringify_list_column(column, pl.col("name")).alias("name")
+        )
         frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         actual = frame.to_dicts()[0]["name"]
 
@@ -214,7 +220,9 @@ class TestStringifyListColumn:
             property=ListColumnProperty(delimiter=";"),
         )
 
-        result = table.select(stringify_list_column(column, pl.col("name")).alias("name"))
+        result = table.select(
+            stringify_list_column(column, pl.col("name")).alias("name")
+        )
         frame: pl.DataFrame = result.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         actual = frame.to_dicts()[0]["name"]
 

@@ -95,9 +95,7 @@ class TestLoadCsvTable:
     def test_should_infer_header_rows_when_partial_dialect(self):
         path = write_temp_file("1,100\n2,200\n3,300")
 
-        table = load_csv_table(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        table = load_csv_table(Resource(data=path, fileDialect=CsvFileDialect()))
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [
@@ -221,9 +219,7 @@ class TestLoadCsvTable:
         ]
 
     def test_should_support_header_join_and_comment_rows(self):
-        path = write_temp_file(
-            "#comment\nid,name\nint,str\n1,alice\n#comment\n2,bob"
-        )
+        path = write_temp_file("#comment\nid,name\nint,str\n1,alice\n#comment\n2,bob")
 
         table = load_csv_table(
             Resource(

@@ -20,7 +20,9 @@ class TestSaveJsonTable:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_json_table(TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect()))
+        save_json_table(
+            TABLE, SaveTableOptions(path=path, fileDialect=JsonFileDialect())
+        )
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
@@ -36,7 +38,9 @@ class TestSaveJsonTable:
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == json.dumps({"key": [ROW1, ROW2]}, indent=2, ensure_ascii=False)
+        assert content == json.dumps(
+            {"key": [ROW1, ROW2]}, indent=2, ensure_ascii=False
+        )
 
     def test_should_handle_item_keys(self):
         path = get_temp_file_path()
@@ -51,7 +55,9 @@ class TestSaveJsonTable:
         with open(path, encoding="utf-8") as f:
             content = f.read()
         assert content == json.dumps(
-            [{"name": ROW1["name"]}, {"name": ROW2["name"]}], indent=2, ensure_ascii=False
+            [{"name": ROW1["name"]}, {"name": ROW2["name"]}],
+            indent=2,
+            ensure_ascii=False,
         )
 
     def test_should_handle_item_type_array(self):
@@ -90,7 +96,9 @@ class TestSaveJsonTable:
 
         save_json_table(source, SaveTableOptions(path=path))
 
-        target = load_json_table(Resource(data=path), LoadTableOptions(denormalized=True))
+        target = load_json_table(
+            Resource(data=path), LoadTableOptions(denormalized=True)
+        )
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [

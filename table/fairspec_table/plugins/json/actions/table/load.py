@@ -11,7 +11,9 @@ from fairspec_metadata import Resource, get_supported_file_dialect, resolve_tabl
 from fairspec_table.actions.table.normalize import normalize_table
 from fairspec_table.actions.table_schema.infer import infer_table_schema_from_table
 from fairspec_table.plugins.json.actions.buffer.decode import decode_json_buffer
-from fairspec_table.plugins.json.actions.file_dialect.infer import infer_json_file_dialect
+from fairspec_table.plugins.json.actions.file_dialect.infer import (
+    infer_json_file_dialect,
+)
 
 if TYPE_CHECKING:
     from fairspec_metadata import JsonFileDialect, JsonlFileDialect
@@ -20,7 +22,9 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_json_table(resource: Resource, options: LoadTableOptions | None = None) -> Table:
+def load_json_table(
+    resource: Resource, options: LoadTableOptions | None = None
+) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["json", "jsonl"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
@@ -71,7 +75,9 @@ def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
         keys = set(dialect.keys())
     elif isinstance(dialect, BaseModel):
         keys = {
-            k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None
+            k
+            for k in type(dialect).model_fields
+            if getattr(dialect, k, None) is not None
         }
     else:
         keys = {

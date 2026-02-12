@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 from fairspec_dataset import write_temp_file
-from fairspec_metadata import CsvFileDialect, JsonFileDialect, JsonlFileDialect, Resource
+from fairspec_metadata import (
+    CsvFileDialect,
+    JsonFileDialect,
+    JsonlFileDialect,
+    Resource,
+)
 from fairspec_metadata.models.file_dialect.common import RowType
 
 from .infer import infer_json_file_dialect

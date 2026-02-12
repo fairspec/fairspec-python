@@ -4,7 +4,13 @@ from typing import TYPE_CHECKING, cast
 
 import polars as pl
 
-from fairspec_metadata import Resource, TableSchema, get_data_first_path, get_supported_file_dialect, resolve_table_schema
+from fairspec_metadata import (
+    Resource,
+    TableSchema,
+    get_data_first_path,
+    get_supported_file_dialect,
+    resolve_table_schema,
+)
 from fairspec_metadata.models.file_dialect.file_dialect import FileDialect
 
 from fairspec_table.actions.table.normalize import normalize_table
@@ -17,7 +23,9 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_sqlite_table(resource: Resource, options: LoadTableOptions | None = None) -> Table:
+def load_sqlite_table(
+    resource: Resource, options: LoadTableOptions | None = None
+) -> Table:
     first_path = get_data_first_path(resource)
     if not first_path:
         raise Exception("Resource path is not defined")
@@ -48,7 +56,9 @@ def load_sqlite_table(resource: Resource, options: LoadTableOptions | None = Non
             table_schema = resolve_table_schema(resource.tableSchema)
             if not table_schema:
                 descriptor = infer_table_schema_from_sqlite(
-                    Resource(data=first_path, fileDialect=cast(FileDialect, file_dialect))
+                    Resource(
+                        data=first_path, fileDialect=cast(FileDialect, file_dialect)
+                    )
                 )
                 table_schema = TableSchema.model_validate(descriptor)
             table = normalize_table(table, table_schema)

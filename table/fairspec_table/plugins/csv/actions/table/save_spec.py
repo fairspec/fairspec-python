@@ -41,9 +41,7 @@ class TestSaveCsvTable:
 
         save_csv_table(
             TABLE,
-            SaveTableOptions(
-                path=path, fileDialect=CsvFileDialect(headerRows=False)
-            ),
+            SaveTableOptions(path=path, fileDialect=CsvFileDialect(headerRows=False)),
         )
 
         with open(path, encoding="utf-8") as f:
@@ -108,9 +106,7 @@ class TestSaveCsvTableTsv:
     def test_should_save_table_to_file(self):
         path = get_temp_file_path()
 
-        save_csv_table(
-            TABLE, SaveTableOptions(path=path, fileDialect=TsvFileDialect())
-        )
+        save_csv_table(TABLE, SaveTableOptions(path=path, fileDialect=TsvFileDialect()))
 
         with open(path, encoding="utf-8") as f:
             content = f.read()

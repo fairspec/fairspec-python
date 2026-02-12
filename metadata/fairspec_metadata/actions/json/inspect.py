@@ -19,7 +19,9 @@ def inspect_json(
         json_schema = load_json_schema(json_schema)
 
     registry = referencing.Registry(retrieve=_retrieve)  # type: ignore[call-arg]
-    validator = Draft202012Validator(json_schema, registry=registry, format_checker=None)
+    validator = Draft202012Validator(
+        json_schema, registry=registry, format_checker=None
+    )
 
     errors: list[dict[str, str]] = []
     for error in validator.iter_errors(value):

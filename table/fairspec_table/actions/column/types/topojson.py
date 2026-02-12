@@ -9,7 +9,9 @@ from fairspec_table.models.table import Table
 from fairspec_table.settings import NUMBER_COLUMN_NAME
 
 
-def inspect_topojson_column(column: TopojsonColumn, table: Table) -> list[CellTypeError]:
+def inspect_topojson_column(
+    column: TopojsonColumn, table: Table
+) -> list[CellTypeError]:
     errors: list[CellTypeError] = []
 
     import polars as pl

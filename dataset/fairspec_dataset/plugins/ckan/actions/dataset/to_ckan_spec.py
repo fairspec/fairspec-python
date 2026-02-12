@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 import os
 
-from fairspec_metadata import ContributorType, CreatorNameType, DateType, DescriptionType
+from fairspec_metadata import (
+    ContributorType,
+    CreatorNameType,
+    DateType,
+    DescriptionType,
+)
 from fairspec_metadata import Contributor
 from fairspec_metadata import Creator
 from fairspec_metadata import DataciteDate
@@ -73,7 +78,9 @@ class TestConvertDatasetToCkan:
                             descriptionType=DescriptionType.Abstract,
                         )
                     ],
-                    integrity=Integrity(type=IntegrityType.md5, hash="1234567890abcdef"),
+                    integrity=Integrity(
+                        type=IntegrityType.md5, hash="1234567890abcdef"
+                    ),
                 )
             ],
         )

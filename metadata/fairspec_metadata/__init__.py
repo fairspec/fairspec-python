@@ -8,13 +8,19 @@ from .actions.data_schema.assert_ import assert_data_schema
 from .actions.data_schema.load import load_data_schema
 from .actions.data_schema.resolve import resolve_data_schema
 from .actions.data_schema.save import save_data_schema
-from .actions.data_schema.validate import DataSchemaValidationResult, validate_data_schema
+from .actions.data_schema.validate import (
+    DataSchemaValidationResult,
+    validate_data_schema,
+)
 from .actions.dataset.assert_ import assert_dataset
 from .actions.dataset.denormalize import denormalize_dataset
 from .actions.dataset.load import load_dataset_descriptor
 from .actions.dataset.normalize import normalize_dataset
 from .actions.dataset.save import save_dataset_descriptor
-from .actions.dataset.validate import DatasetValidationResult, validate_dataset_descriptor
+from .actions.dataset.validate import (
+    DatasetValidationResult,
+    validate_dataset_descriptor,
+)
 from .actions.descriptor.copy import copy_descriptor
 from .actions.descriptor.general import get_is_descriptor
 from .actions.descriptor.load import load_descriptor
@@ -120,7 +126,11 @@ from .models.datacite.related_identifier import (
     RelatedIdentifiers,
     RelatedObject,
 )
-from .models.datacite.related_item import RelatedItem, RelatedItemIdentifier, RelatedItems
+from .models.datacite.related_item import (
+    RelatedItem,
+    RelatedItemIdentifier,
+    RelatedItems,
+)
 from .models.datacite.rights import Rights, RightsList
 from .models.datacite.size import Sizes
 from .models.datacite.subject import Subject, Subjects

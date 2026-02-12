@@ -29,7 +29,9 @@ class TestInferTableSchemaFromSqlite:
             source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
         )
 
-        schema = infer_table_schema_from_sqlite(Resource(data=path, fileDialect=DIALECT))
+        schema = infer_table_schema_from_sqlite(
+            Resource(data=path, fileDialect=DIALECT)
+        )
         properties = {
             name: prop.model_dump(exclude_none=True)
             for name, prop in schema["properties"].items()

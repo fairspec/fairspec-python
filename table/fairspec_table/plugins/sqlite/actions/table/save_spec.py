@@ -15,8 +15,12 @@ class TestSaveSqliteTable:
     def test_should_save_and_load_table(self):
         path = get_temp_file_path()
 
-        source = pl.DataFrame([{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]).lazy()
-        save_sqlite_table(source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True))
+        source = pl.DataFrame(
+            [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
+        ).lazy()
+        save_sqlite_table(
+            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+        )
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
@@ -29,8 +33,12 @@ class TestSaveSqliteTable:
     def test_should_save_and_load_table_with_protocol(self):
         path = f"sqlite://{get_temp_file_path()}"
 
-        source = pl.DataFrame([{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]).lazy()
-        save_sqlite_table(source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True))
+        source = pl.DataFrame(
+            [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
+        ).lazy()
+        save_sqlite_table(
+            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+        )
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
@@ -54,7 +62,9 @@ class TestSaveSqliteTable:
             ]
         ).lazy()
 
-        save_sqlite_table(source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True))
+        save_sqlite_table(
+            source, SaveTableOptions(path=path, fileDialect=DIALECT, overwrite=True)
+        )
 
         target = load_sqlite_table(
             Resource(data=path, fileDialect=DIALECT),

@@ -27,7 +27,8 @@ def convert_dataset_from_zenodo(zenodo_record: ZenodoRecord) -> Dataset:
     descriptions = (
         [
             DataciteDescription(
-                description=metadata.description, descriptionType=DescriptionType.Abstract
+                description=metadata.description,
+                descriptionType=DescriptionType.Abstract,
             )
         ]
         if metadata and metadata.description

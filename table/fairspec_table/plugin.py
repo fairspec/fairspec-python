@@ -8,7 +8,12 @@ if TYPE_CHECKING:
     from fairspec_metadata import Resource
     from fairspec_metadata import TableSchema
 
-    from .models import InferTableSchemaOptions, LoadTableOptions, SaveTableOptions, Table
+    from .models import (
+        InferTableSchemaOptions,
+        LoadTableOptions,
+        SaveTableOptions,
+        Table,
+    )
 
 
 class TablePlugin(DatasetPlugin):

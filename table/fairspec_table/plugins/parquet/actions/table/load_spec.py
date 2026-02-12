@@ -12,7 +12,9 @@ class TestLoadParquetTable:
         path = get_temp_file_path()
         pl.DataFrame({"id": [1, 2], "name": ["english", "中文"]}).write_parquet(path)
 
-        table = load_parquet_table(Resource(data=path, fileDialect=ParquetFileDialect()))
+        table = load_parquet_table(
+            Resource(data=path, fileDialect=ParquetFileDialect())
+        )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]
 
         assert frame.to_dicts() == [

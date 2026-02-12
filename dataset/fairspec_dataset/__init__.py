@@ -22,9 +22,21 @@ from .models.dataset import SaveDatasetResult
 from .plugin import DatasetPlugin
 from .plugins.descriptor import DescriptorPlugin
 from .plugins.ckan import CkanPlugin, load_dataset_from_ckan, save_dataset_to_ckan
-from .plugins.folder import FolderPlugin, load_dataset_from_folder, save_dataset_to_folder
-from .plugins.github import GithubPlugin, load_dataset_from_github, save_dataset_to_github
-from .plugins.zenodo import ZenodoPlugin, load_dataset_from_zenodo, save_dataset_to_zenodo
+from .plugins.folder import (
+    FolderPlugin,
+    load_dataset_from_folder,
+    save_dataset_to_folder,
+)
+from .plugins.github import (
+    GithubPlugin,
+    load_dataset_from_github,
+    save_dataset_to_github,
+)
+from .plugins.zenodo import (
+    ZenodoPlugin,
+    load_dataset_from_zenodo,
+    save_dataset_to_zenodo,
+)
 from .plugins.zip import ZipPlugin, load_dataset_from_zip, save_dataset_to_zip
 from fairspec_metadata.plugin import MetadataPlugin
 

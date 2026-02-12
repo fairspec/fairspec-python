@@ -17,7 +17,9 @@ from .table import Table
 
 class Sniffer:
     def __init__(self) -> None:
-        self._sample_size: SampleSize = SampleSize(type=SampleSizeType.BYTES, count=8192)
+        self._sample_size: SampleSize = SampleSize(
+            type=SampleSizeType.BYTES, count=8192
+        )
         self._forced_delimiter: int | None = None
         self._forced_quote: Quote | None = None
 

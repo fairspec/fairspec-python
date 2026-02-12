@@ -8,7 +8,10 @@ from pydantic import BaseModel
 from fairspec_dataset import prefetch_files
 from fairspec_metadata import Resource, get_supported_file_dialect, resolve_table_schema
 
-from fairspec_table.actions.table.file_dialect import join_header_rows, skip_comment_rows
+from fairspec_table.actions.table.file_dialect import (
+    join_header_rows,
+    skip_comment_rows,
+)
 from fairspec_table.actions.table.normalize import normalize_table
 from fairspec_table.actions.table_schema.infer import infer_table_schema_from_table
 from fairspec_table.helpers.file_dialect import get_header_rows
@@ -21,7 +24,9 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_csv_table(resource: Resource, options: LoadTableOptions | None = None) -> Table:
+def load_csv_table(
+    resource: Resource, options: LoadTableOptions | None = None
+) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["csv", "tsv"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
@@ -51,7 +56,10 @@ def load_csv_table(resource: Resource, options: LoadTableOptions | None = None) 
     column_names: list[str] | None = getattr(file_dialect, "columnNames", None)
     if not has_header and not column_names:
         result = result.rename(
-            {name: name.replace("column_", "column") for name in result.collect_schema().names()}
+            {
+                name: name.replace("column_", "column")
+                for name in result.collect_schema().names()
+            }
         )
 
     header_rows = get_header_rows(file_dialect)  # type: ignore[arg-type]
@@ -70,7 +78,11 @@ def load_csv_table(resource: Resource, options: LoadTableOptions | None = None) 
 
 
 def _get_scan_options(
-    file_dialect: CsvFileDialect | TsvFileDialect | dict[str, object] | BaseModel | None,
+    file_dialect: CsvFileDialect
+    | TsvFileDialect
+    | dict[str, object]
+    | BaseModel
+    | None,
 ) -> dict[str, object]:
     header_rows = get_header_rows(file_dialect)  # type: ignore[arg-type]
 
@@ -112,7 +124,9 @@ def _dialect_has_only_format(dialect: dict[str, object] | BaseModel) -> bool:
         keys = set(dialect.keys())
     elif isinstance(dialect, BaseModel):
         keys = {
-            k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None
+            k
+            for k in type(dialect).model_fields
+            if getattr(dialect, k, None) is not None
         }
     else:
         keys = {
