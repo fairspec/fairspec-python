@@ -46,6 +46,7 @@ index-out-of-bounds = "ignore"
 [tool.uv]
 package = false
 dev-dependencies = [
+  "pre-commit==4.2.0",
   "python-semantic-release==10.5.3",
   "pytest==9.0.2",
   "ruff==0.15.0",
