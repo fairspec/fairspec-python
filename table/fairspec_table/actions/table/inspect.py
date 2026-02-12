@@ -1,0 +1,115 @@
+from __future__ import annotations
+
+import json
+import math
+
+import polars as pl
+from fairspec_metadata import TableError, get_columns
+from fairspec_metadata import ColumnMissingError
+from fairspec_metadata import RowError
+from fairspec_metadata import TableSchema
+from pydantic import TypeAdapter
+
+from fairspec_table.actions.column.inspect import inspect_column
+from fairspec_table.helpers.schema import get_polars_schema
+from fairspec_table.models import ColumnMapping, SchemaMapping, Table
+from fairspec_table.settings import ERROR_COLUMN_NAME, NUMBER_COLUMN_NAME
+
+from .checks.key import create_row_key_checks
+
+
+def inspect_table(
+    table: Table,
+    *,
+    table_schema: TableSchema | None = None,
+    sample_rows: int = 100,
+    max_errors: int = 1000,
+) -> list[TableError]:
+    errors: list[TableError] = []
+
+    if table_schema:
+        sample: pl.DataFrame = table.head(sample_rows).collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+        polars_schema = get_polars_schema(dict(sample.schema))
+        mapping = SchemaMapping(source=polars_schema, target=table_schema)
+
+        column_errors = _inspect_columns(mapping, table, max_errors=max_errors)
+        errors.extend(column_errors)
+
+        row_errors = _inspect_rows(mapping, table, max_errors=max_errors)
+        errors.extend(row_errors)
+
+    return errors[:max_errors]
+
+
+def _inspect_columns(
+    mapping: SchemaMapping,
+    table: Table,
+    *,
+    max_errors: int,
+) -> list[TableError]:
+    errors: list[TableError] = []
+    columns = get_columns(mapping.target.model_dump())
+    max_column_errors = math.ceil(max_errors / len(columns)) if columns else max_errors
+
+    for column in columns:
+        polars_column = next(
+            (pc for pc in mapping.source.columns if pc.name == column.name),
+            None,
+        )
+
+        if not polars_column:
+            is_required = mapping.target.allRequired or (
+                mapping.target.required and column.name in mapping.target.required
+            )
+            if is_required:
+                errors.append(
+                    ColumnMissingError(type="column/missing", columnName=column.name)
+                )
+            continue
+
+        column_mapping = ColumnMapping(source=polars_column, target=column)
+        field_errors = inspect_column(
+            column_mapping, table, max_errors=max_column_errors
+        )
+        errors.extend(field_errors)
+
+        if len(errors) >= max_errors:
+            break
+
+    return errors
+
+
+def _inspect_rows(
+    mapping: SchemaMapping,
+    table: Table,
+    *,
+    max_errors: int,
+) -> list[TableError]:
+    errors: list[TableError] = []
+    columns = get_columns(mapping.target.model_dump())
+    max_row_errors = math.ceil(max_errors / len(columns)) if columns else max_errors
+
+    for check in create_row_key_checks(mapping):
+        row_check_table = table.with_row_index(NUMBER_COLUMN_NAME, 1).with_columns(
+            pl.when(check.is_error_expr)
+            .then(pl.lit(check.error_template))
+            .otherwise(pl.lit(None))
+            .alias(ERROR_COLUMN_NAME)
+        )
+
+        row_check_frame: pl.DataFrame = (  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+            row_check_table.filter(pl.col(ERROR_COLUMN_NAME).is_not_null())
+            .head(max_row_errors)
+            .collect()
+        )
+
+        _row_error_adapter = TypeAdapter(RowError)
+        for row in row_check_frame.to_dicts():
+            error_dict = json.loads(row[ERROR_COLUMN_NAME])
+            error_dict["rowNumber"] = row[NUMBER_COLUMN_NAME]
+            errors.append(_row_error_adapter.validate_python(error_dict))
+
+        if len(errors) >= max_errors:
+            break
+
+    return errors

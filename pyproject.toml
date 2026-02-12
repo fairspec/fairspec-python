@@ -5,7 +5,6 @@ requires-python = ">=3.12"
 
 [tool.ruff]
 lint.ignore = ["E501"]
-line-length = 90
 extend-exclude = [
   "__pycache__",
   ".eggs",
@@ -20,15 +19,26 @@ extend-exclude = [
 commit_parser = "conventional"
 version_toml = [
   "pyproject.toml:project.version",
+  "dataset/pyproject.toml:project.version",
+  "fairspec/pyproject.toml:project.version",
+  "library/pyproject.toml:project.version",
   "metadata/pyproject.toml:project.version",
+  "table/pyproject.toml:project.version",
+  "terminal/pyproject.toml:project.version",
 ]
 
 [tool.taskipy.tasks]
 format = "ruff format"
+install = "uv sync --all-packages"
 lint = "ruff check"
 spec = "pytest"
+start = "pnpm --dir website install && pnpm --dir website start"
 test = "task lint && task type && task spec"
 type = "ty check"
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+python_files = "*_spec.py"
 
 [tool.ty.rules]
 index-out-of-bounds = "ignore"
@@ -36,15 +46,22 @@ index-out-of-bounds = "ignore"
 [tool.uv]
 package = false
 dev-dependencies = [
-  "python-semantic-release",
-  "pytest",
-  "ruff",
-  "taskipy",
-  "ty",
+  "pre-commit==4.2.0",
+  "python-semantic-release==10.5.3",
+  "pytest==9.0.2",
+  "ruff==0.15.0",
+  "taskipy==1.14.1",
+  "ty==0.0.15",
+  "pytest-recording==0.13.4",
 ]
 
 [tool.uv.workspace]
-members = ["metadata"]
+members = ["dataset", "fairspec", "library", "metadata", "table", "terminal"]
 
 [tool.uv.sources]
+fairspec = { workspace = true }
+fairspec-dataset = { workspace = true }
+fairspec-library = { workspace = true }
 fairspec-metadata = { workspace = true }
+fairspec-table = { workspace = true }
+fairspec-terminal = { workspace = true }

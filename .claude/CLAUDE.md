@@ -12,11 +12,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+- Run `uv run task install` to install all dependencies
 - Run `uv run task lint` to lint the code using Ruff
 - Run `uv run task format` to auto-fix formatting issues with Ruff
 - Run `uv run task type` to run type checking
-- Run `uv run task test` to run the full test suite including linting, type checking, and tests
 - Run `uv run task spec` to run only the pytest tests
+- Run `uv run task test` to run the full test suite (lint/type/spec)
 - Run `uv run pytest path/to/test.py` to run a single test file
 - Run `uv run pytest -k "test name"` to run a single test by name
 
