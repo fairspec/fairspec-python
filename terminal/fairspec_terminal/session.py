@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import atexit
 import json
 import sys
 from typing import TYPE_CHECKING, Callable, TypeVar
@@ -31,6 +32,7 @@ class Session:
 
         if not self.silent and not self.json:
             sys.stdout.write("\n")
+            atexit.register(lambda: sys.stdout.write("\n"))
 
     def render_text(self, text: str, *, status: str | None = None) -> None:
         if self.silent or self.json:
