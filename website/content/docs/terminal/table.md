@@ -345,21 +345,21 @@ fairspec table script --from-dataset dataset.json --from-resource users
 ### Available in Session
 
 - `fairspec` - Full fairspec library
-- `table` - Loaded table (LazyDataFrame)
+- `table` - Loaded table (LazyFrame)
 
 ### Example Session
 
-```javascript
+```python
 fairspec> table
-LazyDataFrame { ... }
+LazyFrame { ... }
 
-fairspec> await table.collect()
+fairspec> table.collect()
 DataFrame { ... }
 
-fairspec> await table.select(["name", "age"]).collect()
+fairspec> table.select(["name", "age"]).collect()
 DataFrame { ... }
 
-fairspec> await table.filter(pl.col("age").gt(25)).collect()
+fairspec> table.filter(pl.col("age").gt(25)).collect()
 DataFrame { ... }
 ```
 
@@ -484,10 +484,10 @@ fairspec table query data.csv "SELECT id, COUNT(*) as cnt FROM self GROUP BY id 
 fairspec table script data.csv
 
 # In REPL:
-# - Explore: await table.head(10).collect()
-# - Filter: await table.filter(pl.col("status").eq("active")).collect()
-# - Aggregate: await table.groupBy("category").agg(pl.sum("amount")).collect()
-# - Transform: await table.withColumn(pl.col("price").mul(1.1).alias("new_price")).collect()
+# - Explore: table.head(10).collect()
+# - Filter: table.filter(pl.col("status").eq("active")).collect()
+# - Aggregate: table.group_by("category").agg(pl.sum("amount")).collect()
+# - Transform: table.with_columns(pl.col("price").mul(1.1).alias("new_price")).collect()
 ```
 
 ### Format Conversion

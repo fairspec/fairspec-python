@@ -57,7 +57,7 @@ export default defineConfig({
 					],
 				},
 				{ label: "Terminal", autogenerate: { directory: "terminal" } },
-				{ label: "Python", autogenerate: { directory: "typescript" } },
+				{ label: "Python", autogenerate: { directory: "python" } },
 				{
 					label: "Changelog",
 					collapsed: true,

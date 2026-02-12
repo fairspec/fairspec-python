@@ -293,23 +293,23 @@ fairspec dataset script https://example.com/dataset.json
 
 ### Example Session
 
-```javascript
+```python
 fairspec> dataset
 {
-  resources: [
-    { name: 'users', data: 'users.csv', ... },
-    { name: 'orders', data: 'orders.csv', ... }
+  "resources": [
+    {"name": "users", "data": "users.csv", ...},
+    {"name": "orders", "data": "orders.csv", ...}
   ]
 }
 
-fairspec> dataset.resources.length
+fairspec> len(dataset.resources)
 2
 
 fairspec> dataset.resources[0].name
 'users'
 
-fairspec> const table = await fairspec.loadTable(dataset.resources[0])
-fairspec> await table.head(5).collect()
+fairspec> table = fairspec.load_table(dataset.resources[0])
+fairspec> table.head(5).collect()
 DataFrame { ... }
 ```
 
@@ -543,19 +543,19 @@ fairspec dataset script dataset.json
 # In REPL, explore the dataset:
 ```
 
-```javascript
-// List all resources
-dataset.resources.map(r => r.name)
+```python
+# List all resources
+[r.name for r in dataset.resources]
 
-// Load a specific resource
-const users = await fairspec.loadTable(dataset.resources.find(r => r.name === 'users'))
+# Load a specific resource
+users = fairspec.load_table(next(r for r in dataset.resources if r.name == "users"))
 
-// Query the data
-const activeUsers = await users.filter(pl.col('active').eq(true)).collect()
-console.log(activeUsers)
+# Query the data
+active_users = users.filter(pl.col("active").eq(True)).collect()
+print(active_users)
 
-// Check schema
-console.log(dataset.resources[0].tableSchema)
+# Check schema
+print(dataset.resources[0].tableSchema)
 ```
 
 ## Working with Resources
