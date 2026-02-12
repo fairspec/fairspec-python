@@ -26,6 +26,7 @@ version_toml = [
 format = "ruff format"
 lint = "ruff check"
 spec = "pytest"
+start = "pnpm --dir website install && pnpm --dir website start"
 test = "task lint && task type && task spec"
 type = "ty check"
 

@@ -215,5 +215,15 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Node
+node_modules/
+jspm_packages/
+.lock-wscript
+build/Release
+.node_repl_history
+*.tgz
+.npm
+*.so
+
 # User
 /.claude/settings.local.json
