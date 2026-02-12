@@ -227,3 +227,4 @@ build/Release
 
 # User
 /.claude/settings.local.json
+/coverage.json
