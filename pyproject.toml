@@ -32,7 +32,7 @@ version_toml = [
 build = "uv build --all-packages --out-dir build"
 coverage = "sensible-browser htmlcov/index.html"
 format = "ruff format"
-install = "uv sync --all-packages"
+install = "uv sync --all-packages && ([ \"$CI\" = 'true' ] || lefthook install)"
 lint = "ruff check"
 publish = "uv publish build/*"
 spec = "pytest --cov --cov-report html --cov-report json"
@@ -59,7 +59,7 @@ index-out-of-bounds = "ignore"
 [tool.uv]
 package = false
 dev-dependencies = [
-  "pre-commit==4.2.0",
+  "lefthook==1.11.13",
   "python-semantic-release==10.5.3",
   "pytest==9.0.2",
   "ruff==0.15.0",
