@@ -1,0 +1,18 @@
+{
+  "name": "fairspec-python-docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:build": "livemark build",
+    "docs:start": "livemark start"
+  },
+  "devDependencies": {
+    "@plausible-analytics/tracker": "0.4.5",
+    "@tanstack/react-start": "1.167.65",
+    "livemark": "0.13.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "wrangler": "4.88.0"
+  }
+}

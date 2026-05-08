@@ -36,7 +36,6 @@ install = "uv sync --all-packages && ([ \"$CI\" = 'true' ] || lefthook install)"
 lint = "ruff check"
 publish = "uv publish build/*"
 spec = "pytest --cov --cov-report html --cov-report json"
-start = "pnpm --dir website install && pnpm --dir website start"
 test = "task lint && task type && task spec"
 type = "ty check"
 

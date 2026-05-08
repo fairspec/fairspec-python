@@ -225,6 +225,11 @@ build/Release
 .npm
 *.so
 
+# Livemark
+.livemark/build/
+.tanstack/
+.content-collections/
+
 # User
 /.claude/settings.local.json
 /coverage.json
