@@ -2,8 +2,8 @@
 title: Terminal
 label: Terminal
 path: /terminal/
-order: 20
-icon: terminal-square
+order: 10
+icon: square-terminal
 ---
 
 The Fairspec Terminal provides a command-line interface for managing datasets, tables, files, and JSON data. It exposes the framework's core capabilities to scripts, CI pipelines, and interactive shells without requiring Python code.
