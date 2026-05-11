@@ -10,7 +10,7 @@
   "devDependencies": {
     "@plausible-analytics/tracker": "0.4.5",
     "@tanstack/react-start": "1.167.65",
-    "livemark": "0.18.0",
+    "livemark": "0.20.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "wrangler": "4.88.0"
