@@ -10,6 +10,12 @@ export default defineConfig({
   sections: [
     {
       type: "custom",
+      title: "Fairspec",
+      icon: "house",
+      url: "https://fairspec.org",
+    },
+    {
+      type: "custom",
       title: "Standard",
       url: "https://fairspec.org/overview/",
       icon: "book-open",
