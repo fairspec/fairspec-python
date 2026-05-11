@@ -2,7 +2,7 @@
 title: Working with Arrow in Python
 label: Arrow
 path: /python/arrow/
-order: 7
+order: 16
 ---
 
 Apache Arrow IPC file handling with high-performance columnar data processing.

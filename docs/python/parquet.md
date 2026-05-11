@@ -2,7 +2,7 @@
 title: Working with Parquet in Python
 label: Parquet
 path: /python/parquet/
-order: 8
+order: 17
 ---
 
 Apache Parquet file handling with high-performance columnar data processing and compression.

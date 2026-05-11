@@ -2,7 +2,7 @@
 title: Working with CSV in Python
 label: CSV
 path: /python/csv/
-order: 1
+order: 10
 ---
 Comprehensive CSV file handling with automatic format detection, advanced header processing, and high-performance data operations.
 

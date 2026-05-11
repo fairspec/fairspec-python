@@ -2,7 +2,7 @@
 title: Working with TSV in Python
 label: TSV
 path: /python/tsv/
-order: 2
+order: 11
 ---
 Tab-separated values (TSV) file handling with automatic format detection and high-performance data operations.
 

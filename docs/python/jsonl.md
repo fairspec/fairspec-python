@@ -2,7 +2,7 @@
 title: Working with JSONL tables in Python
 label: JSONL
 path: /python/jsonl/
-order: 4
+order: 13
 ---
 
 JSONL (JSON Lines) file handling with automatic format detection and high-performance data operations.

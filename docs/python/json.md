@@ -2,7 +2,7 @@
 title: Working with JSON tables in Python
 label: JSON
 path: /python/json/
-order: 3
+order: 12
 ---
 
 JSON file handling with automatic format detection and high-performance data operations.

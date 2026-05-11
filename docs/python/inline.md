@@ -2,7 +2,7 @@
 title: Working with Inline Data tables in Python
 label: Inline Data
 path: /python/inline/
-order: 10
+order: 19
 ---
 
 Inline data handling for tables embedded directly in resource definitions.

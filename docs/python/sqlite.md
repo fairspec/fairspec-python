@@ -2,7 +2,7 @@
 title: Working with SQLite in Python
 label: SQLite
 path: /python/sqlite/
-order: 9
+order: 18
 ---
 
 SQLite database file handling with table loading and saving capabilities.
