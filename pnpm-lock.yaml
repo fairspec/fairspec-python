@@ -17,6 +17,9 @@ importers:
       livemark:
         specifier: 0.20.0
         version: 0.20.0(@tanstack/query-core@5.91.2)(@tanstack/router-core@1.169.2)(@types/node@25.6.0)(csstype@3.2.3)(esbuild@0.25.12)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-is@19.2.6)(react@19.2.6)(redux@5.0.1)(solid-js@1.9.12)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4)
+      npm-check-updates:
+        specifier: 18.0.1
+        version: 18.0.1
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -3906,6 +3909,11 @@ packages:
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
+
+  npm-check-updates@18.0.1:
+    resolution: {integrity: sha512-MO7mLp/8nm6kZNLLyPgz4gHmr9tLoU+pWPLdXuGAx+oZydBHkHWN0ibTonsrfwC2WEQNIQxuZagYwB67JQpAuw==}
+    engines: {node: ^18.18.0 || >=20.0.0, npm: '>=8.12.1'}
+    hasBin: true
 
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -9381,6 +9389,8 @@ snapshots:
   node-releases@2.0.38: {}
 
   normalize-path@3.0.0: {}
+
+  npm-check-updates@18.0.1: {}
 
   npm-run-path@4.0.1:
     dependencies:
