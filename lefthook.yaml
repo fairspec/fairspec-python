@@ -1,6 +1,7 @@
 pre-commit:
   jobs:
-    - name: format:staged
+    - name: format
+      glob: "*.py"
       run: uv run task format {staged_files}
       stage_fixed: true
 
