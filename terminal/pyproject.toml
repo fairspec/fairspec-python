@@ -6,24 +6,18 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 keywords = [
-  "arrow",
-  "csv",
+  "cli",
   "data",
   "dataframe",
   "fair",
   "fairspec",
-  "inline",
-  "json",
   "jsonschema",
-  "ods",
-  "parquet",
   "polars",
+  "python",
   "quality",
-  "table",
   "tableschema",
-  "typescript",
-  "validation",
-  "xlsx"
+  "terminal",
+  "validation"
 ]
 classifiers = [
   "Programming Language :: Python :: 3",

@@ -18,10 +18,10 @@ keywords = [
   "ods",
   "parquet",
   "polars",
+  "python",
   "quality",
   "table",
   "tableschema",
-  "typescript",
   "validation",
   "xlsx"
 ]
