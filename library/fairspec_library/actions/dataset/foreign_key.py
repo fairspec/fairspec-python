@@ -66,11 +66,9 @@ def _validate_foreign_key(
         [pl.col(name).alias(rename_mapping[name]) for name in ref_columns]
     ).unique()
 
-    violations: pl.DataFrame = (
+    violations: pl.DataFrame = (  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
         table.select(columns)
-        .join(  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
-            ref_selected, on=columns, how="anti"
-        )
+        .join(ref_selected, on=columns, how="anti")
         .unique()
         .collect()
     )
