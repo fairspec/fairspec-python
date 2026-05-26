@@ -88,9 +88,13 @@ class TestSqlitePluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.db"
 
-        result = self.plugin.save_table(table, path="output.db", fileDialect=SqliteFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.db", fileDialect=SqliteFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.db", fileDialect=SqliteFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.db", fileDialect=SqliteFileDialect()
+        )
         assert result == "output.db"
 
     @patch("fairspec_table.plugins.sqlite.plugin.save_sqlite_table")

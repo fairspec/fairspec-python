@@ -32,9 +32,7 @@ def save_sqlite_table(table: Table, **options: Unpack[SaveTableOptions]) -> str:
 
     table_schema = options.get("tableSchema")
     if not isinstance(table_schema, TableSchema):
-        table_schema = infer_table_schema_from_table(
-            table, **options, keepStrings=True
-        )
+        table_schema = infer_table_schema_from_table(table, **options, keepStrings=True)
 
     table = denormalize_table(table, table_schema, nativeTypes=NATIVE_TYPES)
 

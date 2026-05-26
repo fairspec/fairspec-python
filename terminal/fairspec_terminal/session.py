@@ -25,7 +25,9 @@ class Session:
     debug: bool
     json: bool
 
-    def __init__(self, *, silent: bool = False, debug: bool = False, json: bool = False) -> None:
+    def __init__(
+        self, *, silent: bool = False, debug: bool = False, json: bool = False
+    ) -> None:
         self.silent = silent
         self.debug = debug
         self.json = json
@@ -92,7 +94,9 @@ class Session:
             return
 
         if self.json:
-            sys.stdout.write(json.dumps(report.model_dump(exclude_none=True), indent=2, default=str))
+            sys.stdout.write(
+                json.dumps(report.model_dump(exclude_none=True), indent=2, default=str)
+            )
             sys.stdout.write("\n")
             return
 
@@ -145,7 +149,7 @@ def _render_status(status: str) -> str:
     if status == "success":
         return "[green]\u2714[/green]"
     if status == "warning":
-        return "[yellow]\u26A0[/yellow]"
+        return "[yellow]\u26a0[/yellow]"
     if status == "error":
         return "[red]\u2716[/red]"
     return ""

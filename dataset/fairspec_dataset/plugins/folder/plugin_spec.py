@@ -69,9 +69,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
-    def test_saves_to_local_directory(
-        self, mock_save: MagicMock, _mock_isdir: MagicMock
-    ):
+    def test_saves_to_local_directory(self, mock_save: MagicMock, _mock_isdir: MagicMock):
         result = self.plugin.save_dataset(self.dataset, target="/tmp/test")
 
         mock_save.assert_called_once_with(
@@ -82,9 +80,7 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.os.path.isdir", return_value=True)
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
-    def test_saves_with_remote_option(
-        self, mock_save: MagicMock, _mock_isdir: MagicMock
-    ):
+    def test_saves_with_remote_option(self, mock_save: MagicMock, _mock_isdir: MagicMock):
         result = self.plugin.save_dataset(
             self.dataset, target="/tmp/test", with_remote=True
         )
@@ -97,18 +93,14 @@ class TestSaveDataset:
 
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
     def test_returns_none_for_http(self, mock_save: MagicMock):
-        result = self.plugin.save_dataset(
-            self.dataset, target="http://example.com/data"
-        )
+        result = self.plugin.save_dataset(self.dataset, target="http://example.com/data")
 
         mock_save.assert_not_called()
         assert result is None
 
     @patch("fairspec_dataset.plugins.folder.plugin.save_dataset_to_folder")
     def test_returns_none_for_https(self, mock_save: MagicMock):
-        result = self.plugin.save_dataset(
-            self.dataset, target="https://example.com/data"
-        )
+        result = self.plugin.save_dataset(self.dataset, target="https://example.com/data")
 
         mock_save.assert_not_called()
         assert result is None

@@ -27,7 +27,8 @@ class ParquetPlugin(TablePlugin):
 
     def save_table(self, table: Table, **options: Unpack[SaveTableOptions]) -> str | None:
         resource = Resource(
-            data=options["path"], fileDialect=cast(FileDialect | None, options.get("fileDialect"))
+            data=options["path"],
+            fileDialect=cast(FileDialect | None, options.get("fileDialect")),
         )
         file_dialect = get_supported_file_dialect(resource, ["parquet"])
         if not file_dialect:

@@ -161,9 +161,13 @@ class TestJsonPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=JsonFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=JsonFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=JsonFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=JsonFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.json.plugin.save_json_table")

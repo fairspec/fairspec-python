@@ -1,6 +1,9 @@
 import typer
 
-program = typer.Typer(name="fairspec", help="Fairspec Python is a fast data management framework built on top of the Fairspec standard and Polars DataFrames")
+program = typer.Typer(
+    name="fairspec",
+    help="Fairspec Python is a fast data management framework built on top of the Fairspec standard and Polars DataFrames",
+)
 dataset_program = typer.Typer(help="Dataset related commands")
 table_program = typer.Typer(help="Table related commands")
 data_program = typer.Typer(help="Data related commands")

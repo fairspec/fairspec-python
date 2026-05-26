@@ -118,9 +118,13 @@ class TestCsvPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=CsvFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=CsvFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=CsvFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=CsvFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.csv.plugin.save_csv_table")
@@ -146,7 +150,11 @@ class TestCsvPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=TsvFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=TsvFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=TsvFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=TsvFileDialect()
+        )
         assert result == "output.txt"

@@ -15,9 +15,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_parquet_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table:
+def load_parquet_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table:
     paths = prefetch_files(resource)
     if not paths:
         raise Exception("Resource data is not defined")

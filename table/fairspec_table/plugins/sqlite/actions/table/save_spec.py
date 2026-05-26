@@ -17,9 +17,7 @@ class TestSaveSqliteTable:
         source = pl.DataFrame(
             [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
         ).lazy()
-        save_sqlite_table(
-            source, path=path, fileDialect=DIALECT, overwrite=True
-        )
+        save_sqlite_table(source, path=path, fileDialect=DIALECT, overwrite=True)
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
@@ -35,9 +33,7 @@ class TestSaveSqliteTable:
         source = pl.DataFrame(
             [{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
         ).lazy()
-        save_sqlite_table(
-            source, path=path, fileDialect=DIALECT, overwrite=True
-        )
+        save_sqlite_table(source, path=path, fileDialect=DIALECT, overwrite=True)
 
         target = load_sqlite_table(Resource(data=path, fileDialect=DIALECT))
         frame: pl.DataFrame = target.collect()  # ty: ignore[invalid-assignment]
@@ -61,9 +57,7 @@ class TestSaveSqliteTable:
             ]
         ).lazy()
 
-        save_sqlite_table(
-            source, path=path, fileDialect=DIALECT, overwrite=True
-        )
+        save_sqlite_table(source, path=path, fileDialect=DIALECT, overwrite=True)
 
         target = load_sqlite_table(
             Resource(data=path, fileDialect=DIALECT),

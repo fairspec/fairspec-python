@@ -30,9 +30,7 @@ def validate_dataset_foreign_keys(
             continue
 
         for foreign_key in table_schema.foreignKeys or []:
-            fk_errors = _validate_foreign_key(
-                resource, foreign_key, dataset, **options
-            )
+            fk_errors = _validate_foreign_key(resource, foreign_key, dataset, **options)
             errors.extend(fk_errors)
 
     return create_report(errors)
@@ -68,9 +66,14 @@ def _validate_foreign_key(
         [pl.col(name).alias(rename_mapping[name]) for name in ref_columns]
     ).unique()
 
-    violations: pl.DataFrame = table.select(columns).join(  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
-        ref_selected, on=columns, how="anti"
-    ).unique().collect()
+    violations: pl.DataFrame = (
+        table.select(columns)
+        .join(  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278
+            ref_selected, on=columns, how="anti"
+        )
+        .unique()
+        .collect()
+    )
 
     errors: list[ForeignKeyError] = []
     for row in violations.to_dicts():

@@ -79,9 +79,7 @@ class TestLoadCsvTable:
         table = load_csv_table(
             Resource(
                 data=path,
-                fileDialect=CsvFileDialect(
-                    headerRows=False, columnNames=["id", "name"]
-                ),
+                fileDialect=CsvFileDialect(headerRows=False, columnNames=["id", "name"]),
             )
         )
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment]

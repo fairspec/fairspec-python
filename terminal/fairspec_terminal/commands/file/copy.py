@@ -1,7 +1,15 @@
 from fairspec_dataset import copy_file
 
 from fairspec_terminal.helpers.file import select_file
-from fairspec_terminal.params import Debug, FromDataset, FromResource, Json, OptionalPath, Silent, ToPathRequired
+from fairspec_terminal.params import (
+    Debug,
+    FromDataset,
+    FromResource,
+    Json,
+    OptionalPath,
+    Silent,
+    ToPathRequired,
+)
 from fairspec_terminal.program import file_program
 from fairspec_terminal.session import Session
 

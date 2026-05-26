@@ -126,9 +126,13 @@ class TestXlsxPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=XlsxFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=XlsxFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=XlsxFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=XlsxFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.xlsx.plugin.save_xlsx_table")
@@ -155,9 +159,13 @@ class TestXlsxPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=OdsFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=OdsFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=OdsFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=OdsFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.xlsx.plugin.save_xlsx_table")

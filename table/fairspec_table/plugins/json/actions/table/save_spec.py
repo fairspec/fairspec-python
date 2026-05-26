@@ -36,9 +36,7 @@ class TestSaveJsonTable:
 
         with open(path, encoding="utf-8") as f:
             content = f.read()
-        assert content == json.dumps(
-            {"key": [ROW1, ROW2]}, indent=2, ensure_ascii=False
-        )
+        assert content == json.dumps({"key": [ROW1, ROW2]}, indent=2, ensure_ascii=False)
 
     def test_should_handle_item_keys(self):
         path = get_temp_file_path()

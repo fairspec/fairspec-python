@@ -23,9 +23,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_csv_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table:
+def load_csv_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["csv", "tsv"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
@@ -77,10 +75,7 @@ def load_csv_table(
 
 
 def _get_scan_options(
-    file_dialect: CsvFileDialect
-    | TsvFileDialect
-    | FileDialect
-    | None,
+    file_dialect: CsvFileDialect | TsvFileDialect | FileDialect | None,
 ) -> dict[str, object]:
     header_rows = get_header_rows(file_dialect)  # type: ignore[arg-type]
 
@@ -119,9 +114,7 @@ def _get_scan_options(
 
 def _dialect_has_only_format(dialect: FileDialect) -> bool:
     keys = {
-        k
-        for k in type(dialect).model_fields
-        if getattr(dialect, k, None) is not None
+        k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None
     }
     meaningful = keys - {"format", "type", "title", "description"}
     return len(meaningful) == 0

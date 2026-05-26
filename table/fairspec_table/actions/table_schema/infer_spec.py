@@ -229,9 +229,7 @@ class TestInferTableSchemaFromTable:
             },
         }
 
-        month_first_result = infer_table_schema_from_table(
-            table, monthFirst=True
-        )
+        month_first_result = infer_table_schema_from_table(table, monthFirst=True)
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "yearFirst": {
@@ -270,9 +268,7 @@ class TestInferTableSchemaFromTable:
             },
         }
 
-        month_first_result = infer_table_schema_from_table(
-            table, monthFirst=True
-        )
+        month_first_result = infer_table_schema_from_table(table, monthFirst=True)
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "dayMonth": {
@@ -433,9 +429,7 @@ class TestInferTableSchemaFromTable:
             },
         }
 
-        month_first_result = infer_table_schema_from_table(
-            table, monthFirst=True
-        )
+        month_first_result = infer_table_schema_from_table(table, monthFirst=True)
         assert month_first_result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {
                 "shortDayMonth": {
@@ -588,9 +582,7 @@ class TestInferTableSchemaFromTableNullable:
         assert dumped["missingValues"] == ["NA"]
 
     def test_should_infer_nullable_integer_from_polars_nulls(self):
-        table = pl.DataFrame(
-            {"value": pl.Series("value", [1, 2, None], pl.Int32)}
-        ).lazy()
+        table = pl.DataFrame({"value": pl.Series("value", [1, 2, None], pl.Int32)}).lazy()
         result = infer_table_schema_from_table(table)
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {"value": {"type": ("integer", "null")}},
@@ -625,9 +617,7 @@ class TestInferTableSchemaFromTableNullable:
 
     def test_should_use_explicit_missing_values_option(self):
         table = pl.DataFrame({"name": ["Alice", "MISSING"]}).lazy()
-        result = infer_table_schema_from_table(
-            table, missingValues=["MISSING"]
-        )
+        result = infer_table_schema_from_table(table, missingValues=["MISSING"])
         assert result.model_dump(by_alias=True, exclude_none=True) == {
             "properties": {"name": {"type": ("string", "null")}},
             "missingValues": ["MISSING"],

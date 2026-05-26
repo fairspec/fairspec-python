@@ -14,9 +14,7 @@ if TYPE_CHECKING:
     from fairspec_metadata import Resource
 
 
-def validate_table(
-    resource: Resource, **options: Unpack[ValidateTableOptions]
-) -> Report:
+def validate_table(resource: Resource, **options: Unpack[ValidateTableOptions]) -> Report:
     resource = resource.model_copy(deep=True)
 
     if not resource.fileDialect:

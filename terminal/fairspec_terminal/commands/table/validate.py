@@ -3,7 +3,9 @@ from fairspec_library import load_table
 from fairspec_metadata import Resource, Report, create_report, resolve_table_schema
 from fairspec_table import infer_table_schema_from_table, inspect_table
 
-from fairspec_terminal.helpers.file_dialect import create_file_dialect_from_path_and_options
+from fairspec_terminal.helpers.file_dialect import (
+    create_file_dialect_from_path_and_options,
+)
 from fairspec_terminal.helpers.resource import select_resource
 from fairspec_terminal.params import (
     ArrayType,
@@ -96,15 +98,30 @@ def validate(
     session = Session(debug=debug, json=json)
 
     file_dialect = (
-        dialect or create_file_dialect_from_path_and_options(
-            path,
-            format=format, delimiter=delimiter, line_terminator=line_terminator,
-            quote_char=quote_char, null_sequence=null_sequence, header_rows=header_rows,
-            header_join=header_join, comment_rows=comment_rows, comment_prefix=comment_prefix,
-            column_names=column_names, json_pointer=json_pointer, row_type=row_type,
-            sheet_number=sheet_number, sheet_name=sheet_name, table_name=table_name,
+        (
+            dialect
+            or create_file_dialect_from_path_and_options(
+                path,
+                format=format,
+                delimiter=delimiter,
+                line_terminator=line_terminator,
+                quote_char=quote_char,
+                null_sequence=null_sequence,
+                header_rows=header_rows,
+                header_join=header_join,
+                comment_rows=comment_rows,
+                comment_prefix=comment_prefix,
+                column_names=column_names,
+                json_pointer=json_pointer,
+                row_type=row_type,
+                sheet_number=sheet_number,
+                sheet_name=sheet_name,
+                table_name=table_name,
+            )
         )
-    ) if path else None
+        if path
+        else None
+    )
 
     res: Resource = (
         Resource(data=path, fileDialect=file_dialect, tableSchema=schema)

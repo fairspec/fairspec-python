@@ -68,9 +68,7 @@ class TestInferCsvFileDialectDelimiters:
     def test_should_infer_comma_delimiter(self):
         path = write_temp_file("id,name,age\n1,alice,25\n2,bob,30")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=",", headerRows=[1], lineTerminator="\n"
@@ -79,9 +77,7 @@ class TestInferCsvFileDialectDelimiters:
     def test_should_infer_pipe_delimiter(self):
         path = write_temp_file("id|name|age\n1|alice|25\n2|bob|30")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter="|", headerRows=[1], lineTerminator="\n"
@@ -90,9 +86,7 @@ class TestInferCsvFileDialectDelimiters:
     def test_should_infer_semicolon_delimiter(self):
         path = write_temp_file("id;name;age\n1;alice;25\n2;bob;30")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=";", headerRows=[1], lineTerminator="\n"
@@ -101,9 +95,7 @@ class TestInferCsvFileDialectDelimiters:
     def test_should_infer_tab_delimiter_as_tsv(self):
         path = write_temp_file("id\tname\tage\n1\talice\t25\n2\tbob\t30")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == TsvFileDialect(headerRows=[1], lineTerminator="\n")
 
@@ -114,9 +106,7 @@ class TestInferCsvFileDialectQuotes:
             'id,name,description\n1,"alice","Description with, comma"\n2,"bob","Normal text"'
         )
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=",", quoteChar='"', headerRows=[1], lineTerminator="\n"
@@ -127,9 +117,7 @@ class TestInferCsvFileDialectQuotes:
             "id,name,description\n1,'alice','Description text'\n2,'bob','Normal text'"
         )
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=",", quoteChar="'", headerRows=[1], lineTerminator="\n"
@@ -152,9 +140,7 @@ class TestInferCsvFileDialectEdgeCases:
     def test_should_handle_custom_line_terminator(self):
         path = write_temp_file("id,name\r\n1,alice\r\n2,bob\r\n")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=",", headerRows=[1], lineTerminator="\r\n"
@@ -163,9 +149,7 @@ class TestInferCsvFileDialectEdgeCases:
     def test_should_handle_header_row_only(self):
         path = write_temp_file("id,name,age")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(
             delimiter=",", headerRows=False, lineTerminator="\n"
@@ -174,9 +158,7 @@ class TestInferCsvFileDialectEdgeCases:
     def test_should_handle_empty_file(self):
         path = write_temp_file("")
 
-        result = infer_csv_file_dialect(
-            Resource(data=path, fileDialect=CsvFileDialect())
-        )
+        result = infer_csv_file_dialect(Resource(data=path, fileDialect=CsvFileDialect()))
 
         assert result == CsvFileDialect(delimiter=",", lineTerminator="\n")
 

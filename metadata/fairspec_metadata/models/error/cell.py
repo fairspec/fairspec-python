@@ -80,9 +80,7 @@ class CellEnumError(BaseCellError):
 class CellJsonError(BaseCellError):
     type: Literal["cell/json"] = Field(description="Error type identifier")
     message: str = Field(description="The JSON schema validation error message")
-    jsonPointer: str = Field(
-        description="JSON Pointer to the validation error location"
-    )
+    jsonPointer: str = Field(description="JSON Pointer to the validation error location")
 
 
 class CellMinItemsError(BaseCellError):

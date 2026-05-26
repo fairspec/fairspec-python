@@ -10,9 +10,7 @@ class ForeignKeyReference(FairspecModel):
         default=None,
         description="Target resource name (optional, omit for self-reference)",
     )
-    columns: list[str] = Field(
-        description="Target column(s) in the referenced resource"
-    )
+    columns: list[str] = Field(description="Target column(s) in the referenced resource")
 
 
 class ForeignKey(FairspecModel):

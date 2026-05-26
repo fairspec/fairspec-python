@@ -78,9 +78,7 @@ class TestConvertDatasetToCkan:
                             descriptionType=DescriptionType.Abstract,
                         )
                     ],
-                    integrity=Integrity(
-                        type=IntegrityType.md5, hash="1234567890abcdef"
-                    ),
+                    integrity=Integrity(type=IntegrityType.md5, hash="1234567890abcdef"),
                 )
             ],
         )

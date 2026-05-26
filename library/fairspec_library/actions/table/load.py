@@ -12,9 +12,7 @@ if TYPE_CHECKING:
     from fairspec_table import Table
 
 
-def load_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table | None:
+def load_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table | None:
     for plugin in system.plugins:
         if isinstance(plugin, TablePlugin):
             result = plugin.load_table(resource, **options)

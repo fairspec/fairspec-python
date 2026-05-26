@@ -20,6 +20,8 @@ class TestInferTableSchema:
         assert schema is None
 
     def test_should_infer_schema_from_inline_data(self):
-        resource = Resource(data=[{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}])
+        resource = Resource(
+            data=[{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
+        )
         schema = infer_table_schema(resource)
         assert schema is not None

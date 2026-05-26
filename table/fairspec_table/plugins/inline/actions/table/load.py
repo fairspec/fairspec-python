@@ -13,9 +13,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_inline_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table:
+def load_inline_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table:
     data_records = get_data_records(resource)
     if not data_records:
         raise Exception("Resource data is not defined or tabular")

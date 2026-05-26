@@ -18,7 +18,9 @@ def select_resource(
 ) -> Resource:
     loaded = session.task("Loading dataset", lambda: _load_dataset(dataset))
 
-    selected = session.task("Selecting resource", lambda: _find_resource(loaded, resource))
+    selected = session.task(
+        "Selecting resource", lambda: _find_resource(loaded, resource)
+    )
 
     return selected
 

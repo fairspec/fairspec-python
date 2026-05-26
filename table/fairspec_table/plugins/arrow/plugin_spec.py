@@ -120,9 +120,13 @@ class TestArrowPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=ArrowFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=ArrowFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=ArrowFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=ArrowFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.arrow.plugin.save_arrow_table")

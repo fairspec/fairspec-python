@@ -20,7 +20,9 @@ class TestLoadTable:
         ]
 
     def test_should_load_inline_table(self):
-        resource = Resource(data=[{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}])
+        resource = Resource(
+            data=[{"id": 1, "name": "english"}, {"id": 2, "name": "中文"}]
+        )
         table = load_table(resource)
         assert table is not None
         frame: pl.DataFrame = table.collect()  # ty: ignore[invalid-assignment] https://github.com/astral-sh/ty/issues/2278

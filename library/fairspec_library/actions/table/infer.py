@@ -14,9 +14,7 @@ if TYPE_CHECKING:
     from fairspec_table import Table
 
 
-def infer_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table | None:
+def infer_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table | None:
     resource = resource.model_copy(deep=True)
 
     if not resource.fileDialect:

@@ -108,9 +108,13 @@ class TestParquetPluginSaveTable:
         table = pl.DataFrame().lazy()
         mock_save.return_value = "output.txt"
 
-        result = self.plugin.save_table(table, path="output.txt", fileDialect=ParquetFileDialect())
+        result = self.plugin.save_table(
+            table, path="output.txt", fileDialect=ParquetFileDialect()
+        )
 
-        mock_save.assert_called_once_with(table, path="output.txt", fileDialect=ParquetFileDialect())
+        mock_save.assert_called_once_with(
+            table, path="output.txt", fileDialect=ParquetFileDialect()
+        )
         assert result == "output.txt"
 
     @patch("fairspec_table.plugins.parquet.plugin.save_parquet_table")

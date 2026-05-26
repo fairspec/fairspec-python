@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 from fairspec_dataset import write_temp_file
-from fairspec_metadata import IntegerColumnProperty, Resource, StringColumnProperty, TableSchema
+from fairspec_metadata import (
+    IntegerColumnProperty,
+    Resource,
+    StringColumnProperty,
+    TableSchema,
+)
 
 from .validate import validate_resource
 

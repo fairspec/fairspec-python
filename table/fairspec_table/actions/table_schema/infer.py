@@ -69,9 +69,7 @@ def infer_table_schema_from_sample(
     regex_mapping = _create_regex_mapping(**options)
 
     polars_schema = get_polars_schema(sample.schema)
-    column_names = options.get("columnNames") or [
-        c.name for c in polars_schema.columns
-    ]
+    column_names = options.get("columnNames") or [c.name for c in polars_schema.columns]
 
     failure_threshold = (sample.height - math.floor(sample.height * confidence)) or 1
 
@@ -156,9 +154,7 @@ def infer_table_schema_from_sample(
 
     table_schema = TableSchema(properties=get_column_properties(columns))
 
-    if options.get("missingValues") is None and len(
-        detected_missing_values
-    ) > 0:
+    if options.get("missingValues") is None and len(detected_missing_values) > 0:
         table_schema.missingValues = list(detected_missing_values)
 
     _enhance_schema(table_schema, **options)

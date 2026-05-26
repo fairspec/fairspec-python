@@ -12,15 +12,11 @@ from fairspec_library.actions.file_dialect.infer import infer_file_dialect
 from fairspec_library.actions.table_schema.infer import infer_table_schema
 
 
-def infer_resource(
-    resource: Resource, *, resource_number: int | None = None
-) -> Resource:
+def infer_resource(resource: Resource, *, resource_number: int | None = None) -> Resource:
     resource = resource.model_copy(deep=True)
 
     if not resource.name:
-        resource.name = infer_resource_name(
-            resource, resource_number=resource_number
-        )
+        resource.name = infer_resource_name(resource, resource_number=resource_number)
 
     if not resource.fileDialect:
         resource.fileDialect = infer_file_dialect(resource)

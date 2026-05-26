@@ -34,9 +34,7 @@ def save_json_table(table: Table, **options: Unpack[SaveTableOptions]) -> str:
 
     table_schema = options.get("tableSchema")
     if not isinstance(table_schema, TableSchema):
-        table_schema = infer_table_schema_from_table(
-            table, **options, keepStrings=True
-        )
+        table_schema = infer_table_schema_from_table(table, **options, keepStrings=True)
 
     table = denormalize_table(table, table_schema, nativeTypes=NATIVE_TYPES)
 
@@ -72,9 +70,7 @@ def _process_data(
 
     if getattr(dialect, "rowType", None) == "array":
         assert isinstance(data, list)
-        names: list[str] = column_names or list(
-            cast("dict[str, object]", data[0]).keys()
-        )
+        names: list[str] = column_names or list(cast("dict[str, object]", data[0]).keys())
         data = [
             names,
             *[[cast("dict[str, object]", row)[name] for name in names] for row in data],

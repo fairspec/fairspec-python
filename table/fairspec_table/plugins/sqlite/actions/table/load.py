@@ -23,9 +23,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_sqlite_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table:
+def load_sqlite_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table:
     first_path = get_data_first_path(resource)
     if not first_path:
         raise Exception("Resource path is not defined")
@@ -56,9 +54,7 @@ def load_sqlite_table(
             table_schema = resolve_table_schema(resource.tableSchema)
             if not table_schema:
                 descriptor = infer_table_schema_from_sqlite(
-                    Resource(
-                        data=first_path, fileDialect=cast(FileDialect, file_dialect)
-                    )
+                    Resource(data=first_path, fileDialect=cast(FileDialect, file_dialect))
                 )
                 table_schema = TableSchema.model_validate(descriptor)
             table = normalize_table(table, table_schema)

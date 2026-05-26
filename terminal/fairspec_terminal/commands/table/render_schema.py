@@ -35,7 +35,9 @@ def render_schema(
         raise ValueError("Could not load table schema")
 
     def _render() -> str | None:
-        return render_table_schema_as(table_schema, RenderTableSchemaOptions(format=to_format))
+        return render_table_schema_as(
+            table_schema, RenderTableSchemaOptions(format=to_format)
+        )
 
     rendered = session.task("Rendering table schema", _render)
 

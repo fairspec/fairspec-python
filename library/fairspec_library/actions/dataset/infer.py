@@ -10,8 +10,6 @@ def infer_dataset(dataset: Dataset) -> Dataset:
 
     if dataset.resources:
         for index, resource in enumerate(dataset.resources):
-            dataset.resources[index] = infer_resource(
-                resource, resource_number=index + 1
-            )
+            dataset.resources[index] = infer_resource(resource, resource_number=index + 1)
 
     return dataset

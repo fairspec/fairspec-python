@@ -21,9 +21,7 @@ if TYPE_CHECKING:
     from fairspec_table.models.table import LoadTableOptions, Table
 
 
-def load_xlsx_table(
-    resource: Resource, **options: Unpack[LoadTableOptions]
-) -> Table:
+def load_xlsx_table(resource: Resource, **options: Unpack[LoadTableOptions]) -> Table:
     file_dialect = get_supported_file_dialect(resource, ["xlsx", "ods"])
     if not file_dialect:
         raise Exception("Resource data is not compatible")
@@ -33,9 +31,7 @@ def load_xlsx_table(
         raise Exception("Resource path is not defined")
 
     if _dialect_has_only_format(file_dialect):
-        inferred = infer_xlsx_file_dialect(
-            resource.model_copy(update={"data": paths[0]})
-        )
+        inferred = infer_xlsx_file_dialect(resource.model_copy(update={"data": paths[0]}))
         if inferred:
             file_dialect = inferred
 
@@ -70,9 +66,7 @@ def load_xlsx_table(
 
 def _dialect_has_only_format(dialect: FileDialect) -> bool:
     keys = {
-        k
-        for k in type(dialect).model_fields
-        if getattr(dialect, k, None) is not None
+        k for k in type(dialect).model_fields if getattr(dialect, k, None) is not None
     }
     meaningful = keys - {"format", "type", "title", "description"}
     return len(meaningful) == 0
