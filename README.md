@@ -68,6 +68,7 @@ Loading a dataset from a remote descriptor and saving it locally as a zip archiv
 
 ```python
 from fairspec import (
+    Dataset,
     load_dataset,
     load_dataset_from_zip,
     save_dataset_to_zip,
@@ -75,8 +76,10 @@ from fairspec import (
 )
 
 archive_path = get_temp_file_path()
-source_dataset = load_dataset(
-    "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
+source_dataset = Dataset.model_validate(
+    load_dataset(
+        "https://raw.githubusercontent.com/fairspec/fairspec-typescript/refs/heads/main/metadata/actions/dataset/fixtures/dataset.json",
+    )
 )
 
 save_dataset_to_zip(source_dataset, archive_path=archive_path)
