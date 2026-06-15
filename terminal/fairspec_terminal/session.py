@@ -90,22 +90,22 @@ class Session:
         sys.stdout.write("\n")
 
     def render_report_result(self, report: Report) -> None:
-        if self.silent:
-            return
+        if not self.silent:
+            if self.json:
+                sys.stdout.write(
+                    json.dumps(
+                        report.model_dump(exclude_none=True), indent=2, default=str
+                    )
+                )
+                sys.stdout.write("\n")
+            elif report.valid:
+                self.render_text("Validation passed", status="success")
+            else:
+                for error in report.errors:
+                    self.render_text(render_error(error), status="error")
 
-        if self.json:
-            sys.stdout.write(
-                json.dumps(report.model_dump(exclude_none=True), indent=2, default=str)
-            )
-            sys.stdout.write("\n")
-            return
-
-        if report.valid:
-            self.render_text("Validation passed", status="success")
-            return
-
-        for error in report.errors:
-            self.render_text(render_error(error), status="error")
+        if not report.valid:
+            raise typer.Exit(1)
 
     def task(self, title: str, func: Callable[[], T]) -> T:
         if self.json or self.silent:
