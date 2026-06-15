@@ -1,5 +1,5 @@
 from fairspec_library import load_dataset
-from fairspec_metadata import infer_resource_name
+from fairspec_metadata import Dataset, infer_resource_name
 
 from fairspec_terminal.params import Debug, Json, RequiredPath
 from fairspec_terminal.program import dataset_program
@@ -15,17 +15,17 @@ def list_(
     """List Dataset resources."""
     session = Session(debug=debug, json=json)
 
-    def _load() -> object:
-        dataset = load_dataset(path)
-        if not dataset:
+    def _load() -> Dataset:
+        descriptor = load_dataset(path)
+        if not descriptor:
             raise ValueError("Could not load dataset")
-        return dataset
+        return Dataset.model_validate(descriptor)
 
     dataset = session.task("Loading dataset", _load)
 
     resource_names = [
-        resource.name or infer_resource_name(resource)
-        for resource in getattr(dataset, "resources", None) or []
+        resource.name or infer_resource_name(resource, resource_number=index + 1)
+        for index, resource in enumerate(dataset.resources or [])
     ]
 
     session.render_data_result(resource_names)
