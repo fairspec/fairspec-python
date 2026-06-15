@@ -3,6 +3,8 @@ from __future__ import annotations
 from fairspec_dataset import write_temp_file
 from fairspec_metadata import Dataset, Resource
 
+from fairspec_metadata.actions.dataset.validate import validate_dataset_descriptor
+
 from .infer import infer_dataset
 
 
@@ -30,3 +32,15 @@ class TestInferDataset:
         dataset = Dataset()
         result = infer_dataset(dataset)
         assert result.resources is None
+
+    def test_should_round_trip_inferred_dataset_through_validation(
+        self, tmp_path, monkeypatch
+    ):
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / "products.csv").write_text("id,name\n1,english\n2,中文\n")
+        dataset = Dataset(resources=[Resource(data="products.csv")])
+        inferred = infer_dataset(dataset)
+        descriptor = inferred.model_dump(exclude_none=True)
+        result = validate_dataset_descriptor(descriptor)
+        assert result.valid is True
+        assert result.errors == []
