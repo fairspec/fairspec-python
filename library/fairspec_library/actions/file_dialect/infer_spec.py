@@ -13,11 +13,19 @@ class TestInferFileDialect:
         dialect = infer_file_dialect(resource)
         assert dialect is not None
 
-    def test_should_return_none_for_json_file(self):
+    def test_should_infer_json_dialect(self):
         path = write_temp_file('[{"id": 1}]', format="json")
         resource = Resource(data=path)
         dialect = infer_file_dialect(resource)
-        assert dialect is None
+        assert dialect is not None
+        assert dialect.format == "json"
+
+    def test_should_infer_jsonl_dialect(self):
+        path = write_temp_file('{"id": 1}\n{"id": 2}\n', format="jsonl")
+        resource = Resource(data=path)
+        dialect = infer_file_dialect(resource)
+        assert dialect is not None
+        assert dialect.format == "jsonl"
 
     def test_should_infer_xlsx_dialect(self):
         resource = Resource(data="test.xlsx")

@@ -12,6 +12,8 @@ from .actions.table.load import load_json_table
 from .actions.table.save import save_json_table
 
 if TYPE_CHECKING:
+    from fairspec_dataset.models.file_dialect import InferFileDialectOptions
+
     from fairspec_table.models.table import LoadTableOptions, SaveTableOptions, Table
 
 
@@ -40,3 +42,13 @@ class JsonPlugin(TablePlugin):
         if not file_dialect:
             return None
         return save_json_table(table, **options)
+
+    def infer_file_dialect(
+        self,
+        resource: Resource,
+        **options: Unpack[InferFileDialectOptions],
+    ) -> FileDialect | None:
+        file_dialect = get_supported_file_dialect(resource, ["json", "jsonl"])
+        if not file_dialect:
+            return None
+        return infer_json_file_dialect(resource)

@@ -113,6 +113,38 @@ class TestJsonPluginLoadTable:
         assert result is None
 
 
+class TestJsonPluginInferFileDialect:
+    def setup_method(self):
+        self.plugin = JsonPlugin()
+
+    @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
+    def test_should_infer_dialect_for_json_file(self, mock_infer: MagicMock):
+        resource = Resource(data="test.json")
+        mock_infer.return_value = JsonFileDialect()
+
+        result = self.plugin.infer_file_dialect(resource)
+
+        assert result == JsonFileDialect()
+
+    @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
+    def test_should_infer_dialect_for_jsonl_file(self, mock_infer: MagicMock):
+        resource = Resource(data="test.jsonl")
+        mock_infer.return_value = JsonlFileDialect()
+
+        result = self.plugin.infer_file_dialect(resource)
+
+        assert result == JsonlFileDialect()
+
+    @patch("fairspec_table.plugins.json.plugin.infer_json_file_dialect")
+    def test_should_return_none_for_non_json_files(self, mock_infer: MagicMock):
+        resource = Resource(data="test.csv")
+
+        result = self.plugin.infer_file_dialect(resource)
+
+        mock_infer.assert_not_called()
+        assert result is None
+
+
 class TestJsonPluginSaveTable:
     def setup_method(self):
         self.plugin = JsonPlugin()
