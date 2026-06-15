@@ -52,3 +52,26 @@ class TestValidateDataset:
         dataset = Dataset(resources=[])
         report = validate_dataset(dataset)
         assert report.valid is True
+
+    def test_should_return_invalid_report_for_bad_descriptor(self):
+        report = validate_dataset({"resources": "bad"})
+        assert report.valid is False
+        assert report.errors
+
+    def test_should_validate_valid_descriptor(self):
+        descriptor = {
+            "resources": [
+                {
+                    "name": "test",
+                    "data": [{"id": 1, "name": "english"}],
+                    "tableSchema": {
+                        "properties": {
+                            "id": {"type": "integer"},
+                            "name": {"type": "string"},
+                        }
+                    },
+                }
+            ]
+        }
+        report = validate_dataset(descriptor)
+        assert report.valid is True

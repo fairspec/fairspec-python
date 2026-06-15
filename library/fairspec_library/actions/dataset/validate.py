@@ -4,8 +4,10 @@ from typing import TYPE_CHECKING, Unpack
 
 from fairspec_metadata import (
     Dataset,
+    Descriptor,
     FairspecException,
     Report,
+    assert_dataset,
     create_report,
     infer_resource_name,
     load_dataset_descriptor,
@@ -21,12 +23,19 @@ if TYPE_CHECKING:
 
 
 def validate_dataset(
-    source: Dataset | str, **options: Unpack[ValidateTableOptions]
+    source: Dataset | Descriptor | str, **options: Unpack[ValidateTableOptions]
 ) -> Report:
     if isinstance(source, str):
         try:
             descriptor = load_dataset_descriptor(source)
             source = Dataset.model_validate(descriptor)
+        except FairspecException as exception:
+            if exception.report:
+                return exception.report
+            return create_report()
+    elif isinstance(source, dict):
+        try:
+            source = assert_dataset(source)
         except FairspecException as exception:
             if exception.report:
                 return exception.report
