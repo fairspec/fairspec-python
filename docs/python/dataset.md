@@ -44,7 +44,7 @@ dataset = Dataset(
 
 ## Loading a Dataset
 
-Load a dataset descriptor from a local path or remote URL:
+Load a dataset descriptor from a local path or a source supported by one of the dataset plugins:
 
 ```python
 from fairspec import load_dataset
@@ -52,11 +52,13 @@ from fairspec import load_dataset
 # Load from local file
 descriptor = load_dataset("dataset.json")
 
-# Load from a remote URL
-descriptor = load_dataset("https://example.com/dataset.json")
+# Load from a supported remote source, such as Zenodo
+descriptor = load_dataset("https://zenodo.org/records/10053903")
 ```
 
 `load_dataset` dispatches to the appropriate plugin based on the source (folder, zip, GitHub, Zenodo, CKAN, …) and returns a `Descriptor` (a dict-like JSON object) or `None` if no plugin recognises the source.
+
+To load an arbitrary local or remote Fairspec descriptor file directly, use `load_dataset_descriptor`.
 
 To get a typed `Dataset` model, validate the descriptor:
 
