@@ -13,7 +13,7 @@ class TestTableValidateExitCode:
     def test_should_keep_zero_exit_code_for_valid_table(self, monkeypatch):
         register_commands()
         folder = get_temp_folder_path()
-        with open(os.path.join(folder, "data.csv"), "w") as file:
+        with open(os.path.join(folder, "data.csv"), "w", newline="") as file:
             file.write("id,age\n1,25\n2,30\n")
         with open(os.path.join(folder, "schema.json"), "w") as file:
             json.dump({"properties": {"age": {"type": "integer"}}}, file)
@@ -29,7 +29,7 @@ class TestTableValidateExitCode:
     def test_should_set_non_zero_exit_code_for_invalid_table(self, monkeypatch):
         register_commands()
         folder = get_temp_folder_path()
-        with open(os.path.join(folder, "data.csv"), "w") as file:
+        with open(os.path.join(folder, "data.csv"), "w", newline="") as file:
             file.write("id,age\n1,200\n")
         with open(os.path.join(folder, "schema.json"), "w") as file:
             json.dump({"properties": {"age": {"type": "integer", "maximum": 150}}}, file)
