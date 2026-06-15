@@ -26,6 +26,13 @@ class TestLoadData:
         result = load_data(resource)
         assert result == data
 
+    def test_should_load_json_file_with_top_level_array(self):
+        data = [{"id": 1, "name": "A"}, {"id": 2, "name": "B"}]
+        path = write_temp_file(json.dumps(data), format="json")
+        resource = Resource(data=path)
+        result = load_data(resource)
+        assert result == data
+
     def test_should_return_none_for_non_json_file(self):
         path = write_temp_file("id,name\n1,english", format="csv")
         resource = Resource(data=path)
