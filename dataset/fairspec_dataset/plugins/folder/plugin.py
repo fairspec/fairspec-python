@@ -28,7 +28,7 @@ class FolderPlugin(DatasetPlugin):
         self, dataset: Dataset, **options: Unpack[SaveDatasetOptions]
     ) -> SaveDatasetResult | None:
         target = options["target"]
-        if not _get_is_folder(target):
+        if not _get_is_folder_target(target):
             return None
         save_dataset_to_folder(
             dataset, folder_path=target, with_remote=bool(options.get("with_remote"))
@@ -43,3 +43,12 @@ def _get_is_folder(path: str) -> bool:
         return os.path.isdir(path)
     except Exception:
         return False
+
+
+def _get_is_folder_target(path: str) -> bool:
+    if get_is_remote_path(path):
+        return False
+    if _get_is_folder(path):
+        return True
+    _, extension = os.path.splitext(path)
+    return not extension

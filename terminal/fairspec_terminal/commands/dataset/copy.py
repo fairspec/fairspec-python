@@ -1,4 +1,5 @@
 from fairspec_library import load_dataset, save_dataset
+from fairspec_metadata import Dataset
 
 from fairspec_terminal.params import Debug, Json, RequiredPath, Silent, ToPathRequired
 from fairspec_terminal.program import dataset_program
@@ -17,8 +18,12 @@ def copy(
     session = Session(silent=silent, debug=debug, json=json)
 
     def _copy() -> None:
-        dataset = load_dataset(path)
-        save_dataset(dataset, target=to_path)  # type: ignore[arg-type]
+        descriptor = load_dataset(path)
+        if not descriptor:
+            raise ValueError("Could not load dataset")
+        result = save_dataset(Dataset.model_validate(descriptor), target=to_path)
+        if result is None:
+            raise ValueError(f'Could not copy dataset to "{to_path}"')
 
     session.task("Copy dataset", _copy)
 
