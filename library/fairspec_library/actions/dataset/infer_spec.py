@@ -37,7 +37,7 @@ class TestInferDataset:
         self, tmp_path, monkeypatch
     ):
         monkeypatch.chdir(tmp_path)
-        (tmp_path / "products.csv").write_text("id,name\n1,english\n2,spanish\n")
+        (tmp_path / "products.csv").write_bytes(b"id,name\n1,english\n2,spanish\n")
         dataset = Dataset(resources=[Resource(data="products.csv")])
         inferred = infer_dataset(dataset)
         descriptor = inferred.model_dump(exclude_none=True)
