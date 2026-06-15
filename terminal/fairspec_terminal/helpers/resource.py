@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from fairspec_library import infer_resource_name, load_dataset
+from fairspec_metadata import Dataset
 
 if TYPE_CHECKING:
     from fairspec_metadata import Resource
@@ -25,7 +26,7 @@ def select_resource(
     return selected
 
 
-def _load_dataset(dataset_path: str | None) -> object:
+def _load_dataset(dataset_path: str | None) -> Dataset:
     if not dataset_path:
         raise ValueError("Please provide a path argument or a dataset option")
 
@@ -33,14 +34,14 @@ def _load_dataset(dataset_path: str | None) -> object:
     if not result:
         raise ValueError("Could not load dataset")
 
-    return result
+    return Dataset.model_validate(result)
 
 
-def _find_resource(dataset: object, resource_name: str | None) -> Resource:
+def _find_resource(dataset: Dataset, resource_name: str | None) -> Resource:
     if not resource_name:
         raise ValueError("Please provide a resource option")
 
-    for res in getattr(dataset, "resources", None) or []:
+    for res in dataset.resources or []:
         name = res.name or infer_resource_name(res)
         if resource_name == name:
             return res

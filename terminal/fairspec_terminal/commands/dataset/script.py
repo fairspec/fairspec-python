@@ -2,6 +2,7 @@ import code
 
 import fairspec_library
 from fairspec_library import load_dataset
+from fairspec_metadata import Dataset
 
 from fairspec_terminal.params import Debug, RequiredPath
 from fairspec_terminal.program import dataset_program
@@ -16,8 +17,11 @@ def script(
     """Script a dataset descriptor."""
     session = Session(debug=debug)
 
-    def _load() -> object:
-        return load_dataset(path)
+    def _load() -> Dataset:
+        descriptor = load_dataset(path)
+        if not descriptor:
+            raise ValueError("Could not load dataset")
+        return Dataset.model_validate(descriptor)
 
     dataset = session.task("Loading dataset", _load)
 
