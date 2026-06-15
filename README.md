@@ -45,26 +45,21 @@ print(dataset)
 # }
 ```
 
-Validating an in-memory dataset descriptor:
+Validating an in-memory dataset model:
 
 ```python
-from fairspec import validate_dataset
+from fairspec import Dataset, validate_dataset
 
-report = validate_dataset({"resources": "bad"})
+dataset = Dataset(resources=[])
+report = validate_dataset(dataset)
 
 print(report.valid)
-# False
+# True
 print(report.errors)
-# [
-#   {
-#     "type": "metadata",
-#     "message": "must have type array",
-#     "jsonPointer": "/resources",
-#   }
-# ]
+# []
 ```
 
-Loading a dataset from a remote descriptor and saving it locally as a zip archive, and then using it as a local dataset:
+Loading a dataset from Zenodo and saving it locally as a zip archive, and then using it as a local dataset:
 
 ```python
 from fairspec import (
@@ -75,9 +70,7 @@ from fairspec import (
 )
 
 archive_path = get_temp_file_path()
-source_dataset = load_dataset(
-    "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
-)
+source_dataset = load_dataset("https://zenodo.org/records/10053903")
 
 save_dataset_to_zip(source_dataset, archive_path=archive_path)
 target_dataset = load_dataset_from_zip(archive_path)
