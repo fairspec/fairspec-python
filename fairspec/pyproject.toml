@@ -31,8 +31,8 @@ dependencies = [
 name = "Evgeny Karev"
 
 [project.urls]
-homepage = "https://github.com/fairspec/fairspec-python"
-repository = "https://github.com/fairspec/fairspec-python"
+homepage = "https://github.com/datisthq/fairspec-python"
+repository = "https://github.com/datisthq/fairspec-python"
 
 [project.scripts]
 fairspec = "fairspec.main:main"

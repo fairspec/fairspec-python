@@ -8,7 +8,7 @@ authors:
     given-names: Evgeny
     email: eskarev@gmail.com
 url: "https://python.fairspec.org"
-repository-code: "https://github.com/fairspec/fairspec-python"
+repository-code: "https://github.com/datisthq/fairspec-python"
 license: MIT
 keywords:
   - fair
